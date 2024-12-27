@@ -92,44 +92,50 @@
   </main>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const submitButton = document.getElementById('chatgpt-submit');
-      const inputField = document.getElementById('chatgpt-input');
-      const responseContainer = document.getElementById('chatgpt-response');
+document.addEventListener('DOMContentLoaded', function () {
+  const submitButton = document.getElementById('chatgpt-submit');
+  const inputField = document.getElementById('chatgpt-input');
+  const responseContainer = document.getElementById('chatgpt-response');
 
-      submitButton.addEventListener('click', async function() {
-        const userMessage = inputField.value.trim();
+  submitButton.addEventListener('click', async function() {
+    const userMessage = inputField.value.trim();
 
-        if (userMessage) {
-          responseContainer.innerHTML = "Loading response...";
+    if (userMessage) {
+      responseContainer.innerHTML = "Loading response...";
 
-          try {
-            const apiKey = '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'; // Replace this with your actual API key
-            const response = await fetch('https://api.openai.com/v1/completions', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
-              },
-              body: JSON.stringify({
-                model: "gpt-3.5-turbo",  // You can change this to your preferred GPT model
-                prompt: userMessage,
-                max_tokens: 150
-              })
-            });
+      try {
+        const apiKey = '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'; // Replace this with your actual API key
+        const response = await fetch('https://api.openai.com/v1/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",  // You can change this to your preferred GPT model
+            prompt: userMessage,
+            max_tokens: 150
+          })
+        });
 
-            const data = await response.json();
-            const gptResponse = data.choices[0].text.trim();
-            responseContainer.innerHTML = gptResponse;
-          } catch (error) {
-            responseContainer.innerHTML = "Error: Unable to fetch response from OpenAI.";
-            console.error(error);
-          }
+        const data = await response.json();
+
+        if (data.choices && data.choices.length > 0) {
+          const gptResponse = data.choices[0].text.trim();
+          responseContainer.innerHTML = gptResponse;
         } else {
-          responseContainer.innerHTML = "Please enter a message.";
+          responseContainer.innerHTML = "No response received from OpenAI.";
         }
-      });
-    });
+      } catch (error) {
+        responseContainer.innerHTML = "Error: Unable to fetch response from OpenAI.";
+        console.error(error);
+      }
+    } else {
+      responseContainer.innerHTML = "Please enter a message.";
+    }
+  });
+});
+
   </script>
 </body>
 </html>
