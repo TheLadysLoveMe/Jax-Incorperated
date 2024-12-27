@@ -7,24 +7,41 @@
   <link rel="manifest" href="/manifest.json"/>
   <link rel="icon" type="image/png" href="/assets/images/logo.png">
   <link rel="stylesheet" href="/css/styles.css">
-   <style>
-    body {
+  <style>
+    /* Provided styles */
+    #chat-container {
+      max-width: 600px;
+      margin: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: #f4f4f9;
     }
 
+    #chat-display {
+      border: 1px solid #ddd;
+      padding: 10px;
+      height: 300px;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+    }
+
+    #user-input {
+      width: 80%;
+      padding: 8px;
+    }
+
+    button {
+      padding: 8px 12px;
+    }
+
+    /* Speech bubble styles */
     .bubble {
-      margin: 10px;
+      margin: 10px 0;
       padding: 10px 15px;
-      border-radius: 20px;
+      border-radius: 10px;
       display: inline-block;
-      max-width: 75%;
-      font-size: 16px;
+      max-width: 70%;
+      font-size: 14px;
     }
 
     .user-bubble {
@@ -38,55 +55,7 @@
       color: #333;
       align-self: flex-start;
     }
-
-    #input-container {
-      display: flex;
-      margin-top: 10px;
-      width: 60%;
-      max-width: 800px;
-    }
-
-    #user-prompt {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    #submit-btn {
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-left: 5px;
-    }
-
-    #submit-btn:hover {
-      background-color: #45a049;
-    }
-#chat-container {
-  max-width: 600px;
-  margin: auto;
-  border: 1px solid #ccc;
-  padding: 10px;
-  font-family: Arial, sans-serif;
-}
-#chat-display {
-  border: 1px solid #ddd;
-  padding: 10px;
-  height: 300px;
-  overflow-y: auto;
-  background-color: #f9f9f9;
-}
-#user-input {
-  width: 80%;
-  padding: 8px;
-}
-button {
-  padding: 8px 12px;
-}
-</style>
+  </style>
 </head>
 <body>
   <header>
@@ -129,9 +98,9 @@ button {
         });
 
         const data = await response.json();
-        if (data && data.response) {
+        if (data && data.message) {
           // Display the AI's response
-          addMessage(data.response, 'ai');
+          addMessage(data.message, 'ai');
         } else {
           addMessage("Sorry, I couldn't process that.", 'ai');
         }
