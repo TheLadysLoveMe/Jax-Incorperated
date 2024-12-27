@@ -74,72 +74,49 @@
       <a href="/settings.html">Settings</a>
     </nav>
   </header>
-  <main id="chatgpt-content">
-    <div class="settings-container">
-      <!-- ChatGPT Section -->
-      <center>
-      <div class="box-container">
-        <div class="setting-title">ChatGPT</div>
-        <p>Interact with OpenAI's GPT model below:</p>
-        
-        <!-- Input and button for ChatGPT interaction -->
-        <textarea id="chatgpt-input" class="styled-input" rows="6" placeholder="Type your message to ChatGPT..."></textarea>
-        <button id="chatgpt-submit" class="styled-button">Send</button>
+  <div class="input-container">
+    <h2>Interact with the AI</h2>
+    <textarea id="user-prompt" class="input-box" rows="4" placeholder="Type your prompt here..."></textarea><br>
+    <button id="submit-btn" class="submit-btn">Send</button>
+  </div>
 
-        <div id="chatgpt-response" style="margin-top: 20px; color: #fff;"></div>
-      </div>
-      </center>
-    </div>
-  </main>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const submitButton = document.getElementById('chatgpt-submit');
-  const inputField = document.getElementById('chatgpt-input');
-  const responseContainer = document.getElementById('chatgpt-response');
+  <div id="response-container" class="response-container">
+    <!-- AI response will appear here -->
+  </div> 
+ <script>
+    document.getElementById('submit-btn').addEventListener('click', async function() {
+      const prompt = document.getElementById('user-prompt').value.trim();
+      const responseContainer = document.getElementById('response-container');
 
-  submitButton.addEventListener('click', async function () {
-    const userMessage = inputField.value.trim();
+      if (!prompt) {
+        responseContainer.innerHTML = "Please enter a prompt.";
+        return;
+      }
 
-    if (userMessage) {
-      responseContainer.innerHTML = "Loading response...";
+      responseContainer.innerHTML = "Loading..."; // Display loading message
 
       try {
-          const apiKey = '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'; // Replace this with your actual API key
-          
-  
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        // Send the prompt to the AI API
+        const response = await fetch('https://public.smoresxo.shop/generate', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            model: "gpt-3.5-turbo", // or "gpt-4"
-            messages: [
-              { role: "user", content: userMessage }
-            ],
-            max_tokens: 150
-          })
+          body: JSON.stringify({ prompt: prompt })
         });
 
         const data = await response.json();
-        
-        if (data.choices && data.choices.length > 0) {
-          const gptResponse = data.choices[0].message.content.trim();
-          responseContainer.innerHTML = gptResponse;
+        if (data && data.response) {
+          // Display the AI's response
+          responseContainer.innerHTML = data.response;
         } else {
-          responseContainer.innerHTML = "Error: No response received from OpenAI.";
+          responseContainer.innerHTML = "Sorry, there was an error with the response.";
         }
-
       } catch (error) {
-        responseContainer.innerHTML = "Error: Unable to fetch response from OpenAI.";
-        console.error(error);
+        console.error('Error:', error);
+        responseContainer.innerHTML = "An error occurred while fetching the response.";
       }
-    } else {
-      responseContainer.innerHTML = "Please enter a message.";
-    }
-  });
-});
-</script>
+    });
+  </script>
 </body>
 </html>
