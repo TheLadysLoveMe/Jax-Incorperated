@@ -107,9 +107,9 @@
         });
 
         const data = await response.json();
-        if (data && data.response) {
+        if (data && data.message) {
           // Display the AI's response
-          responseContainer.innerHTML = data.response;
+          responseContainer.innerHTML = data.message;
         } else {
           responseContainer.innerHTML = "Sorry, there was an error with the response.";
         }
