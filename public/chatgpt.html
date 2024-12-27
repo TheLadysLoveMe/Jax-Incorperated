@@ -7,58 +7,75 @@
   <link rel="manifest" href="/manifest.json"/>
   <link rel="icon" type="image/png" href="/assets/images/logo.png">
   <link rel="stylesheet" href="/css/styles.css">
-  <style>
-    /* General styling for container box */
-    .box-container {
-      border: 2px solid red;
-      border-radius: 12px;
-      padding: 20px;
-      width: 100%;
-      margin: 20px;
-      text-align: center;
-      background-color: black; /* Updated to black */
-      color: red;
+   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f4f4f9;
     }
 
-    /* Input and button styles */
-    .styled-input, .styled-button {
-      padding: 10px;
-      font-size: 16px;
-      border: 2px solid red;
+    #chat-container {
+      width: 60%;
+      max-width: 800px;
+      height: 70vh;
+      border: 1px solid #ccc;
       border-radius: 8px;
-      outline: none;
-      width: 90%;
-      margin-bottom: 10px;
-      background-color: black;
-      color: red;
-      transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+      padding: 10px;
+      overflow-y: auto;
+      background-color: #fff;
+      margin-top: 20px;
     }
 
-    .styled-input:focus, .styled-button:hover {
-      border-color: darkred;
-      background-color: #333;
+    .bubble {
+      margin: 10px;
+      padding: 10px 15px;
+      border-radius: 20px;
+      display: inline-block;
+      max-width: 75%;
+      font-size: 16px;
     }
 
-    /* Larger text for the titles */
-    .setting-title {
-      font-size: 24px;
-      font-weight: bold;
-      text-align: center;
-      color: red;
+    .user-bubble {
+      background-color: #007bff;
+      color: white;
+      align-self: flex-end;
     }
 
-    /* Grid for aligning boxes in the center */
-    .settings-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* 2 columns */
-      grid-gap: 20px;
-      justify-items: center;
-      margin-top: 40px;
+    .ai-bubble {
+      background-color: #eaeaea;
+      color: #333;
+      align-self: flex-start;
     }
 
-    /* Ensure smooth transitions for all elements */
-    body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
-      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    #input-container {
+      display: flex;
+      margin-top: 10px;
+      width: 60%;
+      max-width: 800px;
+    }
+
+    #user-prompt {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #submit-btn {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    #submit-btn:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
@@ -74,27 +91,23 @@
       <a href="/settings.html">Settings</a>
     </nav>
   </header>
-  <div class="input-container">
-    <h2>Interact with the AI</h2>
-    <textarea id="user-prompt" class="input-box" rows="4" placeholder="Type your prompt here..."></textarea><br>
-    <button id="submit-btn" class="submit-btn">Send</button>
+ <div id="chat-container">
+    <!-- Conversation will be displayed here -->
   </div>
 
-  <div id="response-container" class="response-container">
-    <!-- AI response will appear here -->
-  </div> 
- 
-  <script>
+  <div id="input-container">
+    <textarea id="user-prompt" placeholder="Type your message here..." rows="2"></textarea>
+    <button id="submit-btn">Send</button>
+  </div>
+   <script>
     document.getElementById('submit-btn').addEventListener('click', async function() {
       const prompt = document.getElementById('user-prompt').value.trim();
-      const responseContainer = document.getElementById('response-container');
+      const chatContainer = document.getElementById('chat-container');
 
-      if (!prompt) {
-        responseContainer.innerHTML = "Please enter a prompt.";
-        return;
-      }
+      if (!prompt) return;
 
-      responseContainer.innerHTML = "Loading..."; // Display loading message
+      // Display the user's message
+      addMessage(prompt, 'user');
 
       try {
         // Send the prompt to the AI API
@@ -103,21 +116,35 @@
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ prompt: prompt }) // JSON format with 'prompt' key
+          body: JSON.stringify({ prompt: prompt })
         });
 
         const data = await response.json();
-        if (data && data.message) {
+        if (data && data.response) {
           // Display the AI's response
-          responseContainer.innerHTML = data.message;
+          addMessage(data.response, 'ai');
         } else {
-          responseContainer.innerHTML = "Sorry, there was an error with the response.";
+          addMessage("Sorry, I couldn't process that.", 'ai');
         }
       } catch (error) {
         console.error('Error:', error);
-        responseContainer.innerHTML = "An error occurred while fetching the response.";
+        addMessage("An error occurred while fetching the response.", 'ai');
       }
+
+      // Clear input field
+      document.getElementById('user-prompt').value = '';
     });
+
+    function addMessage(message, sender) {
+      const chatContainer = document.getElementById('chat-container');
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble', sender === 'user' ? 'user-bubble' : 'ai-bubble');
+      bubble.textContent = message;
+
+      chatContainer.appendChild(bubble);
+      chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to the newest message
+    }
   </script>
+
 </body>
 </html>
