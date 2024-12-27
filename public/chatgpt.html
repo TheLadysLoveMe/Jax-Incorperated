@@ -8,86 +8,58 @@
   <link rel="icon" type="image/png" href="/assets/images/logo.png">
   <link rel="stylesheet" href="/css/styles.css">
   <style>
-    /* Chat container */
-    #chat-container {
-      max-width: 600px;
-      margin: 50px auto;
-      border: 1px solid red;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* General styling for container box */
+    .box-container {
+      border: 2px solid red;
+      border-radius: 12px;
+      padding: 20px;
+      width: 100%;
+      margin: 20px;
+      text-align: center;
+      background-color: black; /* Updated to black */
+      color: red;
+    }
+
+    /* Input and button styles */
+    .styled-input, .styled-button {
       padding: 10px;
-      overflow: hidden;
-    }
-
-    /* Chat display */
-    #chat-display {
-      height: 500px;
-      overflow-y: auto;
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
-      scroll-behavior: smooth;
-    }
-
-    /* User and AI message styles */
-    .message {
-      margin-bottom: 15px;
-      display: flex;
-    }
-
-    .user-message {
-      align-self: flex-end; /* Align user message to the right */
-      background-color: black;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 15px 15px 0 15px;
-      max-width: 70%;
-      word-wrap: break-word;
-    }
-
-    .ai-message {
-      align-self: flex-start; /* Align AI message to the left */
+      font-size: 16px;
+      border: 2px solid red;
+      border-radius: 8px;
+      outline: none;
+      width: 90%;
+      margin-bottom: 10px;
       background-color: black;
       color: red;
-      padding: 10px 15px;
-      border-radius: 15px 15px 15px 0;
-      max-width: 70%;
-      word-wrap: break-word;
+      transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
     }
 
-    /* Code styling */
-    .ai-message code {
-      display: block;
-      background-color: #2d2d2d;
-      color: #f8f8f2;
-      padding: 12px;
-      border-radius: 8px;
-      margin: 10px 0;
-      font-family: "Courier New", Courier, monospace;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      overflow-x: auto;
+    .styled-input:focus, .styled-button:hover {
+      border-color: darkred;
+      background-color: #333;
     }
 
-  /* Input container */
-  #user-input {
-    width: calc(100% - 100px);
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
+    /* Larger text for the titles */
+    .setting-title {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      color: red;
+    }
 
-  #send-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+    /* Grid for aligning boxes in the center */
+    .settings-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 columns */
+      grid-gap: 20px;
+      justify-items: center;
+      margin-top: 40px;
+    }
 
-  #send-button:hover {
-    background-color: #0056b3;
-  }
+    /* Ensure smooth transitions for all elements */
+    body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
   </style>
 </head>
 <body>
@@ -102,92 +74,68 @@
       <a href="/settings.html">Settings</a>
     </nav>
   </header>
-   <div id="chat-container">
-    <div id="chat-display"></div>
-    <input type="text" id="user-input" placeholder="Ask something..." />
-    <button id="send-button">Send</button>
-  </div>
 
-   <script>
-    // Function to convert Markdown-like syntax to HTML and check for code blocks
-    function parseMarkdown(text) {
-      // Convert headings (###) into <h3>
-      text = text.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
-      
-      // Convert bold (****) into <b>
-      text = text.replace(/\*\*\*\*(.*?)\*\*\*\*/g, '<b>$1</b>');
+  <main id="chatgpt-content">
+    <div class="settings-container">
+      <!-- ChatGPT Section -->
+      <div class="box-container">
+        <div class="setting-title">ChatGPT</div>
+        <p>Interact with OpenAI's GPT model below:</p>
+        
+        <!-- Input and button for ChatGPT interaction -->
+        <textarea id="chatgpt-input" class="styled-input" rows="6" placeholder="Type your message to ChatGPT..."></textarea>
+        <button id="chatgpt-submit" class="styled-button">Send</button>
 
-      // Convert inline code (single backticks `code`) into <code> elements
-      text = text.replace(/`(.*?)`/g, '<code>$1</code>');
+        <div id="chatgpt-response" style="margin-top: 20px; color: #fff;"></div>
+      </div>
+    </div>
+  </main>
 
-      // Convert multiline code blocks (triple backticks ```code```) into <pre><code> elements
-      text = text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
-      
-      // You can add more rules here for other markdown formats like italics, lists, etc.
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const submitButton = document.getElementById('chatgpt-submit');
+  const inputField = document.getElementById('chatgpt-input');
+  const responseContainer = document.getElementById('chatgpt-response');
 
-      return text;
-    }
+  submitButton.addEventListener('click', async function() {
+    const userMessage = inputField.value.trim();
 
-    // Function to handle the AI's response
-    async function handleChatResponse(response) {
-      const parsedResponse = parseMarkdown(response);
+    if (userMessage) {
+      responseContainer.innerHTML = "Loading response...";
 
-      // Display the parsed response (converted to HTML)
-      const chatDisplay = document.getElementById('chat-display');
-      const aiMessage = document.createElement('div');
-      aiMessage.classList.add('ai-message');
-      aiMessage.innerHTML = parsedResponse;
-      chatDisplay.appendChild(aiMessage);
+      try {
+        const apiKey = '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'; // Replace this with your actual API key
+        const response = await fetch('https://api.openai.com/v1/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",  // You can change this to your preferred GPT model
+            prompt: userMessage,
+            max_tokens: 150
+          })
+        });
 
-      // Auto-scroll to the bottom
-      chatDisplay.scrollTop = chatDisplay.scrollHeight;
-    }
+        const data = await response.json();
 
-    document.addEventListener('DOMContentLoaded', function () {
-      const sendButton = document.getElementById('send-button');
-      const userInputField = document.getElementById('user-input');
-      const chatDisplay = document.getElementById('chat-display');
-
-      sendButton.addEventListener('click', async function () {
-        const userMessage = userInputField.value.trim();
-        if (userMessage) {
-          // Display user message
-          const userMessageElement = document.createElement('div');
-          userMessageElement.classList.add('user-message');
-          userMessageElement.innerHTML = userMessage;
-          chatDisplay.appendChild(userMessageElement);
-
-          // Clear the input field
-          userInputField.value = '';
-
-          try {
-            // Send API request to SmoresXO
-            const response = await fetch('https://public.smoresxo.shop/generate', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ prompt: userMessage })
-            });
-
-            if (response.ok) {
-              const data = await response.json();
-              const aiResponse = data.message.trim();
-
-              // Handle and display the AI's response
-              handleChatResponse(aiResponse);
-            } else {
-              // Handle error from the API
-              handleChatResponse('Sorry, there was an error getting a response.');
-            }
-          } catch (error) {
-            // Handle fetch error
-            handleChatResponse('Error: Unable to fetch response from SmoresXO.');
-            console.error(error);
-          }
+        if (data.choices && data.choices.length > 0) {
+          const gptResponse = data.choices[0].text.trim();
+          responseContainer.innerHTML = gptResponse;
+        } else {
+          responseContainer.innerHTML = "No response received from OpenAI.";
         }
-      });
-    });
+      } catch (error) {
+        responseContainer.innerHTML = "Error: Unable to fetch response from OpenAI.";
+        console.error(error);
+      }
+    } else {
+      responseContainer.innerHTML = "Please enter a message.";
+    }
+  });
+});
+
   </script>
 </body>
 </html>
