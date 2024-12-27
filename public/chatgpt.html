@@ -12,8 +12,7 @@
   #chat-container {
     max-width: 600px;
     margin: 50px auto;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    border: 1px solid red;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 10px;
     overflow: hidden;
@@ -41,6 +40,7 @@
     padding: 10px 15px;
     max-width: 70%;
     word-wrap: break-word;
+    float: right;
   }
 
   .ai-message {
@@ -51,6 +51,7 @@
     border-radius: 15px 15px 15px 0;
     max-width: 70%;
     word-wrap: break-word;
+    float: left;
   }
 
   /* Style for code inside AI responses */
@@ -102,69 +103,91 @@
       <a href="/settings.html">Settings</a>
     </nav>
   </header>
-  <div id="chat-container">
+   <div id="chat-container">
     <div id="chat-display"></div>
-    <div id="input-container">
-      <input type="text" id="user-input" placeholder="Type your message here..." />
-      <button id="send-button">Send</button>
-    </div>
+    <input type="text" id="user-input" placeholder="Ask something..." />
+    <button id="send-button">Send</button>
   </div>
 
-  <script>
-    const chatDisplay = document.getElementById("chat-display");
-    const userInput = document.getElementById("user-input");
-    const sendButton = document.getElementById("send-button");
+   <script>
+    // Function to convert Markdown-like syntax to HTML and check for code blocks
+    function parseMarkdown(text) {
+      // Convert headings (###) into <h3>
+      text = text.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
+      
+      // Convert bold (****) into <b>
+      text = text.replace(/\*\*\*\*(.*?)\*\*\*\*/g, '<b>$1</b>');
 
-    // Simulated AI interaction endpoint
-    const apiEndpoint = "https://public.smoresxo.shop/generate"; // Example placeholder endpoint
+      // Convert inline code (single backticks `code`) into <code> elements
+      text = text.replace(/`(.*?)`/g, '<code>$1</code>');
 
-    // Add a new message to the chat
-    function addMessage(content, type) {
-      const messageDiv = document.createElement("div");
-      messageDiv.classList.add("message", type === "user" ? "user-message" : "ai-message");
+      // Convert multiline code blocks (triple backticks ```code```) into <pre><code> elements
+      text = text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+      
+      // You can add more rules here for other markdown formats like italics, lists, etc.
 
-      if (type === "ai" && content.includes("```")) {
-        // Format code blocks in the AI response
-        const parts = content.split(/```/);
-        parts.forEach((part, index) => {
-          if (index % 2 === 0) {
-            messageDiv.innerHTML += `<p>${part}</p>`;
-          } else {
-            messageDiv.innerHTML += `<code>${part}</code>`;
-          }
-        });
-      } else {
-        messageDiv.textContent = content;
-      }
-
-      chatDisplay.appendChild(messageDiv);
-      chatDisplay.scrollTop = chatDisplay.scrollHeight; // Scroll to the bottom
+      return text;
     }
 
-    // Handle user input
-    sendButton.addEventListener("click", async () => {
-      const userMessage = userInput.value.trim();
-      if (!userMessage) return;
+    // Function to handle the AI's response
+    async function handleChatResponse(response) {
+      const parsedResponse = parseMarkdown(response);
 
-      // Display user's message
-      addMessage(userMessage, "user");
-      userInput.value = "";
+      // Display the parsed response (converted to HTML)
+      const chatDisplay = document.getElementById('chat-display');
+      const aiMessage = document.createElement('div');
+      aiMessage.classList.add('ai-message');
+      aiMessage.innerHTML = parsedResponse;
+      chatDisplay.appendChild(aiMessage);
 
-      // Fetch AI response
-      try {
-        const response = await fetch(apiEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: userMessage }),
-        });
+      // Auto-scroll to the bottom
+      chatDisplay.scrollTop = chatDisplay.scrollHeight;
+    }
 
-        const data = await response.json();
-        const aiMessage = data.message || "I'm sorry, I couldn't process that.";
-        addMessage(aiMessage, "ai");
-      } catch (error) {
-        console.error("Error:", error);
-        addMessage("Error: Unable to fetch response.", "ai");
-      }
+    document.addEventListener('DOMContentLoaded', function () {
+      const sendButton = document.getElementById('send-button');
+      const userInputField = document.getElementById('user-input');
+      const chatDisplay = document.getElementById('chat-display');
+
+      sendButton.addEventListener('click', async function () {
+        const userMessage = userInputField.value.trim();
+        if (userMessage) {
+          // Display user message
+          const userMessageElement = document.createElement('div');
+          userMessageElement.classList.add('user-message');
+          userMessageElement.innerHTML = userMessage;
+          chatDisplay.appendChild(userMessageElement);
+
+          // Clear the input field
+          userInputField.value = '';
+
+          try {
+            // Send API request to SmoresXO
+            const response = await fetch('https://public.smoresxo.shop/generate', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ prompt: userMessage })
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              const aiResponse = data.response.trim();
+
+              // Handle and display the AI's response
+              handleChatResponse(aiResponse);
+            } else {
+              // Handle error from the API
+              handleChatResponse('Sorry, there was an error getting a response.');
+            }
+          } catch (error) {
+            // Handle fetch error
+            handleChatResponse('Error: Unable to fetch response from SmoresXO.');
+            console.error(error);
+          }
+        }
+      });
     });
   </script>
 </body>
