@@ -8,67 +8,33 @@
   <link rel="icon" type="image/png" href="/assets/images/logo.png">
   <link rel="stylesheet" href="/css/styles.css">
     <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
+    /* Preserve existing styles */
     #chat-container {
       max-width: 600px;
-      width: 90%;
-      margin: 20px auto;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      background-color: white;
+      margin: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-family: Arial, sans-serif;
     }
 
     #chat-display {
-      flex: 1;
+      border: 1px solid #ddd;
       padding: 10px;
+      height: 300px;
       overflow-y: auto;
-      height: 400px;
-      background-color: #f0f0f0;
-    }
-
-    #input-container {
-      display: flex;
-      padding: 10px;
-      border-top: 1px solid #ddd;
-      background-color: #fff;
+      background-color: #f9f9f9;
     }
 
     #user-input {
-      flex: 1;
-      border: 1px solid #ddd;
-      border-radius: 20px;
-      padding: 10px;
-      font-size: 16px;
-      margin-right: 10px;
-      outline: none;
+      width: 80%;
+      padding: 8px;
     }
 
-    #submit-btn {
-      background-color: #007aff;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
+    button {
+      padding: 8px 12px;
     }
 
-    #submit-btn:hover {
-      background-color: #005bb5;
-    }
-
+    /* Speech bubble styles */
     .bubble {
       margin: 10px 0;
       padding: 10px 15px;
