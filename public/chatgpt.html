@@ -173,7 +173,7 @@
 
             if (response.ok) {
               const data = await response.json();
-              const aiResponse = data.response.trim();
+              const aiResponse = data.message.trim();
 
               // Handle and display the AI's response
               handleChatResponse(aiResponse);
