@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games - YoBoiJake</title>
+  <link rel="manifest" href="/manifest.json"/>
+  <link rel="icon" type="image/png" href="/assets/images/logo.png">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <img src="/assets/images/logo.png" alt="YoBoiJake Logo">
+    <span id="logo-name">YoBoiJake</span>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/games.html">Games</a>
+      <a href="/search.html">Search</a>
+      <a href="/settings.html">Settings</a>
+    </nav>
+  </header>
+
+  <main id="games-content">
+    <h1>Games:</h1>
+    <div id="game-container">
+      <a href="#cookieclicker" class="game" onclick="showGame('/assets/games/cookieclicker/')">
+        <img src="/assets/images/cookieclicker/game.png" alt="Cookie Clicker">
+        <span>Cookie Clicker</span>
+      </a>
+      <a href="#fireboyandwatergirl" class="game" onclick="showGame('/assets/games/fireboyandwatergirl/')">
+        <img src="/assets/images/fireboyandwatergirl/game.png" alt="Fireboy and Watergirl">
+        <span>Fireboy and Watergirl</span>
+      </a>
+      <a href="#bloxorz" class="game" onclick="showGame('/assets/games/bloxorz/')">
+        <img src="/assets/images/bloxorz/game.png" alt="Bloxorz">
+        <span>Bloxorz</span>
+      </a>
+      <a href="#driftboss" class="game" onclick="showGame('/assets/games/driftboss/')">
+        <img src="/assets/images/driftboss/game.png" alt="Drift Boss">
+        <span>Drift Boss</span>
+      </a>
+      <a href="#2048" class="game" onclick="showGame('/assets/games/2048/')">
+        <img src="/assets/images/2048/game.png" alt="Drift Boss">
+        <span>2048</span>
+      </a>
+      <a href="#retrobowl" class="game" onclick="showGame('/assets/games/retrobowl/')">
+        <img src="/assets/images/retrobowl/game.png" alt="retrobowl">
+        <span>Retro Bowl</span>
+      </a>
+      <a href="#basketball stars" class="game" onclick="showGame('/assets/games/basketball stars/')">
+        <img src="/assets/images/basketball stars/game.png" alt="basketball stars">
+        <span>Basketball Stars</span>
+      </a>
+      <a href="#slope" class="game" onclick="showGame('/assets/games/slope/')">
+        <img src="/assets/images/slope/game.png" alt="slope">
+        <span>Slope</span>
+      </a>
+      <a href="#f1" class="game" onclick="showGame('/assets/games/f1/')">
+        <img src="/assets/images/f1/game.png" alt="Fnaf 1">
+        <span>Fnaf 1</span>
+      </a>
+      <a href="#bob1" class="game" onclick="showGame('/assets/games/bob1/')">
+        <img src="/assets/images/bob1/game.png" alt="Bob The Robber">
+        <span>Bob The Robber</span>
+      </a>
+      <a href="#bitlife" class="game" onclick="showGame('/assets/games/bitlife/')">
+        <img src="/assets/images/Bitlife/game.png" alt="bitlife">
+        <span>Bitlife</span>      
+      </a>
+    </div>
+
+    <div id="game-display" style="display: none;">
+      <div id="game-frame-container">
+        <iframe id="game-frame" src="" width="800" height="600"></iframe>
+        <div id="game-buttons">
+          <button onclick="exitGame()">Exit</button>
+          <button onclick="toggleFullScreen()">Fullscreen</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/scripts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Load and apply the saved theme
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        applyTheme(savedTheme);
+      }
+
+      // Initialize the theme selector if it exists
+      const themeSelector = document.getElementById('theme-selector');
+      if (themeSelector) {
+        if (savedTheme) {
+          themeSelector.value = savedTheme;
+        }
+
+        // Save and apply theme when the dropdown changes
+        themeSelector.addEventListener('change', function () {
+          const selectedTheme = themeSelector.value;
+          localStorage.setItem('theme', selectedTheme);
+          applyTheme(selectedTheme);
+        });
+      }
+    });
+
+    function applyTheme(theme) {
+      const allElements = document.querySelectorAll("*"); // Select all elements
+      const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+
+      // Clear previously applied styles for the default theme
+      if (theme === 'default') {
+        allElements.forEach(el => {
+          el.style.backgroundColor = ''; // Clear inline background color
+          el.style.color = '';           // Clear inline text color
+          el.style.borderColor = '';     // Clear inline border color
+        });
+        styleSheet.innerHTML = ''; // Remove hover styles
+
+        // Add a red border around the iframe specifically for the default theme
+        const iframe = document.getElementById('game-frame');
+        if (iframe) {
+          iframe.style.border = '3px solid red';
+        }
+        return;
+      }
+
+      // Apply theme colors dynamically
+      let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
+
+      switch (theme) {
+        case 'dark':
+          backgroundColor = '#121212';
+          textColor = 'white';
+          borderColor = 'gray';
+          hoverBackgroundColor = '#1c1c1c';
+          hoverTextColor = '#f0f0f0';
+          break;
+
+        case 'light':
+          backgroundColor = 'white';
+          textColor = 'black';
+          borderColor = 'black';
+          hoverBackgroundColor = '#f7f7f7';
+          hoverTextColor = '#333';
+          break;
+
+        case 'blue':
+          backgroundColor = '#1e3a5f';
+          textColor = '#a9d6e5';
+          borderColor = '#4682b4';
+          hoverBackgroundColor = '#24476d';
+          hoverTextColor = '#c0e9f5';
+          break;
+
+        case 'forest':
+          backgroundColor = '#2b4227';
+          textColor = '#d0e6b5';
+          borderColor = '#3c6e47';
+          hoverBackgroundColor = '#365735';
+          hoverTextColor = '#e0f0c5';
+          break;
+
+        case 'sunset':
+          backgroundColor = '#ffad60';
+          textColor = '#4a1a1a';
+          borderColor = '#ff4500';
+          hoverBackgroundColor = '#ff9240';
+          hoverTextColor = '#5c1e1e';
+          break;
+
+        case 'purple':
+          backgroundColor = '#4b0082';
+          textColor = '#d8a1e3';
+          borderColor = '#9b4d96';
+          hoverBackgroundColor = '#6a1e9f';
+          hoverTextColor = '#f3d4f1';
+          break;
+
+        case 'retro-neon':
+          backgroundColor = '#222222';
+          textColor = '#ff00ff';
+          borderColor = '#00ff00';
+          hoverBackgroundColor = '#ff00ff';
+          hoverTextColor = '#222222';
+          break;
+
+        case 'ocean':
+          backgroundColor = '#006994';
+          textColor = '#a4e4e1';
+          borderColor = '#4ca3d7';
+          hoverBackgroundColor = '#00577e';
+          hoverTextColor = '#a8e1e1';
+          break;
+
+        case 'cherry-blossom':
+          backgroundColor = '#ffb7c5';
+          textColor = '#5a3d44';
+          borderColor = '#9e7f7f';
+          hoverBackgroundColor = '#f7d1d9';
+          hoverTextColor = '#4d2a2a';
+          break;
+
+        case 'space':
+          backgroundColor = '#000000';
+          textColor = '#ffffff';
+          borderColor = '#404040';
+          hoverBackgroundColor = '#333333';
+          hoverTextColor = '#e6e6e6';
+          break;
+
+        case 'autumn':
+          backgroundColor = '#d56d2e';
+          textColor = '#d8a56d';
+          borderColor = '#8c4f2d';
+          hoverBackgroundColor = '#bb4f2f';
+          hoverTextColor = '#f5e0d6';
+          break;
+
+        case 'cyberpunk':
+          backgroundColor = '#2b2b2b';
+          textColor = '#00ff9d';
+          borderColor = '#ff1b8d';
+          hoverBackgroundColor = '#3c3c3c';
+          hoverTextColor = '#ff44d8';
+          break;
+
+        case 'mint':
+          backgroundColor = '#98ff98';
+          textColor = '#2e6f4f';
+          borderColor = '#46a27e';
+          hoverBackgroundColor = '#76c7b7';
+          hoverTextColor = '#3a7b66';
+          break;
+
+        case 'neon-green':
+          backgroundColor = '#00ff00';
+          textColor = '#000000';
+          borderColor = '#009900';
+          hoverBackgroundColor = '#00cc00';
+          hoverTextColor = '#000000';
+          break;
+
+        case 'sunrise':
+          backgroundColor = '#ff7f50';
+          textColor = '#ffcc00';
+          borderColor = '#ff4500';
+          hoverBackgroundColor = '#ff5500';
+          hoverTextColor = '#ff9f40';
+          break;
+
+        default:
+          return;
+      }
+
+      // Apply the base styles to all elements
+      allElements.forEach(el => {
+        el.style.backgroundColor = backgroundColor;
+        el.style.color = textColor;
+        el.style.borderColor = borderColor;
+      });
+
+      // Add hover effects dynamically using the stylesheet
+      styleSheet.innerHTML = `
+        button, a {
+          transition: background-color 0.3s, color 0.3s;
+        }
+        button:hover, a:hover {
+          background-color: ${hoverBackgroundColor};
+          color: ${hoverTextColor};
+        }
+      `;
+
+      // Clear the red border on the iframe if not default theme
+      const iframe = document.getElementById('game-frame');
+      if (iframe) {
+        iframe.style.border = '';
+      }
+    }
+
+    function createDynamicStyleSheet() {
+      const styleSheet = document.createElement('style');
+      styleSheet.id = 'dynamic-theme-styles';
+      document.head.appendChild(styleSheet);
+      return styleSheet;
+    }
+  </script>
+</body>
+</html>

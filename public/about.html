@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - YoBoiJake</title>
+  <link rel="manifest" href="/manifest.json"/>
+  <link rel="icon" type="image/png" href="/assets/images/logo.png">
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: red;
+      text-align: center;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      border-bottom: 2px solid red;
+    }
+
+    header img {
+      height: 50px;
+    }
+
+    #logo-name {
+      font-size: 24px;
+      color: red;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    nav {
+      display: flex;
+      gap: 15px;
+      margin-left: auto;
+    }
+
+    nav a {
+      color: red;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 5px 10px;
+      border: 1px solid red;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: red;
+      color: black;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    h1, h2 {
+      margin: 20px 0;
+      color: red;
+    }
+
+    #discord-link {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 10px 20px;
+      color: red;
+      background-color: black;
+      border: 2px solid red;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    #discord-link:hover {
+      background-color: red;
+      color: black;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px 0;
+      text-align: left;
+      display: inline-block;
+    }
+
+    li {
+      margin: 5px 0;
+      font-size: 18px;
+      color: red;
+      border: 2px solid red;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: black;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    li:hover {
+      background-color: red;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/assets/images/logo.png" alt="YoBoiJake Logo">
+    <span id="logo-name">YoBoiJake</span>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/games.html">Games</a>
+      <a href="/search.html">Search</a>
+      <a href="/settings.html">Settings</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Thanks to Plexile Network for making this possible!</h1>
+    <p>Join their community on Discord:</p>
+    <a id="discord-link" href="https://discord.gg/59UMvHBNM6" target="_blank">Join Plexile Network Discord</a>
+
+    <h2>Things They Help With</h2>
+    <ul>
+      <li>UV Files</li>
+      <li>Built-In Games</li>
+      <li>Images</li>
+      <li>Some Animations</li>
+      <li>Download Option</li>
+      <li>Fixed About:Blank</li>
+      <li>Fixed Proxy</li>
+      <li>Added Shortcuts</li>
+      <li>Fixed CSS Errors</li>
+      <li>Fixed HTML Errors</li>
+      <li>Added PM2 (index.mjs)</li>
+      <li>LICENSE File</li>
+    </ul>
+  </main>
+<script>
+  document.addEventListener('keydown', function (e) {
+    const panicKey = localStorage.getItem('panicKey');
+    if (panicKey && e.key.toUpperCase() === panicKey) {
+      window.location.href = 'https://classroom.google.com';
+    }
+  });
+</script>
+<script type="text/javascript">
+	atOptions = {
+		'key' : 'b7ce0045a6c724134a50361a5ae06e0a',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/b7ce0045a6c724134a50361a5ae06e0a/invoke.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load and apply the saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    }
+
+    // Initialize the theme selector if it exists
+    const themeSelector = document.getElementById('theme-selector');
+    if (themeSelector) {
+      if (savedTheme) {
+        themeSelector.value = savedTheme;
+      }
+
+      // Save and apply theme when the dropdown changes
+      themeSelector.addEventListener('change', function () {
+        const selectedTheme = themeSelector.value;
+        localStorage.setItem('theme', selectedTheme);
+        applyTheme(selectedTheme);
+      });
+    }
+  });
+
+  // Function to apply a theme dynamically to all elements
+  function applyTheme(theme) {
+    const allElements = document.querySelectorAll("*"); // Select all elements
+    const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+
+    // Clear previously applied styles for the default theme
+    if (theme === 'default') {
+      allElements.forEach(el => {
+        el.style.backgroundColor = ''; // Clear inline background color
+        el.style.color = '';           // Clear inline text color
+        el.style.borderColor = '';     // Clear inline border color
+      });
+      styleSheet.innerHTML = ''; // Remove hover styles
+      return;
+    }
+
+    // Apply theme colors dynamically
+    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
+
+switch (theme) {
+  case 'dark':
+    backgroundColor = '#121212';
+    textColor = 'white';
+    borderColor = 'gray';
+    hoverBackgroundColor = '#1c1c1c';
+    hoverTextColor = '#f0f0f0';
+    break;
+
+  case 'light':
+    backgroundColor = 'white';
+    textColor = 'black';
+    borderColor = 'black';
+    hoverBackgroundColor = '#f7f7f7';
+    hoverTextColor = '#333';
+    break;
+
+  case 'blue':
+    backgroundColor = '#1e3a5f';
+    textColor = '#a9d6e5';
+    borderColor = '#4682b4';
+    hoverBackgroundColor = '#24476d';
+    hoverTextColor = '#c0e9f5';
+    break;
+
+  case 'forest':
+    backgroundColor = '#2b4227';
+    textColor = '#d0e6b5';
+    borderColor = '#3c6e47';
+    hoverBackgroundColor = '#365735';
+    hoverTextColor = '#e0f0c5';
+    break;
+
+  case 'sunset':
+    backgroundColor = '#ffad60';
+    textColor = '#4a1a1a';
+    borderColor = '#ff4500';
+    hoverBackgroundColor = '#ff9240';
+    hoverTextColor = '#5c1e1e';
+    break;
+
+  case 'purple':
+    backgroundColor = '#4b0082';
+    textColor = '#d8a1e3';
+    borderColor = '#9b4d96';
+    hoverBackgroundColor = '#6a1e9f';
+    hoverTextColor = '#f3d4f1';
+    break;
+
+  case 'retro-neon':
+    backgroundColor = '#222222';
+    textColor = '#ff00ff';
+    borderColor = '#00ff00';
+    hoverBackgroundColor = '#ff00ff';
+    hoverTextColor = '#222222';
+    break;
+
+  case 'ocean':
+    backgroundColor = '#006994';
+    textColor = '#a4e4e1';
+    borderColor = '#4ca3d7';
+    hoverBackgroundColor = '#00577e';
+    hoverTextColor = '#a8e1e1';
+    break;
+
+  case 'cherry-blossom':
+    backgroundColor = '#ffb7c5';
+    textColor = '#5a3d44';
+    borderColor = '#9e7f7f';
+    hoverBackgroundColor = '#f7d1d9';
+    hoverTextColor = '#4d2a2a';
+    break;
+
+  case 'space':
+    backgroundColor = '#000000';
+    textColor = '#ffffff';
+    borderColor = '#404040';
+    hoverBackgroundColor = '#333333';
+    hoverTextColor = '#e6e6e6';
+    break;
+
+  case 'autumn':
+    backgroundColor = '#d56d2e';
+    textColor = '#d8a56d';
+    borderColor = '#8c4f2d';
+    hoverBackgroundColor = '#bb4f2f';
+    hoverTextColor = '#f5e0d6';
+    break;
+
+  case 'cyberpunk':
+    backgroundColor = '#2b2b2b';
+    textColor = '#00ff9d';
+    borderColor = '#ff1b8d';
+    hoverBackgroundColor = '#3c3c3c';
+    hoverTextColor = '#ff44d8';
+    break;
+
+  case 'mint':
+    backgroundColor = '#98ff98';
+    textColor = '#2e6f4f';
+    borderColor = '#46a27e';
+    hoverBackgroundColor = '#76c7b7';
+    hoverTextColor = '#3a7b66';
+    break;
+
+  case 'neon-green':
+    backgroundColor = '#00ff00';
+    textColor = '#000000';
+    borderColor = '#009900';
+    hoverBackgroundColor = '#00cc00';
+    hoverTextColor = '#000000';
+    break;
+
+  case 'sunrise':
+    backgroundColor = '#ff7f50';
+    textColor = '#ffcc00';
+    borderColor = '#ff4500';
+    hoverBackgroundColor = '#ff5500';
+    hoverTextColor = '#ff9f40';
+    break;
+
+  default:
+    return;
+}
+    // Apply the base styles to all elements
+    allElements.forEach(el => {
+      el.style.backgroundColor = backgroundColor;
+      el.style.color = textColor;
+      el.style.borderColor = borderColor;
+    });
+
+    // Add hover effects dynamically using the stylesheet
+    styleSheet.innerHTML = `
+      button, a {
+        transition: background-color 0.3s, color 0.3s;
+      }
+      button:hover, a:hover {
+        background-color: ${hoverBackgroundColor};
+        color: ${hoverTextColor};
+      }
+    `;
+  }
+
+  // Helper function to create or find the dynamic stylesheet
+  function createDynamicStyleSheet() {
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'dynamic-theme-styles';
+    document.head.appendChild(styleSheet);
+    return styleSheet;
+  }
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load the saved panic key from localStorage
+    const savedPanicKey = localStorage.getItem('panicKey');
+
+    if (savedPanicKey) {
+      // Listen for key presses globally to activate the panic key
+      document.addEventListener('keydown', function (event) {
+        if (event.key === savedPanicKey) {
+          // Redirect to Google Classroom when the panic key is pressed
+          window.location.href = 'https://classroom.google.com';
+        }
+      });
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load the saved tab cloak setting from localStorage
+    const savedCloak = localStorage.getItem('tabCloak');
+    if (savedCloak) {
+      applyTabCloak(savedCloak);
+    }
+
+    // Listen for changes in the tab cloak setting (if a selector is present)
+    const tabCloakSelector = document.getElementById('tab-cloak-selector');
+    if (tabCloakSelector) {
+      tabCloakSelector.addEventListener('change', function () {
+        const selectedCloak = tabCloakSelector.value;
+        localStorage.setItem('tabCloak', selectedCloak);
+        applyTabCloak(selectedCloak);
+      });
+    }
+  });
+
+  // Function to apply tab cloaking settings dynamically
+  function applyTabCloak(cloak) {
+    let title, faviconUrl;
+    switch (cloak) {
+      case 'google-classroom':
+        title = 'Google Classroom';
+        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
+        break;
+      case 'amplify':
+        title = 'Amplify';
+        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
+        break;
+      case 'google-docs':
+        title = 'Google Docs';
+        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
+        break;
+      case 'desmos':
+        title = 'Desmos Calculator';
+        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+        break;
+      default:
+        // Default case - reset title and favicon
+        title = 'YoBoiJake';
+        faviconUrl = '/assets/images/logo.png';
+    }
+
+    // Apply the title and favicon to the page
+    document.title = title;
+
+    // Create a new link element or update the existing one
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = faviconUrl;
+
+    // Check if the link already exists and remove it if so
+    let existingLink = document.querySelector('link[rel="icon"]');
+    if (existingLink) {
+      document.head.removeChild(existingLink);
+    }
+
+    // Append the new link element for the favicon
+    document.head.appendChild(link);
+  }
+</script>
+	
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YoBoiJake</title>
+  <link rel="manifest" href="/manifest.json"/>
+  <link rel="icon" type="image/png" href="/assets/images/logo.png">
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    /* Add the bottom-left tab style for About button */
+    #about-tab {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background-color: transparent;
+      color: red;
+      padding: 10px 20px;
+      border: 2px solid red;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    #about-tab:hover {
+      background-color: red;
+      color: black;
+    }
+    /* Additional styles for body, header, etc. to ensure full theme coverage */
+    body, header, nav, footer, main, h1, p, a, div, button {
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/assets/images/logo.png" alt="YoBoiJake Logo">
+    <span id="logo-name">YoBoiJake</span>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/games.html">Games</a>
+      <a href="/search.html">Search</a>
+      <a href="/settings.html">Settings</a>
+    </nav>
+  </header>
+
+  <main id="home-content">
+    <h1>Welcome to YoBoiJake</h1>
+    <button id="about-blank-btn" onclick="openAboutBlank()">About Blank</button>
+    <div id="verse-of-the-day" style="margin-top: 20px;">
+      <h2>Jesus Verse of the Day</h2>
+      <p id="daily-verse">Loading verse...</p>
+    </div>
+  </main>
+
+  <!-- Fixed "About" tab in the bottom left -->
+  <div id="about-tab" onclick="window.location.href='/about.html'">
+    About
+  </div>
+
+  <script>
+    // Function to open a blank page
+    function openAboutBlank() {
+      let win = window.open("", "_blank");
+      if (win) {
+        win.document.body.style.margin = "0";
+        win.document.body.style.height = "100vh";
+        const iframe = document.createElement("iframe");
+        iframe.style.border = "none";
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.src = "/";
+        win.document.body.appendChild(iframe);
+      }
+    }
+
+       // Array of verses
+    const verses = [
+      "John 3:16 - For God so loved the world that He gave His one and only Son, that whoever believes in Him shall not perish but have eternal life.",
+    "Psalm 23:1 - The Lord is my shepherd; I shall not want.",
+    "Philippians 4:13 - I can do all things through Christ who strengthens me.",
+    "Matthew 5:16 - Let your light shine before others, that they may see your good deeds and glorify your Father in heaven.",
+    "Isaiah 41:10 - Do not fear, for I am with you; do not be dismayed, for I am your God.",
+    "Romans 8:28 - And we know that in all things God works for the good of those who love Him, who have been called according to His purpose.",
+    "Proverbs 3:5-6 - Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to Him, and He will make your paths straight.",
+    "Jeremiah 29:11 - For I know the plans I have for you, declares the Lord, plans for welfare and not for evil, to give you a future and a hope.",
+    "Genesis 1:1 - In the beginning, God created the heavens and the earth.",
+    "Romans 12:2 - Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect.",
+    "John 14:6 - Jesus said, 'I am the way and the truth and the life. No one comes to the Father except through me.'",
+    "Isaiah 40:31 - But they who wait for the Lord shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.",
+    "Matthew 11:28 - Come to me, all who labor and are heavy laden, and I will give you rest.",
+    "2 Corinthians 5:17 - Therefore, if anyone is in Christ, he is a new creation. The old has passed away; behold, the new has come.",
+    "Luke 1:37 - For nothing will be impossible with God.",
+    "Psalm 46:1 - God is our refuge and strength, a very present help in trouble.",
+    "1 Peter 5:7 - Casting all your anxieties on Him, because He cares for you.",
+    "Hebrews 11:1 - Now faith is the assurance of things hoped for, the conviction of things not seen.",
+    "Matthew 7:7 - Ask, and it will be given to you; seek, and you will find; knock, and it will be opened to you.",
+    "Psalm 118:24 - This is the day that the Lord has made; let us rejoice and be glad in it.",
+    "Colossians 3:23 - Whatever you do, work heartily, as for the Lord and not for men.",
+    "James 1:5 - If any of you lacks wisdom, let him ask of God, who gives generously to all without reproach, and it will be given him.",
+    "Titus 3:5 - He saved us, not because of works done by us in righteousness, but according to His own mercy, by the washing of regeneration and renewal of the Holy Spirit.",
+    "Ephesians 2:8-9 - For by grace you have been saved through faith. And this is not your own doing; it is the gift of God, not a result of works, so that no one may boast.",
+    "Philippians 4:6 - Do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God.",
+    "Romans 5:8 - But God shows His love for us in that while we were still sinners, Christ died for us.",
+    "Proverbs 18:10 - The name of the Lord is a strong tower; the righteous man runs into it and is safe.",
+    "1 John 4:19 - We love because He first loved us.",
+    "Proverbs 4:23 - Keep your heart with all vigilance, for from it flow the springs of life.",
+    "Matthew 28:18 - And Jesus came and said to them, 'All authority in heaven and on earth has been given to me.'",
+    "Romans 3:23 - For all have sinned and fall short of the glory of God.",
+    "2 Timothy 1:7 - For God gave us a spirit not of fear but of power and love and self-control.",
+    "John 8:12 - Again Jesus spoke to them, saying, 'I am the light of the world. Whoever follows me will not walk in darkness, but will have the light of life.'",
+    "Psalm 37:4 - Delight yourself in the Lord, and He will give you the desires of your heart.",
+    "Hebrews 12:2 - Looking to Jesus, the founder and perfecter of our faith, who for the joy that was set before Him endured the cross, despising the shame, and is seated at the right hand of the throne of God.",
+    "Matthew 6:33 - But seek first the kingdom of God and His righteousness, and all these things will be added to you.",
+    "Galatians 5:22-23 - But the fruit of the Spirit is love, joy, peace, forbearance, kindness, goodness, faithfulness, gentleness and self-control.",
+    "Psalm 19:14 - Let the words of my mouth and the meditation of my heart be acceptable in your sight, O Lord, my rock and my redeemer.",
+    "John 10:10 - The thief comes only to steal and kill and destroy. I came that they may have life and have it abundantly.",
+    "Matthew 19:26 - But Jesus looked at them and said, 'With man this is impossible, but with God all things are possible.'",
+    "Romans 15:13 - May the God of hope fill you with all joy and peace in believing, so that by the power of the Holy Spirit you may abound in hope.",
+    "2 Corinthians 4:16 - So we do not lose heart. Though our outer self is wasting away, our inner self is being renewed day by day.",
+    "John 15:13 - Greater love has no one than this, that someone lay down his life for his friends.",
+    "Revelation 3:20 - Behold, I stand at the door and knock. If anyone hears my voice and opens the door, I will come in to him and eat with him, and he with me.",
+    "Romans 6:23 - For the wages of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord.",
+    "1 John 1:9 - If we confess our sins, He is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.",
+    "Luke 18:27 - What is impossible with man is possible with God.",
+    "1 Corinthians 10:13 - No temptation has overtaken you that is not common to man. God is faithful, and He will not let you be tempted beyond your ability, but with the temptation He will also provide the way of escape, that you may be able to endure it.",
+    "1 Thessalonians 5:16-18 - Rejoice always, pray without ceasing, give thanks in all circumstances; for this is the will of God in Christ Jesus for you.",
+    "Philippians 1:6 - And I am sure of this, that He who began a good work in you will bring it to completion at the day of Jesus Christ.",
+    "Colossians 3:12-14 - Put on then, as God's chosen ones, holy and beloved, compassionate hearts, kindness, humility, meekness, and patience, bearing with one another and, if one has a complaint against another, forgiving each other; as the Lord has forgiven you, so you also must forgive.",
+    "James 4:7 - Submit yourselves therefore to God. Resist the devil, and he will flee from you.",
+    "1 Corinthians 13:4-7 - Love is patient and kind; love does not envy or boast; it is not arrogant or rude. It does not insist on its own way; it is not irritable or resentful; it does not rejoice at wrongdoing, but rejoices with the truth. Love bears all things, believes all things, hopes all things, endures all things.",
+    "Romans 8:38-39 - For I am sure that neither death nor life, nor angels nor rulers, nor things present nor things to come, nor powers, nor height nor depth, nor anything else in all creation, will be able to separate us from the love of God in Christ Jesus our Lord.",
+    "Romans 10:9 - If you confess with your mouth that Jesus is Lord and believe in your heart that God raised Him from the dead, you will be saved.",
+    "1 Peter 1:3 - Blessed be the God and Father of our Lord Jesus Christ! According to His great mercy, He has caused us to be born again to a living hope through the resurrection of Jesus Christ from the dead.",
+    "2 Corinthians 12:9 - But He said to me, 'My grace is sufficient for you, for my power is made perfect in weakness.' Therefore I will boast all the more gladly of my weaknesses, so that the power of Christ may rest upon me.",
+    "2 Corinthians 5:21 - For our sake He made Him to be sin who knew no sin, so that in Him we might become the righteousness of God.",
+    "Psalm 34:8 - Oh, taste and see that the Lord is good! Blessed is the man who takes refuge in Him.",
+    "Proverbs 3:5 - Trust in the Lord with all your heart, and do not lean on your own understanding.",
+    "Luke 6:38 - Give, and it will be given to you. Good measure, pressed down, shaken together, running over, will be put into your lap. For with the measure you use it will be measured back to you.",
+    "Matthew 7:24 - Everyone then who hears these words of mine and does them will be like a wise man who built his house on the rock.",
+    "John 16:33 - I have said these things to you, that in me you may have peace. In the world you will have tribulation. But take heart; I have overcome the world.",
+    "Romans 8:1 - There is therefore now no condemnation for those who are in Christ Jesus.",
+    "Psalm 51:10 - Create in me a clean heart, O God, and renew a right spirit within me.",
+    "John 16:24 - Until now you have asked nothing in my name. Ask, and you will receive, that your joy may be full.",
+    "Proverbs 18:21 - Death and life are in the power of the tongue, and those who love it will eat its fruits.",
+    "Revelation 21:4 - He will wipe away every tear from their eyes, and death shall be no more, neither shall there be mourning, nor crying, nor pain anymore, for the former things have passed away.",
+    "Matthew 5:44 - But I say to you, Love your enemies and pray for those who persecute you.",
+    "Psalm 23:4 - Even though I walk through the valley of the shadow of death, I will fear no evil, for You are with me; Your rod and Your staff, they comfort me.",
+    "Isaiah 55:8-9 - For my thoughts are not your thoughts, neither are your ways my ways, declares the Lord. For as the heavens are higher than the earth, so are my ways higher than your ways and my thoughts than your thoughts.",
+    "Matthew 28:19-20 - Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all that I have commanded you. And behold, I am with you always, to the end of the age."
+
+    ];
+
+    // Function to randomize verse every 24 hours
+    function getDailyVerse() {
+      const today = new Date().toISOString().slice(0, 10); // Get today's date in YYYY-MM-DD format
+      const randomIndex = parseInt(localStorage.getItem("verseIndex"));
+      const lastUpdated = localStorage.getItem("lastUpdated");
+
+      // Check if the date has changed
+      if (today !== lastUpdated || randomIndex === null) {
+        const newIndex = Math.floor(Math.random() * verses.length);
+        localStorage.setItem("verseIndex", newIndex);
+        localStorage.setItem("lastUpdated", today);
+        return verses[newIndex];
+      }
+      return verses[randomIndex];
+    }
+
+    // Display the verse of the day
+    document.addEventListener("DOMContentLoaded", () => {
+      const dailyVerseElement = document.getElementById("daily-verse");
+      dailyVerseElement.textContent = getDailyVerse();
+    });
+  </script>
+  <script>
+    document.addEventListener('keydown', function (e) {
+      const panicKey = localStorage.getItem('panicKey');
+      if (panicKey && e.key.toUpperCase() === panicKey) {
+        window.location.href = 'https://classroom.google.com';
+      }
+    });
+  </script>
+
+  <script type="text/javascript">
+    atOptions = {
+      'key' : 'b7ce0045a6c724134a50361a5ae06e0a',
+      'format' : 'iframe',
+      'height' : 90,
+      'width' : 728,
+      'params' : {}
+    };
+  </script>
+  <script type="text/javascript" src="//www.highperformanceformat.com/b7ce0045a6c724134a50361a5ae06e0a/invoke.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load and apply the saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    }
+
+    // Initialize the theme selector if it exists
+    const themeSelector = document.getElementById('theme-selector');
+    if (themeSelector) {
+      if (savedTheme) {
+        themeSelector.value = savedTheme;
+      }
+
+      // Save and apply theme when the dropdown changes
+      themeSelector.addEventListener('change', function () {
+        const selectedTheme = themeSelector.value;
+        localStorage.setItem('theme', selectedTheme);
+        applyTheme(selectedTheme);
+      });
+    }
+  });
+
+  // Function to apply a theme dynamically to all elements
+  function applyTheme(theme) {
+    const allElements = document.querySelectorAll("*"); // Select all elements
+    const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+
+    // Clear previously applied styles for the default theme
+    if (theme === 'default') {
+      allElements.forEach(el => {
+        el.style.backgroundColor = ''; // Clear inline background color
+        el.style.color = '';           // Clear inline text color
+        el.style.borderColor = '';     // Clear inline border color
+      });
+      styleSheet.innerHTML = ''; // Remove hover styles
+      return;
+    }
+
+    // Apply theme colors dynamically
+    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
+
+switch (theme) {
+  case 'dark':
+    backgroundColor = '#121212';
+    textColor = 'white';
+    borderColor = 'gray';
+    hoverBackgroundColor = '#1c1c1c';
+    hoverTextColor = '#f0f0f0';
+    break;
+
+  case 'light':
+    backgroundColor = 'white';
+    textColor = 'black';
+    borderColor = 'black';
+    hoverBackgroundColor = '#f7f7f7';
+    hoverTextColor = '#333';
+    break;
+
+  case 'blue':
+    backgroundColor = '#1e3a5f';
+    textColor = '#a9d6e5';
+    borderColor = '#4682b4';
+    hoverBackgroundColor = '#24476d';
+    hoverTextColor = '#c0e9f5';
+    break;
+
+  case 'forest':
+    backgroundColor = '#2b4227';
+    textColor = '#d0e6b5';
+    borderColor = '#3c6e47';
+    hoverBackgroundColor = '#365735';
+    hoverTextColor = '#e0f0c5';
+    break;
+
+  case 'sunset':
+    backgroundColor = '#ffad60';
+    textColor = '#4a1a1a';
+    borderColor = '#ff4500';
+    hoverBackgroundColor = '#ff9240';
+    hoverTextColor = '#5c1e1e';
+    break;
+
+  case 'purple':
+    backgroundColor = '#4b0082';
+    textColor = '#d8a1e3';
+    borderColor = '#9b4d96';
+    hoverBackgroundColor = '#6a1e9f';
+    hoverTextColor = '#f3d4f1';
+    break;
+
+  case 'retro-neon':
+    backgroundColor = '#222222';
+    textColor = '#ff00ff';
+    borderColor = '#00ff00';
+    hoverBackgroundColor = '#ff00ff';
+    hoverTextColor = '#222222';
+    break;
+
+  case 'ocean':
+    backgroundColor = '#006994';
+    textColor = '#a4e4e1';
+    borderColor = '#4ca3d7';
+    hoverBackgroundColor = '#00577e';
+    hoverTextColor = '#a8e1e1';
+    break;
+
+  case 'cherry-blossom':
+    backgroundColor = '#ffb7c5';
+    textColor = '#5a3d44';
+    borderColor = '#9e7f7f';
+    hoverBackgroundColor = '#f7d1d9';
+    hoverTextColor = '#4d2a2a';
+    break;
+
+  case 'space':
+    backgroundColor = '#000000';
+    textColor = '#ffffff';
+    borderColor = '#404040';
+    hoverBackgroundColor = '#333333';
+    hoverTextColor = '#e6e6e6';
+    break;
+
+  case 'autumn':
+    backgroundColor = '#d56d2e';
+    textColor = '#d8a56d';
+    borderColor = '#8c4f2d';
+    hoverBackgroundColor = '#bb4f2f';
+    hoverTextColor = '#f5e0d6';
+    break;
+
+  case 'cyberpunk':
+    backgroundColor = '#2b2b2b';
+    textColor = '#00ff9d';
+    borderColor = '#ff1b8d';
+    hoverBackgroundColor = '#3c3c3c';
+    hoverTextColor = '#ff44d8';
+    break;
+
+  case 'mint':
+    backgroundColor = '#98ff98';
+    textColor = '#2e6f4f';
+    borderColor = '#46a27e';
+    hoverBackgroundColor = '#76c7b7';
+    hoverTextColor = '#3a7b66';
+    break;
+
+  case 'neon-green':
+    backgroundColor = '#00ff00';
+    textColor = '#000000';
+    borderColor = '#009900';
+    hoverBackgroundColor = '#00cc00';
+    hoverTextColor = '#000000';
+    break;
+
+  case 'sunrise':
+    backgroundColor = '#ff7f50';
+    textColor = '#ffcc00';
+    borderColor = '#ff4500';
+    hoverBackgroundColor = '#ff5500';
+    hoverTextColor = '#ff9f40';
+    break;
+
+  default:
+    return;
+}
+
+    // Apply the base styles to all elements
+    allElements.forEach(el => {
+      el.style.backgroundColor = backgroundColor;
+      el.style.color = textColor;
+      el.style.borderColor = borderColor;
+    });
+
+    // Add hover effects dynamically using the stylesheet
+    styleSheet.innerHTML = `
+      button, a {
+        transition: background-color 0.3s, color 0.3s;
+      }
+      button:hover, a:hover {
+        background-color: ${hoverBackgroundColor};
+        color: ${hoverTextColor};
+      }
+    `;
+  }
+
+  // Helper function to create or find the dynamic stylesheet
+  function createDynamicStyleSheet() {
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'dynamic-theme-styles';
+    document.head.appendChild(styleSheet);
+    return styleSheet;
+  }
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load the saved panic key from localStorage
+    const savedPanicKey = localStorage.getItem('panicKey');
+
+    if (savedPanicKey) {
+      // Listen for key presses globally to activate the panic key
+      document.addEventListener('keydown', function (event) {
+        if (event.key === savedPanicKey) {
+          // Redirect to Google Classroom when the panic key is pressed
+          window.location.href = 'https://classroom.google.com';
+        }
+      });
+    }
+  });
+</script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load the saved tab cloak setting from localStorage
+    const savedCloak = localStorage.getItem('tabCloak');
+    if (savedCloak) {
+      applyTabCloak(savedCloak);
+    }
+
+    // Listen for changes in the tab cloak setting (if a selector is present)
+    const tabCloakSelector = document.getElementById('tab-cloak-selector');
+    if (tabCloakSelector) {
+      tabCloakSelector.addEventListener('change', function () {
+        const selectedCloak = tabCloakSelector.value;
+        localStorage.setItem('tabCloak', selectedCloak);
+        applyTabCloak(selectedCloak);
+      });
+    }
+  });
+
+  // Function to apply tab cloaking settings dynamically
+  function applyTabCloak(cloak) {
+    let title, faviconUrl;
+    switch (cloak) {
+      case 'google-classroom':
+        title = 'Google Classroom';
+        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
+        break;
+      case 'amplify':
+        title = 'Amplify';
+        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
+        break;
+      case 'google-docs':
+        title = 'Google Docs';
+        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
+        break;
+      case 'desmos':
+        title = 'Desmos Calculator';
+        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+        break;
+      default:
+        // Default case - reset title and favicon
+        title = 'YoBoiJake';
+        faviconUrl = '/assets/images/logo.png';
+    }
+
+    // Apply the title and favicon to the page
+    document.title = title;
+
+    // Create a new link element or update the existing one
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = faviconUrl;
+
+    // Check if the link already exists and remove it if so
+    let existingLink = document.querySelector('link[rel="icon"]');
+    if (existingLink) {
+      document.head.removeChild(existingLink);
+    }
+
+    // Append the new link element for the favicon
+    document.head.appendChild(link);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "YoBoiJakeV2",
+  "version": "1.0.0",
+  "description": "BEST Fun Unblocked Games!!!",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node index.mjs",
+    "setup": "npm i"
+  },
+  "dependencies": {
+    "@titaniumnetwork-dev/ultraviolet": "^1.0.11",
+    "@tomphttp/bare-server-node": "^2.0.5",
+    "@tsparticles/react": "^3.0.0",
+    "audit": "^0.0.6",
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.7"
+  }
+}

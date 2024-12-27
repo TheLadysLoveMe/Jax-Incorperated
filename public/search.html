@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search - YoBoiJake</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    #uv-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .search-bar {
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+      border-radius: 5px;
+      border: 2px solid red;
+      background-color: black;
+      color: red;
+      transition: border-color 0.3s;
+    }
+
+    .search-bar:focus {
+      border-color: red;
+      outline: none;
+    }
+
+    .desc {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    #uv-error {
+      color: red;
+      font-size: 14px;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/assets/images/logo.png" alt="YoBoiJake Logo">
+    <span id="logo-name">YoBoiJake</span>
+    <nav>
+      <a href="/index.html">Home</a>
+      <a href="/games.html">Games</a>
+      <a href="/search.html">Search</a> 
+      <a href="/settings.html">Settings</a>
+    </nav>
+  </header>
+
+  <main>
+    <form id="uv-form">
+      <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden">
+      <input id="uv-address" class="search-bar" type="text" placeholder="Search Google or type a URL">
+    </form>
+    <div class="desc left-margin">
+      <p id="uv-error"></p>
+      <pre id="uv-error-code"></pre>
+    </div>
+  </main>
+
+  <!-- JavaScript for navigation and themes -->
+  <script src="/uv/uv.bundle.js"></script>
+  <script src="/uv/uv.config.js"></script>
+  <script src="/uv/index.js"></script>
+  <script src="/uv/search.js" defer></script>
+
+  <script>
+    // Panic Key functionality
+    document.addEventListener('keydown', function (e) {
+      const panicKey = localStorage.getItem('panicKey');
+      if (panicKey && e.key.toUpperCase() === panicKey) {
+        window.location.href = 'https://classroom.google.com';
+      }
+    });
+
+    // Ad configuration
+    atOptions = {
+      'key': 'b7ce0045a6c724134a50361a5ae06e0a',
+      'format': 'iframe',
+      'height': 90,
+      'width': 728,
+      'params': {}
+    };
+
+    // Load ad script
+    const adScript = document.createElement('script');
+    adScript.src = "//www.highperformanceformat.com/b7ce0045a6c724134a50361a5ae06e0a/invoke.js";
+    document.body.appendChild(adScript);
+
+    // Theme handling
+    document.addEventListener('DOMContentLoaded', function () {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        applyTheme(savedTheme);
+      }
+
+      const themeSelector = document.getElementById('theme-selector');
+      if (themeSelector) {
+        if (savedTheme) {
+          themeSelector.value = savedTheme;
+        }
+        themeSelector.addEventListener('change', function () {
+          const selectedTheme = themeSelector.value;
+          localStorage.setItem('theme', selectedTheme);
+          applyTheme(selectedTheme);
+        });
+      }
+    });
+
+    function applyTheme(theme) {
+      const allElements = document.querySelectorAll("*");
+      const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+
+      if (theme === 'default') {
+        allElements.forEach(el => {
+          el.style.backgroundColor = '';
+          el.style.color = '';
+          el.style.borderColor = '';
+        });
+        styleSheet.innerHTML = '';
+        return;
+      }
+
+      let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
+      switch (theme) {
+        case 'dark':
+          backgroundColor = '#121212';
+          textColor = 'white';
+          borderColor = 'gray';
+          hoverBackgroundColor = '#1c1c1c';
+          hoverTextColor = '#f0f0f0';
+          break;
+        case 'light':
+          backgroundColor = 'white';
+          textColor = 'black';
+          borderColor = 'black';
+          hoverBackgroundColor = '#f7f7f7';
+          hoverTextColor = '#333';
+          break;
+        case 'blue':
+          backgroundColor = '#1e3a5f';
+          textColor = '#a9d6e5';
+          borderColor = '#4682b4';
+          hoverBackgroundColor = '#24476d';
+          hoverTextColor = '#c0e9f5';
+          break;
+        case 'forest':
+          backgroundColor = '#2b4227';
+          textColor = '#d0e6b5';
+          borderColor = '#3c6e47';
+          hoverBackgroundColor = '#365735';
+          hoverTextColor = '#e0f0c5';
+          break;
+        case 'sunset':
+          backgroundColor = '#ffad60';
+          textColor = '#4a1a1a';
+          borderColor = '#ff4500';
+          hoverBackgroundColor = '#ff9240';
+          hoverTextColor = '#5c1e1e';
+          break;
+        case 'purple':
+          backgroundColor = '#4b0082';
+          textColor = '#d8a1e3';
+          borderColor = '#9b4d96';
+          hoverBackgroundColor = '#6a1e9f';
+          hoverTextColor = '#f3d4f1';
+          break;
+        case 'retro-neon':
+          backgroundColor = '#222222';
+          textColor = '#ff00ff';
+          borderColor = '#00ff00';
+          hoverBackgroundColor = '#ff00ff';
+          hoverTextColor = '#222222';
+          break;
+        case 'ocean':
+          backgroundColor = '#006994';
+          textColor = '#a4e4e1';
+          borderColor = '#4ca3d7';
+          hoverBackgroundColor = '#00577e';
+          hoverTextColor = '#a8e1e1';
+          break;
+        case 'cherry-blossom':
+          backgroundColor = '#ffb7c5';
+          textColor = '#5a3d44';
+          borderColor = '#9e7f7f';
+          hoverBackgroundColor = '#f7d1d9';
+          hoverTextColor = '#4d2a2a';
+          break;
+        case 'space':
+          backgroundColor = '#000000';
+          textColor = '#ffffff';
+          borderColor = '#404040';
+          hoverBackgroundColor = '#333333';
+          hoverTextColor = '#e6e6e6';
+          break;
+        case 'autumn':
+          backgroundColor = '#d56d2e';
+          textColor = '#d8a56d';
+          borderColor = '#8c4f2d';
+          hoverBackgroundColor = '#bb4f2f';
+          hoverTextColor = '#f5e0d6';
+          break;
+        case 'cyberpunk':
+          backgroundColor = '#2b2b2b';
+          textColor = '#00ff9d';
+          borderColor = '#ff1b8d';
+          hoverBackgroundColor = '#3c3c3c';
+          hoverTextColor = '#ff44d8';
+          break;
+        case 'mint':
+          backgroundColor = '#98ff98';
+          textColor = '#2e6f4f';
+          borderColor = '#46a27e';
+          hoverBackgroundColor = '#76c7b7';
+          hoverTextColor = '#3a7b66';
+          break;
+        case 'neon-green':
+          backgroundColor = '#00ff00';
+          textColor = '#000000';
+          borderColor = '#009900';
+          hoverBackgroundColor = '#00cc00';
+          hoverTextColor = '#000000';
+          break;
+        case 'sunrise':
+          backgroundColor = '#ff7f50';
+          textColor = '#ffcc00';
+          borderColor = '#ff4500';
+          hoverBackgroundColor = '#ff5500';
+          hoverTextColor = '#ff9f40';
+          break;
+        default:
+          return;
+      }
+
+      allElements.forEach(el => {
+        el.style.backgroundColor = backgroundColor;
+        el.style.color = textColor;
+        el.style.borderColor = borderColor;
+      });
+
+      styleSheet.innerHTML = `
+        button, a {
+          transition: background-color 0.3s, color 0.3s;
+        }
+        button:hover, a:hover {
+          background-color: ${hoverBackgroundColor};
+          color: ${hoverTextColor};
+        }
+      `;
+    }
+
+    function createDynamicStyleSheet() {
+      const styleSheet = document.createElement('style');
+      styleSheet.id = 'dynamic-theme-styles';
+      document.head.appendChild(styleSheet);
+      return styleSheet;
+    }
+  </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load the saved panic key from localStorage
+    const savedPanicKey = localStorage.getItem('panicKey');
+
+    if (savedPanicKey) {
+      // Listen for key presses globally to activate the panic key
+      document.addEventListener('keydown', function (event) {
+        if (event.key === savedPanicKey) {
+          // Redirect to Google Classroom when the panic key is pressed
+          window.location.href = 'https://classroom.google.com';
+        }
+      });
+    }
+  });
+</script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load the saved tab cloak setting from localStorage
+    const savedCloak = localStorage.getItem('tabCloak');
+    if (savedCloak) {
+      applyTabCloak(savedCloak);
+    }
+
+    // Listen for changes in the tab cloak setting (if a selector is present)
+    const tabCloakSelector = document.getElementById('tab-cloak-selector');
+    if (tabCloakSelector) {
+      tabCloakSelector.addEventListener('change', function () {
+        const selectedCloak = tabCloakSelector.value;
+        localStorage.setItem('tabCloak', selectedCloak);
+        applyTabCloak(selectedCloak);
+      });
+    }
+  });
+
+  // Function to apply tab cloaking settings dynamically
+  function applyTabCloak(cloak) {
+    let title, faviconUrl;
+    switch (cloak) {
+      case 'google-classroom':
+        title = 'Google Classroom';
+        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
+        break;
+      case 'amplify':
+        title = 'Amplify';
+        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
+        break;
+      case 'google-docs':
+        title = 'Google Docs';
+        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
+        break;
+      case 'desmos':
+        title = 'Desmos Calculator';
+        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+        break;
+      default:
+        // Default case - reset title and favicon
+        title = 'YoBoiJake';
+        faviconUrl = '/assets/images/logo.png';
+    }
+
+    // Apply the title and favicon to the page
+    document.title = title;
+
+    // Create a new link element or update the existing one
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = faviconUrl;
+
+    // Check if the link already exists and remove it if so
+    let existingLink = document.querySelector('link[rel="icon"]');
+    if (existingLink) {
+      document.head.removeChild(existingLink);
+    }
+
+    // Append the new link element for the favicon
+    document.head.appendChild(link);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - YoBoiJake</title>
+  <link rel="manifest" href="/manifest.json"/>
+  <link rel="icon" type="image/png" href="/assets/images/logo.png">
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    /* General styling for container box */
+    .box-container {
+      border: 2px solid red;
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px;
+      margin: 20px;
+      text-align: center;
+      background-color: black; /* Updated to black */
+      color: red;
+    }
+
+    /* Input and button styles */
+    .styled-input, .styled-button {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid red;
+      border-radius: 8px;
+      outline: none;
+      width: 90%;
+      margin-bottom: 10px;
+      background-color: black;
+      color: red;
+      transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    }
+
+    .styled-input:focus, .styled-button:hover {
+      border-color: darkred;
+      background-color: #333;
+    }
+
+    /* Larger text for the titles */
+    .setting-title {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      color: red;
+    }
+
+    /* Grid for aligning boxes in the center */
+    .settings-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 columns */
+      grid-gap: 20px;
+      justify-items: center;
+      margin-top: 40px;
+    }
+
+    /* Ensure smooth transitions for all elements */
+    body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/assets/images/logo.png" alt="YoBoiJake Logo">
+    <span id="logo-name">YoBoiJake</span>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/games.html">Games</a>
+      <a href="/search.html">Search</a>
+      <a href="/settings.html">Settings</a>
+    </nav>
+  </header>
+
+  <main id="settings-content">
+    <!-- Create container for the two sections -->
+    <div class="settings-container">
+      <!-- Panic Key Section -->
+      <div>
+        <div class="setting-title" id="panic-key-title">Panic Key</div>
+        <div class="box-container">
+          <p class="panic-key-explanation" id="panic-key-explanation">
+            The panic key allows you to quickly navigate to Google Classroom. Once set, press the key anywhere on the site to activate it.
+          </p>
+          <input 
+            id="panic-key-input" 
+            class="styled-input" 
+            type="text" 
+            placeholder="Enter Panic Key" 
+            maxlength="1"
+            oninput="savePanicKey()"
+          />
+        </div>
+      </div>
+
+      <!-- Themes Section -->
+      <div>
+        <div class="setting-title" id="themes-title">Themes</div>
+        <div class="box-container">
+          <p class="theme-explanation" id="theme-explanation">
+            Choose a theme to customize the appearance of the website. Your selection will be saved.
+          </p>
+          <select id="theme-selector" class="styled-input">
+            <option value="default">Default</option>
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="blue">Blue</option>
+            <option value="forest">Forest</option>
+            <option value="sunset">Sunset</option>
+            <option value="purple">Purple Dream</option>
+            <option value="retro-neon">Retro Neon</option>
+            <option value="ocean">Ocean Breeze</option>
+            <option value="cherry-blossom">Cherry Blossom</option>
+            <option value="space">Space Explorer</option>
+            <option value="autumn">Autumn Leaves</option>
+            <option value="cyberpunk">Cyberpunk</option>
+            <option value="mint">Minty Fresh</option>
+            <option value="neon-green">Neon Green</option>
+            <option value="sunrise">Sunrise</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Tab Cloaking Section -->
+      <div>
+        <div class="setting-title" id="tab-cloaking-title">Tab Cloaking</div>
+        <div class="box-container">
+          <p class="tab-cloaking-explanation" id="tab-cloaking-explanation">
+            Choose a service to customize the tab's title and icon. Your selection will be saved.
+          </p>
+          <select id="tab-cloak-selector" class="styled-input">
+            <option value="google-classroom">Google Classroom</option>
+            <option value="amplify">Amplify</option>
+            <option value="google-docs">Google Docs</option>
+            <option value="desmos">Desmos Calculator</option>
+            <option value="default">Default</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load the saved panic key
+    const panicKeyInput = document.getElementById('panic-key-input');
+    const savedPanicKey = localStorage.getItem('panicKey');
+    if (savedPanicKey) {
+      panicKeyInput.value = savedPanicKey;
+    }
+
+    // Listen for key presses globally to activate the panic key
+    document.addEventListener('keydown', function (event) {
+      if (event.key === localStorage.getItem('panicKey')) {
+        // Redirect to Google Classroom when the panic key is pressed
+        window.location.href = 'https://classroom.google.com';
+      }
+    });
+
+    // Load and apply the saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    }
+
+    // Initialize the theme selector if it exists
+    const themeSelector = document.getElementById('theme-selector');
+    if (themeSelector) {
+      if (savedTheme) {
+        themeSelector.value = savedTheme;
+      }
+      themeSelector.addEventListener('change', function () {
+        const selectedTheme = themeSelector.value;
+        localStorage.setItem('theme', selectedTheme);
+        applyTheme(selectedTheme);
+      });
+    }
+
+    // Initialize the tab cloaking selector if it exists
+    const tabCloakSelector = document.getElementById('tab-cloak-selector');
+    if (tabCloakSelector) {
+      const savedCloak = localStorage.getItem('tabCloak');
+      if (savedCloak) {
+        tabCloakSelector.value = savedCloak;
+        applyTabCloak(savedCloak);
+      }
+
+      tabCloakSelector.addEventListener('change', function () {
+        const selectedCloak = tabCloakSelector.value;
+        localStorage.setItem('tabCloak', selectedCloak);
+        applyTabCloak(selectedCloak);
+      });
+    }
+  });
+
+  // Save the panic key to localStorage
+  function savePanicKey() {
+    const panicKeyInput = document.getElementById('panic-key-input');
+    const panicKey = panicKeyInput.value;
+
+    if (panicKey.length === 1) { // Ensure only a single character is saved
+      localStorage.setItem('panicKey', panicKey);
+    }
+  }
+
+  // Function to apply a theme dynamically to all elements
+  function applyTheme(theme) {
+    const allElements = document.querySelectorAll("*");
+    const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+    if (theme === 'default') {
+      allElements.forEach(el => {
+        el.style.backgroundColor = '';
+        el.style.color = '';
+        el.style.borderColor = '';
+      });
+      styleSheet.innerHTML = '';
+      return;
+    }
+
+    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
+    switch (theme) {
+      case 'dark':
+        backgroundColor = '#121212';
+        textColor = 'white';
+        borderColor = 'gray';
+        hoverBackgroundColor = '#1c1c1c';
+        hoverTextColor = '#f0f0f0';
+        break;
+      case 'light':
+        backgroundColor = 'white';
+        textColor = 'black';
+        borderColor = 'black';
+        hoverBackgroundColor = '#f7f7f7';
+        hoverTextColor = '#333';
+        break;
+      case 'blue':
+        backgroundColor = '#1e3a5f';
+        textColor = '#a9d6e5';
+        borderColor = '#4682b4';
+        hoverBackgroundColor = '#24476d';
+        hoverTextColor = '#c0e9f5';
+        break;
+      case 'forest':
+        backgroundColor = '#2b4227';
+        textColor = '#d0e6b5';
+        borderColor = '#3c6e47';
+        hoverBackgroundColor = '#365735';
+        hoverTextColor = '#e0f0c5';
+        break;
+      case 'sunset':
+        backgroundColor = '#ffad60';
+        textColor = '#4a1a1a';
+        borderColor = '#ff4500';
+        hoverBackgroundColor = '#ff9240';
+        hoverTextColor = '#5c1e1e';
+        break;
+      case 'purple':
+        backgroundColor = '#4b0082';
+        textColor = '#d8a1e3';
+        borderColor = '#9b4d96';
+        hoverBackgroundColor = '#6a1e9f';
+        hoverTextColor = '#f3d4f1';
+        break;
+      case 'retro-neon':
+        backgroundColor = '#222222';
+        textColor = '#ff00ff';
+        borderColor = '#00ff00';
+        hoverBackgroundColor = '#ff00ff';
+        hoverTextColor = '#222222';
+        break;
+      case 'ocean':
+        backgroundColor = '#006994';
+        textColor = '#a4e4e1';
+        borderColor = '#4ca3d7';
+        hoverBackgroundColor = '#00577e';
+        hoverTextColor = '#a8e1e1';
+        break;
+      case 'cherry-blossom':
+        backgroundColor = '#ffb7c5';
+        textColor = '#5a3d44';
+        borderColor = '#9e7f7f';
+        hoverBackgroundColor = '#f7d1d9';
+        hoverTextColor = '#4d2a2a';
+        break;
+      case 'space':
+        backgroundColor = '#000000';
+        textColor = '#ffffff';
+        borderColor = '#404040';
+        hoverBackgroundColor = '#333333';
+        hoverTextColor = '#e6e6e6';
+        break;
+      case 'autumn':
+        backgroundColor = '#d56d2e';
+        textColor = '#d8a56d';
+        borderColor = '#8c4f2d';
+        hoverBackgroundColor = '#bb4f2f';
+        hoverTextColor = '#f5e0d6';
+        break;
+      case 'cyberpunk':
+        backgroundColor = '#2b2b2b';
+        textColor = '#00ff9d';
+        borderColor = '#ff1b8d';
+        hoverBackgroundColor = '#3c3c3c';
+        hoverTextColor = '#ff44d8';
+        break;
+      case 'mint':
+        backgroundColor = '#98ff98';
+        textColor = '#2e6f4f';
+        borderColor = '#46a27e';
+        hoverBackgroundColor = '#76c7b7';
+        hoverTextColor = '#3a7b66';
+        break;
+      case 'neon-green':
+        backgroundColor = '#00ff00';
+        textColor = '#000000';
+        borderColor = '#009900';
+        hoverBackgroundColor = '#00cc00';
+        hoverTextColor = '#000000';
+        break;
+      case 'sunrise':
+        backgroundColor = '#ff7f50';
+        textColor = '#ffcc00';
+        borderColor = '#ff4500';
+        hoverBackgroundColor = '#ff5500';
+        hoverTextColor = '#ff9f40';
+        break;
+      default:
+        return;
+    }
+
+    allElements.forEach(el => {
+      el.style.backgroundColor = backgroundColor;
+      el.style.color = textColor;
+      el.style.borderColor = borderColor;
+    });
+
+    styleSheet.innerHTML = 
+      'button, a { transition: background-color 0.3s, color 0.3s; }' +
+      'button:hover, a:hover { background-color: ' + hoverBackgroundColor + '; color: ' + hoverTextColor + '; }';
+  }
+
+  function createDynamicStyleSheet() {
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'dynamic-theme-styles';
+    document.head.appendChild(styleSheet);
+    return styleSheet;
+  }
+
+  // Function to apply tab cloaking settings
+  function applyTabCloak(cloak) {
+    let title, faviconUrl;
+    switch (cloak) {
+      case 'google-classroom':
+        title = 'Google Classroom';
+        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
+        break;
+      case 'amplify':
+        title = 'Amplify';
+        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
+        break;
+      case 'google-docs':
+        title = 'Google Docs';
+        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
+        break;
+      case 'desmos':
+        title = 'Desmos Calculator';
+        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+         break;
+    default:
+      // Default case - reset title and favicon
+      title = 'YoBoiJake';
+      faviconUrl = '/assets/images/logo.png';
+  }
+
+
+    document.title = title;
+
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = faviconUrl;
+
+    let existingLink = document.querySelector('link[rel="icon"]');
+    if (existingLink) {
+      document.head.removeChild(existingLink);
+    }
+
+    document.head.appendChild(link);
+  }
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load the saved tab cloak setting from localStorage
+    const savedCloak = localStorage.getItem('tabCloak');
+    if (savedCloak) {
+      applyTabCloak(savedCloak);
+    }
+
+    // Listen for changes in the tab cloak setting (if a selector is present)
+    const tabCloakSelector = document.getElementById('tab-cloak-selector');
+    if (tabCloakSelector) {
+      tabCloakSelector.addEventListener('change', function () {
+        const selectedCloak = tabCloakSelector.value;
+        localStorage.setItem('tabCloak', selectedCloak);
+        applyTabCloak(selectedCloak);
+      });
+    }
+  });
+
+  // Function to apply tab cloaking settings dynamically
+  function applyTabCloak(cloak) {
+    let title, faviconUrl;
+    switch (cloak) {
+      case 'google-classroom':
+        title = 'Google Classroom';
+        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
+        break;
+      case 'amplify':
+        title = 'Amplify';
+        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
+        break;
+      case 'google-docs':
+        title = 'Google Docs';
+        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
+        break;
+      case 'desmos':
+        title = 'Desmos Calculator';
+        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+        break;
+      default:
+        // Default case - reset title and favicon
+        title = 'YoBoiJake';
+        faviconUrl = '/assets/images/logo.png';
+    }
+
+    // Apply the title and favicon to the page
+    document.title = title;
+
+    // Create a new link element or update the existing one
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = faviconUrl;
+
+    // Check if the link already exists and remove it if so
+    let existingLink = document.querySelector('link[rel="icon"]');
+    if (existingLink) {
+      document.head.removeChild(existingLink);
+    }
+
+    // Append the new link element for the favicon
+    document.head.appendChild(link);
+  }
+</script>
+
+</body>
+</html>
