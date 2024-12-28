@@ -77,6 +77,7 @@
       white-space: pre-wrap;
       word-wrap: break-word;
     }
+
     /* Input area */
     #user-input {
       width: calc(100% - 120px);
@@ -88,6 +89,7 @@
       background-color: #1a1a1a;
       color: white;
     }
+
     /* Send button */
     #send-button {
       padding: 12px 20px;
@@ -98,14 +100,25 @@
       cursor: pointer;
       font-size: 14px;
     }
+
     #send-button:hover {
       background-color: #cc0000;
     }
+
     /* Typing indicator (optional) */
     .typing-indicator {
       font-style: italic;
       color: #aaa;
       margin-top: 10px;
+    }
+
+    /* Navigation links styling */
+    nav a {
+      color: red;
+    }
+
+    nav a:hover {
+      color: darkred;
     }
   </style>
 </head>
@@ -114,11 +127,11 @@
     <img src="/assets/images/logo.png" alt="YoBoiJake Logo" width="40">
     <span id="logo-name">YoBoiJake</span>
     <nav>
-      <a href="/" style="color: white;">Home</a>
-      <a href="/games.html" style="color: white;">Games</a>
-      <a href="/search.html" style="color: white;">Search</a>
-      <a href="/chatgpt.html" style="color: white;">ChatGPT</a>
-      <a href="/settings.html" style="color: white;">Settings</a>
+      <a href="/" style="color: red;">Home</a>
+      <a href="/games.html" style="color: red;">Games</a>
+      <a href="/search.html" style="color: red;">Search</a>
+      <a href="/chatgpt.html" style="color: red;">ChatGPT</a>
+      <a href="/settings.html" style="color: red;">Settings</a>
     </nav>
   </header>
   <div id="chat-container">
