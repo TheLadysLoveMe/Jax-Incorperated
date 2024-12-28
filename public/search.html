@@ -79,24 +79,18 @@
   <script src="/js/index.js"></script>
   <script src="/uv/search.js" defer></script>
 
- <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const savedPanicKey = localStorage.getItem('panicKey');
+  <script>
+    // Panic Key functionality
+    document.addEventListener('keydown', function (e) {
+      const panicKey = localStorage.getItem('panicKey');
+      const searchInput = document.getElementById('uv-address');
 
-    if (savedPanicKey) {
-      document.addEventListener('keydown', function (event) {
-        const activeElement = document.activeElement;
+      // Only trigger panic key if input field is not focused
+      if (panicKey && e.key.toUpperCase() === panicKey && document.activeElement !== searchInput) {
+        window.location.href = 'https://classroom.google.com';
+      }
+    });
 
-        // Check if the active element is an input or textarea
-        const isTyping = activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA';
-
-        // Trigger the panic key only if not typing
-        if (!isTyping && event.key.toUpperCase() === savedPanicKey) {
-          window.location.href = 'https://classroom.google.com';
-        }
-      });
-    }
-  });
 
     // Ad configuration
     atOptions = {
