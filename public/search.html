@@ -79,14 +79,24 @@
   <script src="/js/index.js"></script>
   <script src="/uv/search.js" defer></script>
 
-  <script>
-    // Panic Key functionality
-    document.addEventListener('keydown', function (e) {
-      const panicKey = localStorage.getItem('panicKey');
-      if (panicKey && e.key.toUpperCase() === panicKey) {
-        window.location.href = 'https://classroom.google.com';
-      }
-    });
+ <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const savedPanicKey = localStorage.getItem('panicKey');
+
+    if (savedPanicKey) {
+      document.addEventListener('keydown', function (event) {
+        const activeElement = document.activeElement;
+
+        // Check if the active element is an input or textarea
+        const isTyping = activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA';
+
+        // Trigger the panic key only if not typing
+        if (!isTyping && event.key.toUpperCase() === savedPanicKey) {
+          window.location.href = 'https://classroom.google.com';
+        }
+      });
+    }
+  });
 
     // Ad configuration
     atOptions = {
