@@ -66,39 +66,25 @@
       word-wrap: break-word;
       overflow-x: auto;
     }
-
-    /* Input container */
-    #user-input {
-      width: calc(100% - 100px);
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin-right: 10px;
-    }
-
-    #send-button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #send-button:hover {
-      background-color: #0056b3;
-    }
-
-    /* Navigation link styles */
-    nav a {
-      color: red; /* Set the text color to red */
-      text-decoration: none; /* Remove underline */
-      margin-right: 15px; /* Optional: Add space between the links */
-    }
-
-    nav a:hover {
-      color: darkred; /* Change color on hover */
-    }
+  /* Input container */
+  #user-input {
+    width: calc(100% - 100px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  #send-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  #send-button:hover {
+    background-color: #0056b3;
+  }
   </style>
 </head>
 <body>
@@ -127,10 +113,14 @@
       
       // Convert bold (****) into <b>
       text = text.replace(/\*\*\*\*(.*?)\*\*\*\*/g, '<b>$1</b>');
-      // Convert inline code (single backticks `code`) into <code> elements
-      text = text.replace(/`(.*?)`/g, '<code>$1</code>');
-      // Convert multiline code blocks (triple backticks ```code```) into <pre><code> elements
-      text = text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+      // Convert inline code (single backticks code) into <code> elements
+      text = text.replace(/(.*?)/g, '<code>$1</code>');
+      // Convert multiline code blocks (triple backticks 
+code
+) into <pre><code> elements
+      text = text.replace(/
+([\s\S]*?)
+/g, '<pre><code>$1</code></pre>');
       
       // You can add more rules here for other markdown formats like italics, lists, etc.
       return text;
@@ -190,4 +180,4 @@
     });
   </script>
 </body>
-</html>
+</html>]
