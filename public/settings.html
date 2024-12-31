@@ -56,22 +56,6 @@
       margin-top: 40px;
     }
 
-    /* Rainbow animation */
-    @keyframes rainbow {
-      0% { background-color: red; color: white; }
-      16% { background-color: orange; color: white; }
-      33% { background-color: yellow; color: black; }
-      50% { background-color: green; color: white; }
-      66% { background-color: blue; color: white; }
-      83% { background-color: indigo; color: white; }
-      100% { background-color: violet; color: white; }
-    }
-
-    .rainbow {
-      animation: rainbow 5s infinite;
-      transition: background-color 1s, color 1s;
-    }
-
     /* Ensure smooth transitions for all elements */
     body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
       transition: background-color 0.3s, color 0.3s, border-color 0.3s;
@@ -92,8 +76,25 @@
   </header>
 
   <main id="settings-content">
+    <!-- Create container for the two sections -->
     <div class="settings-container">
-      <!-- Existing sections remain unchanged -->
+      <!-- Panic Key Section -->
+      <div>
+        <div class="setting-title" id="panic-key-title">Panic Key</div>
+        <div class="box-container">
+          <p class="panic-key-explanation" id="panic-key-explanation">
+            The panic key allows you to quickly navigate to Google Classroom. Once set, press the key anywhere on the site to activate it.
+          </p>
+          <input 
+            id="panic-key-input" 
+            class="styled-input" 
+            type="text" 
+            placeholder="Enter Panic Key" 
+            maxlength="1"
+            oninput="savePanicKey()"
+          />
+        </div>
+      </div>
 
       <!-- Themes Section -->
       <div>
@@ -119,7 +120,24 @@
             <option value="mint">Minty Fresh</option>
             <option value="neon-green">Neon Green</option>
             <option value="sunrise">Sunrise</option>
-            <option value="rainbow">Rainbow</option>
+            <option value="rainbow">Rainbow</option> <!-- Added Rainbow theme option -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Tab Cloaking Section -->
+      <div>
+        <div class="setting-title" id="tab-cloaking-title">Tab Cloaking</div>
+        <div class="box-container">
+          <p class="tab-cloaking-explanation" id="tab-cloaking-explanation">
+            Choose a service to customize the tab's title and icon. Your selection will be saved.
+          </p>
+          <select id="tab-cloak-selector" class="styled-input">
+            <option value="google-classroom">Google Classroom</option>
+            <option value="amplify">Amplify</option>
+            <option value="google-docs">Google Docs</option>
+            <option value="desmos">Desmos Calculator</option>
+            <option value="default">Default</option>
           </select>
         </div>
       </div>
@@ -128,36 +146,254 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const themeSelector = document.getElementById('theme-selector');
+    // Load the saved panic key
+    const panicKeyInput = document.getElementById('panic-key-input');
+    const savedPanicKey = localStorage.getItem('panicKey');
+    if (savedPanicKey) {
+      panicKeyInput.value = savedPanicKey;
+    }
+
+    // Listen for key presses globally to activate the panic key
+    document.addEventListener('keydown', function (event) {
+      if (event.key === localStorage.getItem('panicKey')) {
+        // Redirect to Google Classroom when the panic key is pressed
+        window.location.href = 'https://classroom.google.com';
+      }
+    });
+
+    // Load and apply the saved theme
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       applyTheme(savedTheme);
-      themeSelector.value = savedTheme;
     }
 
-    themeSelector.addEventListener('change', function () {
-      const selectedTheme = themeSelector.value;
-      localStorage.setItem('theme', selectedTheme);
-      applyTheme(selectedTheme);
-    });
+    // Initialize the theme selector if it exists
+    const themeSelector = document.getElementById('theme-selector');
+    if (themeSelector) {
+      if (savedTheme) {
+        themeSelector.value = savedTheme;
+      }
+      themeSelector.addEventListener('change', function () {
+        const selectedTheme = themeSelector.value;
+        localStorage.setItem('theme', selectedTheme);
+        applyTheme(selectedTheme);
+      });
+    }
+
+    // Initialize the tab cloaking selector if it exists
+    const tabCloakSelector = document.getElementById('tab-cloak-selector');
+    if (tabCloakSelector) {
+      const savedCloak = localStorage.getItem('tabCloak');
+      if (savedCloak) {
+        tabCloakSelector.value = savedCloak;
+        applyTabCloak(savedCloak);
+      }
+
+      tabCloakSelector.addEventListener('change', function () {
+        const selectedCloak = tabCloakSelector.value;
+        localStorage.setItem('tabCloak', selectedCloak);
+        applyTabCloak(selectedCloak);
+      });
+    }
   });
 
+  // Save the panic key to localStorage
+  function savePanicKey() {
+    const panicKeyInput = document.getElementById('panic-key-input');
+    const panicKey = panicKeyInput.value;
+
+    if (panicKey.length === 1) { // Ensure only a single character is saved
+      localStorage.setItem('panicKey', panicKey);
+    }
+  }
+
+  // Function to apply a theme dynamically to all elements
   function applyTheme(theme) {
     const allElements = document.querySelectorAll("*");
-    const body = document.body;
-
-    if (theme === 'rainbow') {
-      body.classList.add('rainbow');
+    const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+    if (theme === 'default') {
+      allElements.forEach(el => {
+        el.style.backgroundColor = '';
+        el.style.color = '';
+        el.style.borderColor = '';
+      });
+      styleSheet.innerHTML = '';
       return;
-    } else {
-      body.classList.remove('rainbow');
     }
 
+    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
+    switch (theme) {
+      case 'dark':
+        backgroundColor = '#121212';
+        textColor = 'white';
+        borderColor = 'gray';
+        hoverBackgroundColor = '#1c1c1c';
+        hoverTextColor = '#f0f0f0';
+        break;
+      case 'light':
+        backgroundColor = 'white';
+        textColor = 'black';
+        borderColor = 'black';
+        hoverBackgroundColor = '#f7f7f7';
+        hoverTextColor = '#333';
+        break;
+      case 'blue':
+        backgroundColor = '#1e3a5f';
+        textColor = '#a9d6e5';
+        borderColor = '#4682b4';
+        hoverBackgroundColor = '#24476d';
+        hoverTextColor = '#c0e9f5';
+        break;
+      case 'forest':
+        backgroundColor = '#2b4227';
+        textColor = '#d0e6b5';
+        borderColor = '#3c6e47';
+        hoverBackgroundColor = '#365735';
+        hoverTextColor = '#e0f0c5';
+        break;
+      case 'sunset':
+        backgroundColor = '#ffad60';
+        textColor = '#4a1a1a';
+        borderColor = '#ff4500';
+        hoverBackgroundColor = '#ff9240';
+        hoverTextColor = '#5c1e1e';
+        break;
+      case 'purple':
+        backgroundColor = '#4b0082';
+        textColor = '#d8a1e3';
+        borderColor = '#9b4d96';
+        hoverBackgroundColor = '#6a1e9f';
+        hoverTextColor = '#f3d4f1';
+        break;
+      case 'retro-neon':
+        backgroundColor = '#222222';
+        textColor = '#ff00ff';
+        borderColor = '#00ff00';
+        hoverBackgroundColor = '#ff00ff';
+        hoverTextColor = '#222222';
+        break;
+      case 'ocean':
+        backgroundColor = '#006994';
+        textColor = '#a4e4e1';
+        borderColor = '#4ca3d7';
+        hoverBackgroundColor = '#00577e';
+        hoverTextColor = '#a8e1e1';
+        break;
+      case 'cherry-blossom':
+        backgroundColor = '#ffb7c5';
+        textColor = '#5a3d44';
+        borderColor = '#9e7f7f';
+        hoverBackgroundColor = '#f7d1d9';
+        hoverTextColor = '#4d2a2a';
+        break;
+      case 'space':
+        backgroundColor = '#000000';
+        textColor = '#ffffff';
+        borderColor = '#404040';
+        hoverBackgroundColor = '#333333';
+        hoverTextColor = '#e6e6e6';
+        break;
+      case 'autumn':
+        backgroundColor = '#d56d2e';
+        textColor = '#d8a56d';
+        borderColor = '#8c4f2d';
+        hoverBackgroundColor = '#bb4f2f';
+        hoverTextColor = '#f5e0d6';
+        break;
+      case 'cyberpunk':
+        backgroundColor = '#2b2b2b';
+        textColor = '#00ff9d';
+        borderColor = '#ff1b8d';
+        hoverBackgroundColor = '#3c3c3c';
+        hoverTextColor = '#ff44d8';
+        break;
+      case 'mint':
+        backgroundColor = '#98ff98';
+        textColor = '#2e6f4f';
+        borderColor = '#46a27e';
+        hoverBackgroundColor = '#76c7b7';
+        hoverTextColor = '#3a7b66';
+        break;
+      case 'neon-green':
+        backgroundColor = '#00ff00';
+        textColor = '#000000';
+        borderColor = '#32cd32';
+        hoverBackgroundColor = '#228b22';
+        hoverTextColor = '#a9dfbf';
+        break;
+      case 'sunrise':
+        backgroundColor = '#ffcc99';
+        textColor = '#6c3f1b';
+        borderColor = '#ff8c42';
+        hoverBackgroundColor = '#ff9642';
+        hoverTextColor = '#3e1f12';
+        break;
+      case 'rainbow': // Rainbow theme
+        backgroundColor = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)';
+        textColor = 'white';
+        borderColor = 'white';
+        hoverBackgroundColor = 'linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red)';
+        hoverTextColor = 'white';
+        break;
+      default:
+        backgroundColor = '';
+        textColor = '';
+        borderColor = '';
+        hoverBackgroundColor = '';
+        hoverTextColor = '';
+        break;
+    }
+
+    // Apply styles dynamically
     allElements.forEach(el => {
-      el.style.backgroundColor = '';
-      el.style.color = '';
-      el.style.borderColor = '';
+      el.style.backgroundColor = backgroundColor;
+      el.style.color = textColor;
+      el.style.borderColor = borderColor;
+      el.addEventListener('mouseenter', function() {
+        el.style.backgroundColor = hoverBackgroundColor;
+        el.style.color = hoverTextColor;
+      });
+      el.addEventListener('mouseleave', function() {
+        el.style.backgroundColor = backgroundColor;
+        el.style.color = textColor;
+      });
     });
+  }
+
+  // Create and add the dynamic stylesheet
+  function createDynamicStyleSheet() {
+    const style = document.createElement('style');
+    style.id = 'dynamic-theme-styles';
+    document.head.appendChild(style);
+    return style;
+  }
+
+  // Apply tab cloaking
+  function applyTabCloak(cloak) {
+    const title = document.querySelector('title');
+    const icon = document.querySelector('link[rel="icon"]');
+    switch (cloak) {
+      case 'google-classroom':
+        title.textContent = 'Google Classroom';
+        icon.href = '/assets/icons/classroom-icon.png';
+        break;
+      case 'amplify':
+        title.textContent = 'Amplify';
+        icon.href = '/assets/icons/amplify-icon.png';
+        break;
+      case 'google-docs':
+        title.textContent = 'Google Docs';
+        icon.href = '/assets/icons/docs-icon.png';
+        break;
+      case 'desmos':
+        title.textContent = 'Desmos';
+        icon.href = '/assets/icons/desmos-icon.png';
+        break;
+      default:
+        title.textContent = 'YoBoiJake';
+        icon.href = '/assets/images/logo.png';
+        break;
+    }
   }
 </script>
 </body>
