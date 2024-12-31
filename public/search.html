@@ -6,110 +6,72 @@
   <title>Search - YoBoiJake</title>
   <link rel="stylesheet" href="/css/styles.css">
   <style>
-    /* General Page Styles */
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #121212;
-      color: #fff;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-      background-color: #1c1c1c;
-    }
-
-    header img {
-      height: 40px;
-      width: auto;
-    }
-
-    header span {
-      font-size: 24px;
-      color: #ff9b00;
-    }
-
-    nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      font-size: 16px;
-    }
-
-    nav a:hover {
-      color: #ff9b00;
-    }
-
-    /* Main Search Section */
-    main {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 80vh;
-      padding: 20px;
-    }
-
-    /* Form Styling */
+    /* Search Section Styles */
     #uv-form {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 20px;
+      flex-direction: column;
+      margin-top: 50px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #1e1e1e;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 500px;
     }
 
-    /* Search Bar Styling */
     .search-bar {
-      padding: 15px 20px;
+      padding: 15px;
       font-size: 18px;
-      width: 350px;
-      border-radius: 50px;
-      border: 2px solid #ff9b00;
-      background-color: #333;
-      color: #fff;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+      border-radius: 8px;
+      border: 2px solid #ff4500;
+      background-color: #121212;
+      color: white;
       outline: none;
       transition: all 0.3s ease;
     }
 
     .search-bar::placeholder {
-      color: #aaa;
+      color: #bbb;
     }
 
     .search-bar:focus {
-      border-color: #ff9b00;
-      box-shadow: 0 0 8px rgba(255, 155, 0, 0.8);
-      background-color: #444;
+      border-color: #ff6600;
+      background-color: #222;
     }
 
-    /* Description Section */
     .desc {
-      color: #ff9b00;
+      color: #ff4500;
       text-align: center;
-      margin-top: 20px;
+      margin-top: 15px;
     }
 
     #uv-error {
-      color: #ff9b00;
+      color: red;
       font-size: 14px;
     }
 
-    /* Hover Effects */
-    .search-bar:hover {
-      background-color: #444;
-      border-color: #ff9b00;
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+      background-color: #121212;
     }
-    
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .search-bar {
-        width: 80%;
-        font-size: 16px;
-      }
+
+    /* Hover effect for the input field */
+    .search-bar:hover {
+      border-color: #ff6600;
+      background-color: #222;
+    }
+
+    /* Error and description styling */
+    .desc p, .desc pre {
+      margin: 0;
     }
   </style>
 </head>
