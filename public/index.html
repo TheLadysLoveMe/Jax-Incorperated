@@ -193,9 +193,7 @@
       'params' : {}
     };
   </script>
-  <script type="text/javascript" src="//www.highperformanceformat.com/b7ce0045a6c724134a50361a5ae06e0a/invoke.js"></script>
-
-<script>
+ <script>
   document.addEventListener('DOMContentLoaded', function () {
     // Load and apply the saved theme
     const savedTheme = localStorage.getItem('theme');
@@ -371,7 +369,7 @@ switch (theme) {
     });
 
     // Add hover effects dynamically using the stylesheet
-    styleSheet.innerHTML = 
+    styleSheet.innerHTML = `
       button, a {
         transition: background-color 0.3s, color 0.3s;
       }
@@ -379,7 +377,7 @@ switch (theme) {
         background-color: ${hoverBackgroundColor};
         color: ${hoverTextColor};
       }
-    ;
+    `;
   }
 
   // Helper function to create or find the dynamic stylesheet
