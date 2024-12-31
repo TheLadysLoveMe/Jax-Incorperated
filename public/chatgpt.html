@@ -261,118 +261,153 @@
       }
     });
 
-function applyTheme(theme) {
-  const allElements = document.querySelectorAll("*");
-  const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+    function applyTheme(theme) {
+      const allElements = document.querySelectorAll("*");
+      const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
 
-  let themeStyles = {};
-  switch (theme) {
-    case 'dark':
-      themeStyles = {
-        backgroundColor: '#121212',
-        textColor: 'white',
-        borderColor: 'gray',
-        hoverBackgroundColor: '#1c1c1c',
-        hoverTextColor: '#f0f0f0',
-        chatContainerBg: '#181818',
-        chatDisplayBg: '#121212',
-        userMessageBg: '#FF3333',
-        aiMessageBg: '#333',
-        userMessageColor: '#ffffff',
-        aiMessageColor: '#FF0000',
-      };
-      break;
-    case 'light':
-      themeStyles = {
-        backgroundColor: 'white',
-        textColor: 'black',
-        borderColor: 'black',
-        hoverBackgroundColor: '#f7f7f7',
-        hoverTextColor: '#333',
-        chatContainerBg: '#f0f0f0',
-        chatDisplayBg: '#ffffff',
-        userMessageBg: '#ffcccc',
-        aiMessageBg: '#eeeeee',
-        userMessageColor: '#000000',
-        aiMessageColor: '#444444',
-      };
-      break;
-    case 'blue':
-      themeStyles = {
-        backgroundColor: '#1e3a5f',
-        textColor: '#a9d6e5',
-        borderColor: '#4682b4',
-        hoverBackgroundColor: '#24476d',
-        hoverTextColor: '#c0e9f5',
-        chatContainerBg: '#2a4f78',
-        chatDisplayBg: '#1e3a5f',
-        userMessageBg: '#a9d6e5',
-        aiMessageBg: '#3a5f7d',
-        userMessageColor: '#1e3a5f',
-        aiMessageColor: '#ffffff',
-      };
-      break;
-    default:
-      // Reset to default theme
-      themeStyles = {
-        backgroundColor: '#000000',
-        textColor: '#ffffff',
-        borderColor: '#444444',
-        hoverBackgroundColor: '#181818',
-        hoverTextColor: '#ffffff',
-        chatContainerBg: '#181818',
-        chatDisplayBg: '#000000',
-        userMessageBg: '#FF0000',
-        aiMessageBg: '#333333',
-        userMessageColor: '#ffffff',
-        aiMessageColor: '#FF0000',
-      };
-  }
+      if (theme === 'default') {
+        allElements.forEach(el => {
+          el.style.backgroundColor = '';
+          el.style.color = '';
+          el.style.borderColor = '';
+        });
+        styleSheet.innerHTML = '';
+        return;
+      }
 
-  // Apply general styles
-  allElements.forEach(el => {
-    el.style.backgroundColor = themeStyles.backgroundColor;
-    el.style.color = themeStyles.textColor;
-    el.style.borderColor = themeStyles.borderColor;
-  });
-
-  // Apply specific styles
-  const chatContainer = document.getElementById('chat-container');
-  const chatDisplay = document.getElementById('chat-display');
-  const userMessages = document.querySelectorAll('.user-message');
-  const aiMessages = document.querySelectorAll('.ai-message');
-
-  if (chatContainer) chatContainer.style.backgroundColor = themeStyles.chatContainerBg;
-  if (chatDisplay) chatDisplay.style.backgroundColor = themeStyles.chatDisplayBg;
-
-  userMessages.forEach(msg => {
-    msg.style.backgroundColor = themeStyles.userMessageBg;
-    msg.style.color = themeStyles.userMessageColor;
-  });
-
-  aiMessages.forEach(msg => {
-    msg.style.backgroundColor = themeStyles.aiMessageBg;
-    msg.style.color = themeStyles.aiMessageColor;
-  });
-
-  // Update hover styles dynamically
-  styleSheet.innerHTML = `
-    button, a {
-      transition: background-color 0.3s, color 0.3s;
+      let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
+      switch (theme) {
+        case 'dark':
+          backgroundColor = '#121212';
+          textColor = 'white';
+          borderColor = 'gray';
+          hoverBackgroundColor = '#1c1c1c';
+          hoverTextColor = '#f0f0f0';
+          break;
+        case 'light':
+          backgroundColor = 'white';
+          textColor = 'black';
+          borderColor = 'black';
+          hoverBackgroundColor = '#f7f7f7';
+          hoverTextColor = '#333';
+          break;
+        case 'blue':
+          backgroundColor = '#1e3a5f';
+          textColor = '#a9d6e5';
+          borderColor = '#4682b4';
+          hoverBackgroundColor = '#24476d';
+          hoverTextColor = '#c0e9f5';
+          break;
+        case 'forest':
+          backgroundColor = '#2b4227';
+          textColor = '#d0e6b5';
+          borderColor = '#3c6e47';
+          hoverBackgroundColor = '#365735';
+          hoverTextColor = '#e0f0c5';
+          break;
+        case 'sunset':
+          backgroundColor = '#ffad60';
+          textColor = '#4a1a1a';
+          borderColor = '#ff4500';
+          hoverBackgroundColor = '#ff9240';
+          hoverTextColor = '#5c1e1e';
+          break;
+        case 'purple':
+          backgroundColor = '#4b0082';
+          textColor = '#d8a1e3';
+          borderColor = '#9b4d96';
+          hoverBackgroundColor = '#6a1e9f';
+          hoverTextColor = '#f3d4f1';
+          break;
+        case 'retro-neon':
+          backgroundColor = '#222222';
+          textColor = '#ff00ff';
+          borderColor = '#00ff00';
+          hoverBackgroundColor = '#ff00ff';
+          hoverTextColor = '#222222';
+          break;
+        case 'ocean':
+          backgroundColor = '#006994';
+          textColor = '#a4e4e1';
+          borderColor = '#4ca3d7';
+          hoverBackgroundColor = '#00577e';
+          hoverTextColor = '#a8e1e1';
+          break;
+        case 'cherry-blossom':
+          backgroundColor = '#ffb7c5';
+          textColor = '#5a3d44';
+          borderColor = '#9e7f7f';
+          hoverBackgroundColor = '#f7d1d9';
+          hoverTextColor = '#4d2a2a';
+          break;
+        case 'space':
+          backgroundColor = '#000000';
+          textColor = '#ffffff';
+          borderColor = '#404040';
+          hoverBackgroundColor = '#333333';
+          hoverTextColor = '#e6e6e6';
+          break;
+        case 'autumn':
+          backgroundColor = '#d56d2e';
+          textColor = '#d8a56d';
+          borderColor = '#8c4f2d';
+          hoverBackgroundColor = '#bb4f2f';
+          hoverTextColor = '#f5e0d6';
+          break;
+        case 'cyberpunk':
+          backgroundColor = '#2b2b2b';
+          textColor = '#00ff9d';
+          borderColor = '#ff1b8d';
+          hoverBackgroundColor = '#3c3c3c';
+          hoverTextColor = '#ff44d8';
+          break;
+        case 'mint':
+          backgroundColor = '#98ff98';
+          textColor = '#2e6f4f';
+          borderColor = '#46a27e';
+          hoverBackgroundColor = '#76c7b7';
+          hoverTextColor = '#3a7b66';
+          break;
+        case 'neon-green':
+          backgroundColor = '#00ff00';
+          textColor = '#000000';
+          borderColor = '#009900';
+          hoverBackgroundColor = '#00cc00';
+          hoverTextColor = '#000000';
+          break;
+        case 'sunrise':
+          backgroundColor = '#ff7f50';
+          textColor = '#ffcc00';
+          borderColor = '#ff4500';
+          hoverBackgroundColor = '#ff5500';
+          hoverTextColor = '#ff9f40';
+          break;
+        default:
+          return;
+      }
+      allElements.forEach(el => {
+        el.style.backgroundColor = backgroundColor;
+        el.style.color = textColor;
+        el.style.borderColor = borderColor;
+      });
+      styleSheet.innerHTML = `
+        button, a {
+          transition: background-color 0.3s, color 0.3s;
+        }
+        button:hover, a:hover {
+          background-color: ${hoverBackgroundColor};
+          color: ${hoverTextColor};
+        }
+      `;
     }
-    button:hover, a:hover {
-      background-color: ${themeStyles.hoverBackgroundColor};
-      color: ${themeStyles.hoverTextColor};
-    }
-  `;
-}
 
-function createDynamicStyleSheet() {
-  const styleSheet = document.createElement('style');
-  styleSheet.id = 'dynamic-theme-styles';
-  document.head.appendChild(styleSheet);
-  return styleSheet;
-}
+    function createDynamicStyleSheet() {
+      const styleSheet = document.createElement('style');
+      styleSheet.id = 'dynamic-theme-styles';
+      document.head.appendChild(styleSheet);
+      return styleSheet;
+    }
+  </script>
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved panic key from localStorage
