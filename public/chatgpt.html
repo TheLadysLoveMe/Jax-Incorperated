@@ -10,17 +10,17 @@
   <style>
     /* General Chat Container */
     body {
-      background-color: var(--background-color, #000000);
-      color: var(--text-color, #fff);
+      background-color: #000000;
+      color: #fff;
       font-family: Arial, sans-serif;
     }
     #chat-container {
       max-width: 700px;
       margin: 50px auto;
       padding: 10px;
-      border: 1px solid var(--border-color, #444);
+      border: 1px solid #444;
       border-radius: 10px;
-      background-color: var(--background-color, #181818);
+      background-color: #181818;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
@@ -30,9 +30,9 @@
       overflow-y: auto;
       padding: 20px;
       margin-bottom: 10px;
-      border-bottom: 1px solid var(--border-color, #333);
+      border-bottom: 1px solid #333;
       scroll-behavior: smooth;
-      background-color: var(--background-color, #000000);
+      background-color: #000000;
     }
 
     /* User and AI message styles */
@@ -43,10 +43,10 @@
     }
 
     .user-message {
-      background-color: var(--user-message-bg, #FF0000);
-      color: var(--user-message-color, white);
+      background-color: #FF0000;
+      color: white;
       padding: 12px 18px;
-      border: 2px solid var(--user-message-bg, #FF0000);
+      border: 2px solid #FF0000;
       border-radius: 20px;
       align-self: flex-end;
       margin-left: auto;
@@ -55,10 +55,10 @@
     }
 
     .ai-message {
-      background-color: var(--ai-message-bg, #333);
-      color: var(--ai-message-color, red);
+      background-color: #333;
+      color: red;
       padding: 12px 18px;
-      border: 2px solid var(--ai-message-color, red);
+      border: 2px solid red;
       border-radius: 20px;
       align-self: flex-start;
       margin-right: auto;
@@ -69,8 +69,8 @@
     /* Code block inside AI message */
     .ai-message code {
       display: block;
-      background-color: var(--code-bg, #2d2d2d);
-      color: var(--code-color, #f8f8f2);
+      background-color: #2d2d2d;
+      color: #f8f8f2;
       padding: 12px;
       border-radius: 8px;
       font-family: "Courier New", Courier, monospace;
@@ -82,19 +82,19 @@
     #user-input {
       width: calc(100% - 120px);
       padding: 12px;
-      border: 2px solid var(--input-border-color, #444);
+      border: 2px solid #444;
       border-radius: 25px;
       margin-right: 10px;
       font-size: 14px;
-      background-color: var(--input-bg-color, #1a1a1a);
-      color: var(--input-text-color, white);
+      background-color: #1a1a1a;
+      color: white;
     }
 
     /* Send button */
     #send-button {
       padding: 12px 20px;
       color: white;
-      border: 2px solid var(--send-button-border, #FF0000); /* Red border */
+      border: 2px solid #FF0000; /* Red border */
       border-radius: 25px;
       cursor: pointer;
       font-size: 14px;
@@ -102,24 +102,24 @@
     }
 
     #send-button:hover {
-      background-color: var(--send-button-hover-bg, #FF0000); /* Add a red background on hover */
+      background-color: #FF0000; /* Add a red background on hover */
       color: white; /* Keep text color white on hover */
     }
 
     /* Typing indicator (optional) */
     .typing-indicator {
       font-style: italic;
-      color: var(--typing-indicator-color, #aaa);
+      color: #aaa;
       margin-top: 10px;
     }
 
     /* Navigation links styling */
     nav a {
-      color: var(--nav-link-color, red);
+      color: red;
     }
 
     nav a:hover {
-      color: var(--nav-link-hover-color, darkred);
+      color: darkred;
     }
   </style>
 </head>
@@ -151,10 +151,14 @@
       text = text.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
       // Convert bold (****) into <b>
       text = text.replace(/\*\*\*\*(.*?)\*\*\*\*/g, '<b>$1</b>');
-      // Convert inline code (single backticks `code`) into <code> elements
-      text = text.replace(/`(.*?)`/g, '<code>$1</code>');
-      // Convert multiline code blocks (triple backticks ```code```) into <pre><code> elements
-      text = text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+      // Convert inline code (single backticks code) into <code> elements
+      text = text.replace(/(.*?)/g, '<code>$1</code>');
+      // Convert multiline code blocks (triple backticks 
+code
+) into <pre><code> elements
+      text = text.replace(/
+([\s\S]*?)
+/g, '<pre><code>$1</code></pre>');
       return text;
     }
     // Function to handle the AI's response
@@ -176,7 +180,6 @@
       typingIndicator.textContent = "AI is typing...";
       setTimeout(() => typingIndicator.textContent = "", 2000);  // Hide after 2 seconds
     }
-
     document.addEventListener('DOMContentLoaded', function () {
       const sendButton = document.getElementById('send-button');
       const userInputField = document.getElementById('user-input');
@@ -218,8 +221,8 @@
       });
     });
   </script>
-
-  <script>
+  
+    <script>
     // Panic Key functionality
     document.addEventListener('keydown', function (e) {
       const panicKey = localStorage.getItem('panicKey');
@@ -315,25 +318,93 @@
           break;
         case 'purple':
           backgroundColor = '#4b0082';
-          textColor = '#e6e6fa';
-          borderColor = '#9370db';
-          hoverBackgroundColor = '#6a3f98';
-          hoverTextColor = '#ffffff';
+          textColor = '#d8a1e3';
+          borderColor = '#9b4d96';
+          hoverBackgroundColor = '#6a1e9f';
+          hoverTextColor = '#f3d4f1';
           break;
-        default:
+        case 'retro-neon':
+          backgroundColor = '#222222';
+          textColor = '#ff00ff';
+          borderColor = '#00ff00';
+          hoverBackgroundColor = '#ff00ff';
+          hoverTextColor = '#222222';
+          break;
+        case 'ocean':
+          backgroundColor = '#006994';
+          textColor = '#a4e4e1';
+          borderColor = '#4ca3d7';
+          hoverBackgroundColor = '#00577e';
+          hoverTextColor = '#a8e1e1';
+          break;
+        case 'cherry-blossom':
+          backgroundColor = '#ffb7c5';
+          textColor = '#5a3d44';
+          borderColor = '#9e7f7f';
+          hoverBackgroundColor = '#f7d1d9';
+          hoverTextColor = '#4d2a2a';
+          break;
+        case 'space':
           backgroundColor = '#000000';
           textColor = '#ffffff';
-          borderColor = '#444';
-          hoverBackgroundColor = '#444';
-          hoverTextColor = '#ffffff';
+          borderColor = '#404040';
+          hoverBackgroundColor = '#333333';
+          hoverTextColor = '#e6e6e6';
+          break;
+        case 'autumn':
+          backgroundColor = '#d56d2e';
+          textColor = '#d8a56d';
+          borderColor = '#8c4f2d';
+          hoverBackgroundColor = '#bb4f2f';
+          hoverTextColor = '#f5e0d6';
+          break;
+        case 'cyberpunk':
+          backgroundColor = '#2b2b2b';
+          textColor = '#00ff9d';
+          borderColor = '#ff1b8d';
+          hoverBackgroundColor = '#3c3c3c';
+          hoverTextColor = '#ff44d8';
+          break;
+        case 'mint':
+          backgroundColor = '#98ff98';
+          textColor = '#2e6f4f';
+          borderColor = '#46a27e';
+          hoverBackgroundColor = '#76c7b7';
+          hoverTextColor = '#3a7b66';
+          break;
+        case 'neon-green':
+          backgroundColor = '#00ff00';
+          textColor = '#000000';
+          borderColor = '#009900';
+          hoverBackgroundColor = '#00cc00';
+          hoverTextColor = '#000000';
+          break;
+        case 'sunrise':
+          backgroundColor = '#ff7f50';
+          textColor = '#ffcc00';
+          borderColor = '#ff4500';
+          hoverBackgroundColor = '#ff5500';
+          hoverTextColor = '#ff9f40';
+          break;
+        default:
+          return;
       }
 
-      const root = document.documentElement;
-      root.style.setProperty('--background-color', backgroundColor);
-      root.style.setProperty('--text-color', textColor);
-      root.style.setProperty('--border-color', borderColor);
-      root.style.setProperty('--hover-background-color', hoverBackgroundColor);
-      root.style.setProperty('--hover-text-color', hoverTextColor);
+      allElements.forEach(el => {
+        el.style.backgroundColor = backgroundColor;
+        el.style.color = textColor;
+        el.style.borderColor = borderColor;
+      });
+
+      styleSheet.innerHTML = 
+        button, a {
+          transition: background-color 0.3s, color 0.3s;
+        }
+        button:hover, a:hover {
+          background-color: ${hoverBackgroundColor};
+          color: ${hoverTextColor};
+        }
+      ;
     }
 
     function createDynamicStyleSheet() {
@@ -343,5 +414,86 @@
       return styleSheet;
     }
   </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load the saved panic key from localStorage
+    const savedPanicKey = localStorage.getItem('panicKey');
+
+    if (savedPanicKey) {
+      // Listen for key presses globally to activate the panic key
+      document.addEventListener('keydown', function (event) {
+        if (event.key === savedPanicKey) {
+          // Redirect to Google Classroom when the panic key is pressed
+          window.location.href = 'https://classroom.google.com';
+        }
+      });
+    }
+  });
+</script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load the saved tab cloak setting from localStorage
+    const savedCloak = localStorage.getItem('tabCloak');
+    if (savedCloak) {
+      applyTabCloak(savedCloak);
+    }
+
+    // Listen for changes in the tab cloak setting (if a selector is present)
+    const tabCloakSelector = document.getElementById('tab-cloak-selector');
+    if (tabCloakSelector) {
+      tabCloakSelector.addEventListener('change', function () {
+        const selectedCloak = tabCloakSelector.value;
+        localStorage.setItem('tabCloak', selectedCloak);
+        applyTabCloak(selectedCloak);
+      });
+    }
+  });
+
+  // Function to apply tab cloaking settings dynamically
+  function applyTabCloak(cloak) {
+    let title, faviconUrl;
+    switch (cloak) {
+      case 'google-classroom':
+        title = 'Google Classroom';
+        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
+        break;
+      case 'amplify':
+        title = 'Amplify';
+        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
+        break;
+      case 'google-docs':
+        title = 'Google Docs';
+        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
+        break;
+      case 'desmos':
+        title = 'Desmos Calculator';
+        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+        break;
+      default:
+        // Default case - reset title and favicon
+        title = 'YoBoiJake';
+        faviconUrl = '/assets/images/logo.png';
+    }
+
+    // Apply the title and favicon to the page
+    document.title = title;
+
+    // Create a new link element or update the existing one
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = faviconUrl;
+
+    // Check if the link already exists and remove it if so
+    let existingLink = document.querySelector('link[rel="icon"]');
+    if (existingLink) {
+      document.head.removeChild(existingLink);
+    }
+
+    // Append the new link element for the favicon
+    document.head.appendChild(link);
+  }
+</script>
+
 </body>
 </html>
