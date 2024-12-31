@@ -56,17 +56,22 @@
     }
 
     main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: calc(100vh - 70px); /* Subtract header height */
       padding: 20px;
     }
 
-    h1, h2 {
+    h1, p, #discord-link {
       margin: 20px 0;
       color: red;
     }
 
     #discord-link {
       display: inline-block;
-      margin: 20px 0;
+      margin: 10px 0;
       padding: 10px 20px;
       color: red;
       background-color: black;
@@ -82,41 +87,6 @@
       background-color: red;
       color: black;
     }
-
-    ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 20px 0;
-      text-align: left;
-      display: inline-block;
-    }
-
-    li {
-      margin: 5px 0;
-      font-size: 18px;
-      color: red;
-      border: 2px solid red;
-      padding: 10px;
-      border-radius: 10px;
-      background-color: black;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    li:hover {
-      background-color: red;
-      color: black;
-    }
-
-    #ad-container {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: black;
-      border-top: 2px solid red;
-      text-align: center;
-      padding: 5px 0;
-    }
   </style>
 </head>
 <body>
@@ -125,10 +95,10 @@
     <span id="logo-name">YoBoiJake</span>
     <nav>
       <a href="/">Home</a>
-      <a href="/games.html">Games</a>	    
+      <a href="/games.html">Games</a>
       <a href="/search.html">Search</a>
       <a href="/chatgpt.html">ChatGPT</a>
-      <a href="/settings.html">Settings</a>	    
+      <a href="/settings.html">Settings</a>
     </nav>
   </header>
 
@@ -138,18 +108,6 @@
     <a id="discord-link" href="https://discord.gg/59UMvHBNM6" target="_blank">Join Plexile Network Discord</a>
     <a id="discord-link" href="https://discord.gg/vgknvRn9mG" target="_blank">Join LoungeF2X Discord</a>
   </main>
-
-  <div id="ad-container">
-    <script type="text/javascript">
-      atOptions = {
-        'key': 'b7ce0045a6c724134a50361a5ae06e0a',
-        'format': 'iframe',
-        'height': 90,
-        'width': 728,
-        'params': {}
-      };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/b7ce0045a6c724134a50361a5ae06e0a/invoke.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     // Load and apply the saved theme
