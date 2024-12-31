@@ -157,6 +157,7 @@
       text = text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
       return text;
     }
+
     // Function to handle the AI's response
     async function handleChatResponse(response) {
       const parsedResponse = parseMarkdown(response);
@@ -176,6 +177,7 @@
       typingIndicator.textContent = "AI is typing...";
       setTimeout(() => typingIndicator.textContent = "", 2000);  // Hide after 2 seconds
     }
+
     document.addEventListener('DOMContentLoaded', function () {
       const sendButton = document.getElementById('send-button');
       const userInputField = document.getElementById('user-input');
@@ -218,7 +220,7 @@
     });
   </script>
 
-    <script>
+  <script>
     // Panic Key functionality
     document.addEventListener('keydown', function (e) {
       const panicKey = localStorage.getItem('panicKey');
@@ -333,70 +335,37 @@
           hoverBackgroundColor = '#00577e';
           hoverTextColor = '#a8e1e1';
           break;
-        case 'cherry-blossom':
-          backgroundColor = '#ffb7c5';
-          textColor = '#5a3d44';
-          borderColor = '#9e7f7f';
-          hoverBackgroundColor = '#f7d1d9';
-          hoverTextColor = '#4d2a2a';
-          break;
-        case 'space':
-          backgroundColor = '#000000';
-          textColor = '#ffffff';
-          borderColor = '#404040';
-          hoverBackgroundColor = '#333333';
-          hoverTextColor = '#e6e6e6';
-          break;
-        case 'autumn':
-          backgroundColor = '#d56d2e';
-          textColor = '#d8a56d';
-          borderColor = '#8c4f2d';
-          hoverBackgroundColor = '#bb4f2f';
-          hoverTextColor = '#f5e0d6';
-          break;
-        case 'cyberpunk':
-          backgroundColor = '#2b2b2b';
-          textColor = '#00ff9d';
-          borderColor = '#ff1b8d';
-          hoverBackgroundColor = '#3c3c3c';
-          hoverTextColor = '#ff44d8';
-          break;
-        case 'mint':
-          backgroundColor = '#98ff98';
-          textColor = '#2e6f4f';
-          borderColor = '#46a27e';
-          hoverBackgroundColor = '#76c7b7';
-          hoverTextColor = '#3a7b66';
-          break;
-        case 'neon-green':
-          backgroundColor = '#00ff00';
-          textColor = '#000000';
-          borderColor = '#009900';
-          hoverBackgroundColor = '#00cc00';
-          hoverTextColor = '#000000';
-          break;
-        case 'sunrise':
-          backgroundColor = '#ff7f50';
-          textColor = '#ffcc00';
-          borderColor = '#ff4500';
-          hoverBackgroundColor = '#ff5500';
-          hoverTextColor = '#ff9f40';
-          break;
-        default:
-          return;
       }
+
       allElements.forEach(el => {
         el.style.backgroundColor = backgroundColor;
         el.style.color = textColor;
         el.style.borderColor = borderColor;
       });
+
       styleSheet.innerHTML = `
-        button, a {
-          transition: background-color 0.3s, color 0.3s;
+        body {
+          background-color: ${backgroundColor};
+          color: ${textColor};
         }
-        button:hover, a:hover {
+        button:hover {
           background-color: ${hoverBackgroundColor};
           color: ${hoverTextColor};
+        }
+        input[type="text"] {
+          background-color: ${backgroundColor};
+          color: ${textColor};
+          border-color: ${borderColor};
+        }
+        .user-message {
+          background-color: ${backgroundColor};
+          color: ${textColor};
+          border-color: ${borderColor};
+        }
+        .ai-message {
+          background-color: ${backgroundColor};
+          color: ${textColor};
+          border-color: ${borderColor};
         }
       `;
     }
@@ -408,78 +377,5 @@
       return styleSheet;
     }
   </script>
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Load the saved panic key from localStorage
-    const savedPanicKey = localStorage.getItem('panicKey');
-    if (savedPanicKey) {
-      // Listen for key presses globally to activate the panic key
-      document.addEventListener('keydown', function (event) {
-        if (event.key === savedPanicKey) {
-          // Redirect to Google Classroom when the panic key is pressed
-          window.location.href = 'https://classroom.google.com';
-        }
-      });
-    }
-  });
-</script>
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Load the saved tab cloak setting from localStorage
-    const savedCloak = localStorage.getItem('tabCloak');
-    if (savedCloak) {
-      applyTabCloak(savedCloak);
-    }
-    // Listen for changes in the tab cloak setting (if a selector is present)
-    const tabCloakSelector = document.getElementById('tab-cloak-selector');
-    if (tabCloakSelector) {
-      tabCloakSelector.addEventListener('change', function () {
-        const selectedCloak = tabCloakSelector.value;
-        localStorage.setItem('tabCloak', selectedCloak);
-        applyTabCloak(selectedCloak);
-      });
-    }
-  });
-  // Function to apply tab cloaking settings dynamically
-  function applyTabCloak(cloak) {
-    let title, faviconUrl;
-    switch (cloak) {
-      case 'google-classroom':
-        title = 'Google Classroom';
-        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
-        break;
-      case 'amplify':
-        title = 'Amplify';
-        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
-        break;
-      case 'google-docs':
-        title = 'Google Docs';
-        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
-        break;
-      case 'desmos':
-        title = 'Desmos Calculator';
-        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
-        break;
-      default:
-        // Default case - reset title and favicon
-        title = 'YoBoiJake';
-        faviconUrl = '/assets/images/logo.png';
-    }
-    // Apply the title and favicon to the page
-    document.title = title;
-    // Create a new link element or update the existing one
-    let link = document.createElement('link');
-    link.rel = 'icon';
-    link.type = 'image/png';
-    link.href = faviconUrl;
-    // Check if the link already exists and remove it if so
-    let existingLink = document.querySelector('link[rel="icon"]');
-    if (existingLink) {
-      document.head.removeChild(existingLink);
-    }
-    // Append the new link element for the favicon
-    document.head.appendChild(link);
-  }
-</script>
 </body>
 </html>
