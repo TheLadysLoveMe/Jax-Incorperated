@@ -105,21 +105,40 @@
           </p>
           <select id="theme-selector" class="styled-input">
             <option value="default">Default</option>
-            <option value="dark">Dark</option>
-            <option value="light">Light</option>
-            <option value="blue">Blue</option>
-            <option value="forest">Forest</option>
-            <option value="sunset">Sunset</option>
-            <option value="purple">Purple Dream</option>
-            <option value="retro-neon">Retro Neon</option>
-            <option value="ocean">Ocean Breeze</option>
-            <option value="cherry-blossom">Cherry Blossom</option>
-            <option value="space">Space Explorer</option>
-            <option value="autumn">Autumn Leaves</option>
-            <option value="cyberpunk">Cyberpunk</option>
-            <option value="mint">Minty Fresh</option>
-            <option value="neon-green">Neon Green</option>
-            <option value="sunrise">Sunrise</option>
+<option value="dark">Dark</option>
+<option value="light">Light</option>
+<option value="blue">Blue</option>
+<option value="forest">Forest</option>
+<option value="sunset">Sunset</option>
+<option value="purple">Purple</option>
+<option value="retro-neon">Retro Neon</option>
+<option value="ocean">Ocean</option>
+<option value="cherry-blossom">Cherry Blossom</option>
+<option value="space">Space</option>
+<option value="autumn">Autumn</option>
+<option value="cyberpunk">Cyberpunk</option>
+<option value="mint">Mint</option>
+<option value="neon-green">Neon Green</option>
+<option value="sunrise">Sunrise</option>
+<option value="candy">Candy</option>
+<option value="vintage">Vintage</option>
+<option value="cool-blue">Cool Blue</option>
+<option value="blush">Blush</option>
+<option value="forest-night">Forest Night</option>
+<option value="pastel">Pastel</option>
+<option value="futuristic">Futuristic</option>
+<option value="golden-hour">Golden Hour</option>
+<option value="neon-pink">Neon Pink</option>
+<option value="neon-blue">Neon Blue</option>
+<option value="crimson">Crimson</option>
+<option value="peachy">Peachy</option>
+<option value="marble">Marble</option>
+<option value="crimson-sunset">Crimson Sunset</option>
+<option value="emerald-forest">Emerald Forest</option>
+<option value="velvet">Velvet</option>
+<option value="electric-blue">Electric Blue</option>
+<option value="carbon">Carbon</option>
+
           </select>
         </div>
       </div>
@@ -222,111 +241,238 @@
 
     let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
     switch (theme) {
-      case 'dark':
-        backgroundColor = '#121212';
-        textColor = 'white';
-        borderColor = 'gray';
-        hoverBackgroundColor = '#1c1c1c';
-        hoverTextColor = '#f0f0f0';
-        break;
-      case 'light':
-        backgroundColor = 'white';
-        textColor = 'black';
-        borderColor = 'black';
-        hoverBackgroundColor = '#f7f7f7';
-        hoverTextColor = '#333';
-        break;
-      case 'blue':
-        backgroundColor = '#1e3a5f';
-        textColor = '#a9d6e5';
-        borderColor = '#4682b4';
-        hoverBackgroundColor = '#24476d';
-        hoverTextColor = '#c0e9f5';
-        break;
-      case 'forest':
-        backgroundColor = '#2b4227';
-        textColor = '#d0e6b5';
-        borderColor = '#3c6e47';
-        hoverBackgroundColor = '#365735';
-        hoverTextColor = '#e0f0c5';
-        break;
-      case 'sunset':
-        backgroundColor = '#ffad60';
-        textColor = '#4a1a1a';
-        borderColor = '#ff4500';
-        hoverBackgroundColor = '#ff9240';
-        hoverTextColor = '#5c1e1e';
-        break;
-      case 'purple':
-        backgroundColor = '#4b0082';
-        textColor = '#d8a1e3';
-        borderColor = '#9b4d96';
-        hoverBackgroundColor = '#6a1e9f';
-        hoverTextColor = '#f3d4f1';
-        break;
-      case 'retro-neon':
-        backgroundColor = '#222222';
-        textColor = '#ff00ff';
-        borderColor = '#00ff00';
-        hoverBackgroundColor = '#ff00ff';
-        hoverTextColor = '#222222';
-        break;
-      case 'ocean':
-        backgroundColor = '#006994';
-        textColor = '#a4e4e1';
-        borderColor = '#4ca3d7';
-        hoverBackgroundColor = '#00577e';
-        hoverTextColor = '#a8e1e1';
-        break;
-      case 'cherry-blossom':
-        backgroundColor = '#ffb7c5';
-        textColor = '#5a3d44';
-        borderColor = '#9e7f7f';
-        hoverBackgroundColor = '#f7d1d9';
-        hoverTextColor = '#4d2a2a';
-        break;
-      case 'space':
-        backgroundColor = '#000000';
-        textColor = '#ffffff';
-        borderColor = '#404040';
-        hoverBackgroundColor = '#333333';
-        hoverTextColor = '#e6e6e6';
-        break;
-      case 'autumn':
-        backgroundColor = '#d56d2e';
-        textColor = '#d8a56d';
-        borderColor = '#8c4f2d';
-        hoverBackgroundColor = '#bb4f2f';
-        hoverTextColor = '#f5e0d6';
-        break;
-      case 'cyberpunk':
-        backgroundColor = '#2b2b2b';
-        textColor = '#00ff9d';
-        borderColor = '#ff1b8d';
-        hoverBackgroundColor = '#3c3c3c';
-        hoverTextColor = '#ff44d8';
-        break;
-      case 'mint':
-        backgroundColor = '#98ff98';
-        textColor = '#2e6f4f';
-        borderColor = '#46a27e';
-        hoverBackgroundColor = '#76c7b7';
-        hoverTextColor = '#3a7b66';
-        break;
-      case 'neon-green':
-        backgroundColor = '#00ff00';
-        textColor = '#000000';
-        borderColor = '#009900';
-        hoverBackgroundColor = '#00cc00';
-        hoverTextColor = '#000000';
-        break;
-      case 'sunrise':
-        backgroundColor = '#ff7f50';
-        textColor = '#ffcc00';
-        borderColor = '#ff4500';
-        hoverBackgroundColor = '#ff5500';
-        hoverTextColor = '#ff9f40';
-        break;
+case 'dark':
+  backgroundColor = '#1a1a1a';
+  textColor = '#f0f0f0';
+  borderColor = '#666';
+  hoverBackgroundColor = '#444';
+  hoverTextColor = '#ffffff';
+  break;
+case 'light':
+  backgroundColor = '#ffffff';
+  textColor = '#333';
+  borderColor = '#ccc';
+  hoverBackgroundColor = '#f0f0f0';
+  hoverTextColor = '#333';
+  break;
+case 'blue':
+  backgroundColor = '#e0f7fa';
+  textColor = '#00796b';
+  borderColor = '#00796b';
+  hoverBackgroundColor = '#00796b';
+  hoverTextColor = '#ffffff';
+  break;
+case 'forest':
+  backgroundColor = '#2e3b2f';
+  textColor = '#d0f0c0';
+  borderColor = '#4caf50';
+  hoverBackgroundColor = '#388e3c';
+  hoverTextColor = '#ffffff';
+  break;
+case 'sunset':
+  backgroundColor = '#ffcc80';
+  textColor = '#f57c00';
+  borderColor = '#ff7043';
+  hoverBackgroundColor = '#f57c00';
+  hoverTextColor = '#ffffff';
+  break;
+case 'purple':
+  backgroundColor = '#9c27b0';
+  textColor = '#f3e5f5';
+  borderColor = '#6a1b9a';
+  hoverBackgroundColor = '#7b1fa2';
+  hoverTextColor = '#f3e5f5';
+  break;
+case 'retro-neon':
+  backgroundColor = '#212121';
+  textColor = '#ff4081';
+  borderColor = '#c51162';
+  hoverBackgroundColor = '#e040fb';
+  hoverTextColor = '#ffffff';
+  break;
+case 'ocean':
+  backgroundColor = '#00bcd4';
+  textColor = '#ffffff';
+  borderColor = '#00838f';
+  hoverBackgroundColor = '#0097a7';
+  hoverTextColor = '#ffffff';
+  break;
+case 'cherry-blossom':
+  backgroundColor = '#f8bbd0';
+  textColor = '#c2185b';
+  borderColor = '#e91e63';
+  hoverBackgroundColor = '#d81b60';
+  hoverTextColor = '#ffffff';
+  break;
+case 'space':
+  backgroundColor = '#2c3e50';
+  textColor = '#ecf0f1';
+  borderColor = '#16a085';
+  hoverBackgroundColor = '#34495e';
+  hoverTextColor = '#ffffff';
+  break;
+case 'autumn':
+  backgroundColor = '#ff7043';
+  textColor = '#5d4037';
+  borderColor = '#bf360c';
+  hoverBackgroundColor = '#ff5722';
+  hoverTextColor = '#ffffff';
+  break;
+case 'cyberpunk':
+  backgroundColor = '#212121';
+  textColor = '#00ff99';
+  borderColor = '#03dac5';
+  hoverBackgroundColor = '#6200ea';
+  hoverTextColor = '#ffffff';
+  break;
+case 'mint':
+  backgroundColor = '#a5d6a7';
+  textColor = '#388e3c';
+  borderColor = '#4caf50';
+  hoverBackgroundColor = '#81c784';
+  hoverTextColor = '#ffffff';
+  break;
+case 'neon-green':
+  backgroundColor = '#1b5e20';
+  textColor = '#00e676';
+  borderColor = '#00e676';
+  hoverBackgroundColor = '#00b248';
+  hoverTextColor = '#ffffff';
+  break;
+case 'sunrise':
+  backgroundColor = '#ffb74d';
+  textColor = '#ff5722';
+  borderColor = '#f4511e';
+  hoverBackgroundColor = '#ff9800';
+  hoverTextColor = '#f57c00';
+  break;
+case 'candy':
+  backgroundColor = '#ffeb3b';
+  textColor = '#e91e63';
+  borderColor = '#c2185b';
+  hoverBackgroundColor = '#f44336';
+  hoverTextColor = '#ffffff';
+  break;
+case 'vintage':
+  backgroundColor = '#d7ccc8';
+  textColor = '#3e2723';
+  borderColor = '#5d4037';
+  hoverBackgroundColor = '#8d6e63';
+  hoverTextColor = '#ffffff';
+  break;
+case 'cool-blue':
+  backgroundColor = '#64b5f6';
+  textColor = '#1e88e5';
+  borderColor = '#1565c0';
+  hoverBackgroundColor = '#2196f3';
+  hoverTextColor = '#ffffff';
+  break;
+case 'blush':
+  backgroundColor = '#f8bbd0';
+  textColor = '#c2185b';
+  borderColor = '#e91e63';
+  hoverBackgroundColor = '#d81b60';
+  hoverTextColor = '#ffffff';
+  break;
+case 'forest-night':
+  backgroundColor = '#263238';
+  textColor = '#80cbc4';
+  borderColor = '#00796b';
+  hoverBackgroundColor = '#004d40';
+  hoverTextColor = '#ffffff';
+  break;
+case 'pastel':
+  backgroundColor = '#f8bbd0';
+  textColor = '#ff4081';
+  borderColor = '#9c27b0';
+  hoverBackgroundColor = '#9c27b0';
+  hoverTextColor = '#ffffff';
+  break;
+case 'futuristic':
+  backgroundColor = '#212121';
+  textColor = '#00e5ff';
+  borderColor = '#00b8d4';
+  hoverBackgroundColor = '#00b0ff';
+  hoverTextColor = '#ffffff';
+  break;
+case 'golden-hour':
+  backgroundColor = '#ff9800';
+  textColor = '#ff5722';
+  borderColor = '#ff7043';
+  hoverBackgroundColor = '#ffb300';
+  hoverTextColor = '#ffffff';
+  break;
+case 'neon-pink':
+  backgroundColor = '#e91e63';
+  textColor = '#f8bbd0';
+  borderColor = '#8e24aa';
+  hoverBackgroundColor = '#c2185b';
+  hoverTextColor = '#ffffff';
+  break;
+case 'neon-blue':
+  backgroundColor = '#1976d2';
+  textColor = '#bbdefb';
+  borderColor = '#0288d1';
+  hoverBackgroundColor = '#1e88e5';
+  hoverTextColor = '#ffffff';
+  break;
+case 'crimson':
+  backgroundColor = '#d32f2f';
+  textColor = '#ffffff';
+  borderColor = '#e53935';
+  hoverBackgroundColor = '#c62828';
+  hoverTextColor = '#ffffff';
+  break;
+case 'peachy':
+  backgroundColor = '#ffcc80';
+  textColor = '#f57c00';
+  borderColor = '#ff7043';
+  hoverBackgroundColor = '#ff9800';
+  hoverTextColor = '#ffffff';
+  break;
+case 'marble':
+  backgroundColor = '#ffffff';
+  textColor = '#616161';
+  borderColor = '#9e9e9e';
+  hoverBackgroundColor = '#e0e0e0';
+  hoverTextColor = '#616161';
+  break;
+case 'crimson-sunset':
+  backgroundColor = '#ff7043';
+  textColor = '#5d4037';
+  borderColor = '#bf360c';
+  hoverBackgroundColor = '#ff5722';
+  hoverTextColor = '#ffffff';
+  break;
+case 'emerald-forest':
+  backgroundColor = '#2e7d32';
+  textColor = '#81c784';
+  borderColor = '#43a047';
+  hoverBackgroundColor = '#388e3c';
+  hoverTextColor = '#ffffff';
+  break;
+case 'velvet':
+  backgroundColor = '#9e1b32';
+  textColor = '#ffffff';
+  borderColor = '#f44336';
+  hoverBackgroundColor = '#d32f2f';
+  hoverTextColor = '#ffffff';
+  break;
+case 'electric-blue':
+  backgroundColor = '#1976d2';
+  textColor = '#bbdefb';
+  borderColor = '#0288d1';
+  hoverBackgroundColor = '#1e88e5';
+  hoverTextColor = '#ffffff';
+  break;
+case 'carbon':
+  backgroundColor = '#263238';
+  textColor = '#ffffff';
+  borderColor = '#37474f';
+  hoverBackgroundColor = '#455a64';
+  hoverTextColor = '#ffffff';
+  break;
+
       default:
         return;
     }
