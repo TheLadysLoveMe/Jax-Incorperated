@@ -3,418 +3,130 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChatGPT - YoBoiJake</title>
-  <link rel="manifest" href="/manifest.json"/>
-  <link rel="icon" type="image/png" href="/assets/images/logo.png">
-  <link rel="stylesheet" href="/css/styles.css">
+  <title>Dynamic Theme Application</title>
   <style>
-    /* General Chat Container */
     body {
-      background-color: #000000;
-      color: #fff;
       font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
-    #chat-container {
-      max-width: 700px;
-      margin: 50px auto;
-      padding: 10px;
-      border: 1px solid #444;
-      border-radius: 10px;
-      background-color: #181818;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Chat display area */
-    #chat-display {
-      height: 500px;
-      overflow-y: auto;
+    .container {
       padding: 20px;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #333;
-      scroll-behavior: smooth;
-      background-color: #000000;
     }
-
-    /* User and AI message styles */
-    .message {
-      margin-bottom: 15px;
-      display: flex;
-      max-width: 80%;
-    }
-
-    .user-message {
-      background-color: #FF0000;
-      color: white;
-      padding: 12px 18px;
-      border: 2px solid #FF0000;
-      border-radius: 20px;
-      align-self: flex-end;
-      margin-left: auto;
-      font-size: 14px;
-      word-wrap: break-word;
-    }
-
-    .ai-message {
-      background-color: #333;
-      color: red;
-      padding: 12px 18px;
-      border: 2px solid red;
-      border-radius: 20px;
-      align-self: flex-start;
-      margin-right: auto;
-      font-size: 14px;
-      word-wrap: break-word;
-    }
-
-    /* Code block inside AI message */
-    .ai-message code {
-      display: block;
-      background-color: #2d2d2d;
-      color: #f8f8f2;
-      padding: 12px;
-      border-radius: 8px;
-      font-family: "Courier New", Courier, monospace;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-
-    /* Input area */
-    #user-input {
-      width: calc(100% - 120px);
-      padding: 12px;
-      border: 2px solid #444;
-      border-radius: 25px;
-      margin-right: 10px;
-      font-size: 14px;
-      background-color: #1a1a1a;
-      color: white;
-    }
-
-    /* Send button */
-    #send-button {
-      padding: 12px 20px;
-      color: white;
-      border: 2px solid #FF0000; /* Red border */
-      border-radius: 25px;
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      border: 1px solid;
       cursor: pointer;
-      font-size: 14px;
-      background-color: transparent; /* Make the background transparent */
     }
-
-    #send-button:hover {
-      background-color: #FF0000; /* Add a red background on hover */
-      color: white; /* Keep text color white on hover */
+    .message {
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid;
+      border-radius: 5px;
     }
-
-    /* Typing indicator (optional) */
-    .typing-indicator {
-      font-style: italic;
-      color: #aaa;
-      margin-top: 10px;
+    .user-message {
+      text-align: right;
     }
-
-    /* Navigation links styling */
-    nav a {
-      color: red;
-    }
-
-    nav a:hover {
-      color: darkred;
+    .ai-message {
+      text-align: left;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="/assets/images/logo.png" alt="YoBoiJake Logo" width="40">
-    <span id="logo-name">YoBoiJake</span>
-    <nav>
-      <a href="/" style="color: red;">Home</a>
-      <a href="/games.html" style="color: red;">Games</a>   
-      <a href="/search.html" style="color: red;">Search</a>
-      <a href="/chatgpt.html" style="color: red;">ChatGPT</a>
-      <a href="/settings.html" style="color: red;">Settings</a>
-    </nav>
-  </header>
-  <div id="chat-container">
-    <div id="chat-display"></div>
-    <div class="typing-indicator" id="typing-indicator"></div>
-    <div style="display: flex;">
-      <input type="text" id="user-input" placeholder="Ask something..." />
-      <button id="send-button">Send</button>
+  <div class="container">
+    <h1>Dynamic Theme Selector</h1>
+    <button onclick="applyTheme('default')">Default</button>
+    <button onclick="applyTheme('dark')">Dark</button>
+    <button onclick="applyTheme('light')">Light</button>
+
+    <div class="messages">
+      <div class="message user-message">This is a user message.</div>
+      <div class="message ai-message">This is an AI message.</div>
+      <div class="message user-message">Another user message.</div>
+      <div class="message ai-message">Another AI message.</div>
     </div>
   </div>
 
   <script>
-    // Function to convert Markdown-like syntax to HTML and check for code blocks
-    function parseMarkdown(text) {
-      // Convert headings (###) into <h3>
-      text = text.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
-      // Convert bold (****) into <b>
-      text = text.replace(/\*\*\*\*(.*?)\*\*\*\*/g, '<b>$1</b>');
-      // Convert inline code (single backticks `code`) into <code> elements
-      text = text.replace(/`(.*?)`/g, '<code>$1</code>');
-      // Convert multiline code blocks (triple backticks ```code```) into <pre><code> elements
-      text = text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
-      return text;
-    }
-    // Function to handle the AI's response
-    async function handleChatResponse(response) {
-      const parsedResponse = parseMarkdown(response);
-      // Display the parsed response (converted to HTML)
-      const chatDisplay = document.getElementById('chat-display');
-      const aiMessage = document.createElement('div');
-      aiMessage.classList.add('ai-message');
-      aiMessage.innerHTML = parsedResponse;
-      chatDisplay.appendChild(aiMessage);
-      // Auto-scroll to the bottom
-      chatDisplay.scrollTop = chatDisplay.scrollHeight;
-    }
+    function applyTheme(theme) {
+      const allElements = document.querySelectorAll("*");
+      const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
 
-    // Function to show the typing indicator
-    function showTypingIndicator() {
-      const typingIndicator = document.getElementById('typing-indicator');
-      typingIndicator.textContent = "AI is typing...";
-      setTimeout(() => typingIndicator.textContent = "", 2000);  // Hide after 2 seconds
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-      const sendButton = document.getElementById('send-button');
-      const userInputField = document.getElementById('user-input');
-      const chatDisplay = document.getElementById('chat-display');
-      sendButton.addEventListener('click', async function () {
-        const userMessage = userInputField.value.trim();
-        if (userMessage) {
-          // Display user message
-          const userMessageElement = document.createElement('div');
-          userMessageElement.classList.add('user-message');
-          userMessageElement.innerHTML = userMessage;
-          chatDisplay.appendChild(userMessageElement);
-          // Clear the input field
-          userInputField.value = '';
-          // Show typing indicator
-          showTypingIndicator();
-          try {
-            // Send API request to SmoresXO
-            const response = await fetch('https://public.smoresxo.shop/generate', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ prompt: userMessage })
-            });
-            if (response.ok) {
-              const data = await response.json();
-              const aiResponse = data.message.trim();
-              // Handle and display the AI's response
-              handleChatResponse(aiResponse);
-            } else {
-              handleChatResponse('Sorry, there was an error getting a response.');
-            }
-          } catch (error) {
-            handleChatResponse('Error: Unable to fetch response from SmoresXO.');
-            console.error(error);
-          }
-        }
-      });
-    });
-  </script>
-
-    <script>
-    // Panic Key functionality
-    document.addEventListener('keydown', function (e) {
-      const panicKey = localStorage.getItem('panicKey');
-      if (panicKey && e.key.toUpperCase() === panicKey) {
-        window.location.href = 'https://classroom.google.com';
-      }
-    });
-
-    // Ad configuration
-    atOptions = {
-      'key': 'b7ce0045a6c724134a50361a5ae06e0a',
-      'format': 'iframe',
-      'height': 90,
-      'width': 728,
-      'params': {}
-    };
-
-    // Load ad script
-    const adScript = document.createElement('script');
-    adScript.src = "//www.highperformanceformat.com/b7ce0045a6c724134a50361a5ae06e0a/invoke.js";
-    document.body.appendChild(adScript);
-
-    // Theme handling
-    document.addEventListener('DOMContentLoaded', function () {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        applyTheme(savedTheme);
-      }
-
-      const themeSelector = document.getElementById('theme-selector');
-      if (themeSelector) {
-        if (savedTheme) {
-          themeSelector.value = savedTheme;
-        }
-        themeSelector.addEventListener('change', function () {
-          const selectedTheme = themeSelector.value;
-          localStorage.setItem('theme', selectedTheme);
-          applyTheme(selectedTheme);
+      if (theme === 'default') {
+        allElements.forEach(el => {
+          el.style.backgroundColor = '';
+          el.style.color = '';
+          el.style.borderColor = '';
         });
-      }
-    });
-
-  <script>
-  function applyTheme(theme) {
-    const allElements = document.querySelectorAll("*");
-    const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
-
-    if (theme === 'default') {
-      allElements.forEach(el => {
-        el.style.backgroundColor = '';
-        el.style.color = '';
-        el.style.borderColor = '';
-      });
-      styleSheet.innerHTML = '';
-      return;
-    }
-
-    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, userMessageBg, aiMessageBg, userMessageBorder, aiMessageBorder;
-    switch (theme) {
-      case 'dark':
-        backgroundColor = '#121212';
-        textColor = 'white';
-        borderColor = 'gray';
-        hoverBackgroundColor = '#1c1c1c';
-        hoverTextColor = '#f0f0f0';
-        userMessageBg = '#333';
-        aiMessageBg = '#444';
-        userMessageBorder = '#555';
-        aiMessageBorder = '#666';
-        break;
-      case 'light':
-        backgroundColor = 'white';
-        textColor = 'black';
-        borderColor = 'black';
-        hoverBackgroundColor = '#f7f7f7';
-        hoverTextColor = '#333';
-        userMessageBg = '#f0f0f0';
-        aiMessageBg = '#e0e0e0';
-        userMessageBorder = '#d0d0d0';
-        aiMessageBorder = '#c0c0c0';
-        break;
-      // Add cases for other themes as needed
-      default:
+        styleSheet.innerHTML = '';
         return;
-    }
-
-    allElements.forEach(el => {
-      el.style.backgroundColor = backgroundColor;
-      el.style.color = textColor;
-      el.style.borderColor = borderColor;
-    });
-
-    const messages = document.querySelectorAll('.message, .user-message, .ai-message');
-    messages.forEach(msg => {
-      if (msg.classList.contains('user-message')) {
-        msg.style.backgroundColor = userMessageBg;
-        msg.style.borderColor = userMessageBorder;
-        msg.style.color = textColor;
-      } else if (msg.classList.contains('ai-message')) {
-        msg.style.backgroundColor = aiMessageBg;
-        msg.style.borderColor = aiMessageBorder;
-        msg.style.color = textColor;
       }
-    });
 
-    styleSheet.innerHTML = `
-      button, a {
-        transition: background-color 0.3s, color 0.3s;
+      let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, userMessageBg, aiMessageBg, userMessageBorder, aiMessageBorder;
+      switch (theme) {
+        case 'dark':
+          backgroundColor = '#121212';
+          textColor = 'white';
+          borderColor = 'gray';
+          hoverBackgroundColor = '#1c1c1c';
+          hoverTextColor = '#f0f0f0';
+          userMessageBg = '#333';
+          aiMessageBg = '#444';
+          userMessageBorder = '#555';
+          aiMessageBorder = '#666';
+          break;
+        case 'light':
+          backgroundColor = 'white';
+          textColor = 'black';
+          borderColor = 'black';
+          hoverBackgroundColor = '#f7f7f7';
+          hoverTextColor = '#333';
+          userMessageBg = '#f0f0f0';
+          aiMessageBg = '#e0e0e0';
+          userMessageBorder = '#d0d0d0';
+          aiMessageBorder = '#c0c0c0';
+          break;
+        default:
+          return;
       }
-      button:hover, a:hover {
-        background-color: ${hoverBackgroundColor};
-        color: ${hoverTextColor};
-      }
-    `;
-  }
 
-  function createDynamicStyleSheet() {
-    const styleSheet = document.createElement('style');
-    styleSheet.id = 'dynamic-theme-styles';
-    document.head.appendChild(styleSheet);
-    return styleSheet;
-  }
-</script>
+      allElements.forEach(el => {
+        el.style.backgroundColor = backgroundColor;
+        el.style.color = textColor;
+        el.style.borderColor = borderColor;
+      });
 
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Load the saved panic key from localStorage
-    const savedPanicKey = localStorage.getItem('panicKey');
-    if (savedPanicKey) {
-      // Listen for key presses globally to activate the panic key
-      document.addEventListener('keydown', function (event) {
-        if (event.key === savedPanicKey) {
-          // Redirect to Google Classroom when the panic key is pressed
-          window.location.href = 'https://classroom.google.com';
+      const messages = document.querySelectorAll('.message, .user-message, .ai-message');
+      messages.forEach(msg => {
+        if (msg.classList.contains('user-message')) {
+          msg.style.backgroundColor = userMessageBg;
+          msg.style.borderColor = userMessageBorder;
+          msg.style.color = textColor;
+        } else if (msg.classList.contains('ai-message')) {
+          msg.style.backgroundColor = aiMessageBg;
+          msg.style.borderColor = aiMessageBorder;
+          msg.style.color = textColor;
         }
       });
+
+      styleSheet.innerHTML = `
+        button, a {
+          transition: background-color 0.3s, color 0.3s;
+        }
+        button:hover, a:hover {
+          background-color: ${hoverBackgroundColor};
+          color: ${hoverTextColor};
+        }
+      `;
     }
-  });
-</script>
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Load the saved tab cloak setting from localStorage
-    const savedCloak = localStorage.getItem('tabCloak');
-    if (savedCloak) {
-      applyTabCloak(savedCloak);
+
+    function createDynamicStyleSheet() {
+      const styleSheet = document.createElement('style');
+      styleSheet.id = 'dynamic-theme-styles';
+      document.head.appendChild(styleSheet);
+      return styleSheet;
     }
-    // Listen for changes in the tab cloak setting (if a selector is present)
-    const tabCloakSelector = document.getElementById('tab-cloak-selector');
-    if (tabCloakSelector) {
-      tabCloakSelector.addEventListener('change', function () {
-        const selectedCloak = tabCloakSelector.value;
-        localStorage.setItem('tabCloak', selectedCloak);
-        applyTabCloak(selectedCloak);
-      });
-    }
-  });
-  // Function to apply tab cloaking settings dynamically
-  function applyTabCloak(cloak) {
-    let title, faviconUrl;
-    switch (cloak) {
-      case 'google-classroom':
-        title = 'Google Classroom';
-        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
-        break;
-      case 'amplify':
-        title = 'Amplify';
-        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
-        break;
-      case 'google-docs':
-        title = 'Google Docs';
-        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
-        break;
-      case 'desmos':
-        title = 'Desmos Calculator';
-        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
-        break;
-      default:
-        // Default case - reset title and favicon
-        title = 'YoBoiJake';
-        faviconUrl = '/assets/images/logo.png';
-    }
-    // Apply the title and favicon to the page
-    document.title = title;
-    // Create a new link element or update the existing one
-    let link = document.createElement('link');
-    link.rel = 'icon';
-    link.type = 'image/png';
-    link.href = faviconUrl;
-    // Check if the link already exists and remove it if so
-    let existingLink = document.querySelector('link[rel="icon"]');
-    if (existingLink) {
-      document.head.removeChild(existingLink);
-    }
-    // Append the new link element for the favicon
-    document.head.appendChild(link);
-  }
-</script>
+  </script>
 </body>
 </html>
