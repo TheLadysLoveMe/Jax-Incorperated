@@ -106,6 +106,17 @@
       background-color: red;
       color: black;
     }
+
+    #ad-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: black;
+      border-top: 2px solid red;
+      text-align: center;
+      padding: 5px 0;
+    }
   </style>
 </head>
 <body>
@@ -123,30 +134,22 @@
 
   <main>
     <h1>Credits</h1>
-    <p>Join their communitys on Discord:</p>
+    <p>Join their communities on Discord:</p>
     <a id="discord-link" href="https://discord.gg/59UMvHBNM6" target="_blank">Join Plexile Network Discord</a>
-     </div>	  
-    <a id="discord-link" href="https://discord.gg/vgknvRn9mG" target="_blank">Join LoungeF2X Discord</a>	  
-
+    <a id="discord-link" href="https://discord.gg/vgknvRn9mG" target="_blank">Join LoungeF2X Discord</a>
   </main>
-<script>
-  document.addEventListener('keydown', function (e) {
-    const panicKey = localStorage.getItem('panicKey');
-    if (panicKey && e.key.toUpperCase() === panicKey) {
-      window.location.href = 'https://classroom.google.com';
-    }
-  });
-</script>
-<script type="text/javascript">
-	atOptions = {
-		'key' : 'b7ce0045a6c724134a50361a5ae06e0a',
-		'format' : 'iframe',
-		'height' : 90,
-		'width' : 728,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/b7ce0045a6c724134a50361a5ae06e0a/invoke.js"></script>
+
+  <div id="ad-container">
+    <script type="text/javascript">
+      atOptions = {
+        'key': 'b7ce0045a6c724134a50361a5ae06e0a',
+        'format': 'iframe',
+        'height': 90,
+        'width': 728,
+        'params': {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/b7ce0045a6c724134a50361a5ae06e0a/invoke.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     // Load and apply the saved theme
