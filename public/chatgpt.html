@@ -151,14 +151,10 @@
       text = text.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
       // Convert bold (****) into <b>
       text = text.replace(/\*\*\*\*(.*?)\*\*\*\*/g, '<b>$1</b>');
-      // Convert inline code (single backticks code) into <code> elements
-      text = text.replace(/(.*?)/g, '<code>$1</code>');
-      // Convert multiline code blocks (triple backticks 
-code
-) into <pre><code> elements
-      text = text.replace(/
-([\s\S]*?)
-/g, '<pre><code>$1</code></pre>');
+      // Convert inline code (single backticks `code`) into <code> elements
+      text = text.replace(/`(.*?)`/g, '<code>$1</code>');
+      // Convert multiline code blocks (triple backticks ```code```) into <pre><code> elements
+      text = text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
       return text;
     }
     // Function to handle the AI's response
@@ -221,7 +217,7 @@ code
       });
     });
   </script>
-  
+
     <script>
     // Panic Key functionality
     document.addEventListener('keydown', function (e) {
@@ -389,14 +385,12 @@ code
         default:
           return;
       }
-
       allElements.forEach(el => {
         el.style.backgroundColor = backgroundColor;
         el.style.color = textColor;
         el.style.borderColor = borderColor;
       });
-
-      styleSheet.innerHTML = 
+      styleSheet.innerHTML = `
         button, a {
           transition: background-color 0.3s, color 0.3s;
         }
@@ -404,7 +398,7 @@ code
           background-color: ${hoverBackgroundColor};
           color: ${hoverTextColor};
         }
-      ;
+      `;
     }
 
     function createDynamicStyleSheet() {
@@ -418,7 +412,6 @@ code
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved panic key from localStorage
     const savedPanicKey = localStorage.getItem('panicKey');
-
     if (savedPanicKey) {
       // Listen for key presses globally to activate the panic key
       document.addEventListener('keydown', function (event) {
@@ -437,7 +430,6 @@ code
     if (savedCloak) {
       applyTabCloak(savedCloak);
     }
-
     // Listen for changes in the tab cloak setting (if a selector is present)
     const tabCloakSelector = document.getElementById('tab-cloak-selector');
     if (tabCloakSelector) {
@@ -448,7 +440,6 @@ code
       });
     }
   });
-
   // Function to apply tab cloaking settings dynamically
   function applyTabCloak(cloak) {
     let title, faviconUrl;
@@ -474,26 +465,21 @@ code
         title = 'YoBoiJake';
         faviconUrl = '/assets/images/logo.png';
     }
-
     // Apply the title and favicon to the page
     document.title = title;
-
     // Create a new link element or update the existing one
     let link = document.createElement('link');
     link.rel = 'icon';
     link.type = 'image/png';
     link.href = faviconUrl;
-
     // Check if the link already exists and remove it if so
     let existingLink = document.querySelector('link[rel="icon"]');
     if (existingLink) {
       document.head.removeChild(existingLink);
     }
-
     // Append the new link element for the favicon
     document.head.appendChild(link);
   }
 </script>
-
 </body>
 </html>
