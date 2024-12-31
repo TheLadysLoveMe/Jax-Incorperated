@@ -60,6 +60,24 @@
     body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
       transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     }
+
+    /* Rainbow theme background */
+    @keyframes rainbow {
+      0% { background-color: red; }
+      14% { background-color: orange; }
+      28% { background-color: yellow; }
+      42% { background-color: green; }
+      57% { background-color: blue; }
+      71% { background-color: indigo; }
+      85% { background-color: violet; }
+      100% { background-color: red; }
+    }
+
+    .rainbow-theme {
+      animation: rainbow 10s infinite linear;
+      color: white;
+    }
+
   </style>
 </head>
 <body>
@@ -120,6 +138,7 @@
             <option value="mint">Minty Fresh</option>
             <option value="neon-green">Neon Green</option>
             <option value="sunrise">Sunrise</option>
+            <option value="rainbow">Rainbow</option> <!-- New Rainbow theme -->
           </select>
         </div>
       </div>
@@ -302,159 +321,103 @@
       case 'cyberpunk':
         backgroundColor = '#2b2b2b';
         textColor = '#00ff9d';
-        borderColor = '#ff1b8d';
-        hoverBackgroundColor = '#3c3c3c';
-        hoverTextColor = '#ff44d8';
+        borderColor = '#ff007c';
+        hoverBackgroundColor = '#3a3a3a';
+        hoverTextColor = '#e3ff8d';
         break;
       case 'mint':
         backgroundColor = '#98ff98';
-        textColor = '#2e6f4f';
-        borderColor = '#46a27e';
-        hoverBackgroundColor = '#76c7b7';
-        hoverTextColor = '#3a7b66';
+        textColor = '#2b2b2b';
+        borderColor = '#66b266';
+        hoverBackgroundColor = '#82d682';
+        hoverTextColor = '#3a3a3a';
         break;
       case 'neon-green':
         backgroundColor = '#00ff00';
-        textColor = '#000000';
+        textColor = '#1a1a1a';
         borderColor = '#009900';
         hoverBackgroundColor = '#00cc00';
-        hoverTextColor = '#000000';
+        hoverTextColor = '#333333';
         break;
       case 'sunrise':
-        backgroundColor = '#ff7f50';
-        textColor = '#ffcc00';
-        borderColor = '#ff4500';
-        hoverBackgroundColor = '#ff5500';
-        hoverTextColor = '#ff9f40';
+        backgroundColor = '#ffcc00';
+        textColor = '#6a3d00';
+        borderColor = '#ff6600';
+        hoverBackgroundColor = '#ff9900';
+        hoverTextColor = '#9e6e2e';
+        break;
+      case 'rainbow':
+        backgroundColor = 'transparent';
+        textColor = 'white';
+        borderColor = 'transparent';
+        hoverBackgroundColor = 'transparent';
+        hoverTextColor = 'white';
         break;
       default:
-        return;
+        backgroundColor = '';
+        textColor = '';
+        borderColor = '';
     }
 
-    allElements.forEach(el => {
-      el.style.backgroundColor = backgroundColor;
-      el.style.color = textColor;
-      el.style.borderColor = borderColor;
-    });
-
-    styleSheet.innerHTML = 
-      'button, a { transition: background-color 0.3s, color 0.3s; }' +
-      'button:hover, a:hover { background-color: ' + hoverBackgroundColor + '; color: ' + hoverTextColor + '; }';
+    styleSheet.innerHTML = `
+      body {
+        background-color: ${backgroundColor};
+        color: ${textColor};
+      }
+      .box-container {
+        background-color: ${backgroundColor};
+        color: ${textColor};
+        border: 2px solid ${borderColor};
+      }
+      .styled-input, .styled-button {
+        background-color: ${backgroundColor};
+        color: ${textColor};
+        border-color: ${borderColor};
+      }
+      .styled-input:focus, .styled-button:hover {
+        background-color: ${hoverBackgroundColor};
+        color: ${hoverTextColor};
+      }
+    `;
   }
 
+  // Create dynamic stylesheet element
   function createDynamicStyleSheet() {
-    const styleSheet = document.createElement('style');
-    styleSheet.id = 'dynamic-theme-styles';
-    document.head.appendChild(styleSheet);
-    return styleSheet;
+    const style = document.createElement('style');
+    style.id = 'dynamic-theme-styles';
+    document.head.appendChild(style);
+    return style;
   }
 
-  // Function to apply tab cloaking settings
-  function applyTabCloak(cloak) {
-    let title, faviconUrl;
-    switch (cloak) {
+  // Function to apply tab cloaking
+  function applyTabCloak(tabService) {
+    let title, icon;
+    switch (tabService) {
       case 'google-classroom':
         title = 'Google Classroom';
-        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
+        icon = '/assets/icons/classroom-icon.png';
         break;
       case 'amplify':
         title = 'Amplify';
-        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
+        icon = '/assets/icons/amplify-icon.png';
         break;
       case 'google-docs':
         title = 'Google Docs';
-        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
+        icon = '/assets/icons/docs-icon.png';
         break;
       case 'desmos':
-        title = 'Desmos Calculator';
-        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
-         break;
-    default:
-      // Default case - reset title and favicon
-      title = 'YoBoiJake';
-      faviconUrl = '/assets/images/logo.png';
-  }
-
-
-    document.title = title;
-
-    let link = document.createElement('link');
-    link.rel = 'icon';
-    link.type = 'image/png';
-    link.href = faviconUrl;
-
-    let existingLink = document.querySelector('link[rel="icon"]');
-    if (existingLink) {
-      document.head.removeChild(existingLink);
-    }
-
-    document.head.appendChild(link);
-  }
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Load the saved tab cloak setting from localStorage
-    const savedCloak = localStorage.getItem('tabCloak');
-    if (savedCloak) {
-      applyTabCloak(savedCloak);
-    }
-
-    // Listen for changes in the tab cloak setting (if a selector is present)
-    const tabCloakSelector = document.getElementById('tab-cloak-selector');
-    if (tabCloakSelector) {
-      tabCloakSelector.addEventListener('change', function () {
-        const selectedCloak = tabCloakSelector.value;
-        localStorage.setItem('tabCloak', selectedCloak);
-        applyTabCloak(selectedCloak);
-      });
-    }
-  });
-
-  // Function to apply tab cloaking settings dynamically
-  function applyTabCloak(cloak) {
-    let title, faviconUrl;
-    switch (cloak) {
-      case 'google-classroom':
-        title = 'Google Classroom';
-        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
-        break;
-      case 'amplify':
-        title = 'Amplify';
-        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
-        break;
-      case 'google-docs':
-        title = 'Google Docs';
-        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
-        break;
-      case 'desmos':
-        title = 'Desmos Calculator';
-        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+        title = 'Desmos';
+        icon = '/assets/icons/desmos-icon.png';
         break;
       default:
-        // Default case - reset title and favicon
         title = 'YoBoiJake';
-        faviconUrl = '/assets/images/logo.png';
+        icon = '/assets/images/logo.png';
+        break;
     }
 
-    // Apply the title and favicon to the page
     document.title = title;
-
-    // Create a new link element or update the existing one
-    let link = document.createElement('link');
-    link.rel = 'icon';
-    link.type = 'image/png';
-    link.href = faviconUrl;
-
-    // Check if the link already exists and remove it if so
-    let existingLink = document.querySelector('link[rel="icon"]');
-    if (existingLink) {
-      document.head.removeChild(existingLink);
-    }
-
-    // Append the new link element for the favicon
-    document.head.appendChild(link);
+    document.querySelector('link[rel="icon"]').href = icon;
   }
 </script>
-
 </body>
 </html>
