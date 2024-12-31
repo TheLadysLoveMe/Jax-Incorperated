@@ -6,6 +6,55 @@
   <title>Search - YoBoiJake</title>
   <link rel="stylesheet" href="/css/styles.css">
   <style>
+    /* General Page Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #fff;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #1c1c1c;
+    }
+
+    header img {
+      height: 40px;
+      width: auto;
+    }
+
+    header span {
+      font-size: 24px;
+      color: #ff9b00;
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    nav a:hover {
+      color: #ff9b00;
+    }
+
+    /* Main Search Section */
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+      padding: 20px;
+    }
+
+    /* Form Styling */
     #uv-form {
       display: flex;
       justify-content: center;
@@ -13,39 +62,54 @@
       margin-top: 20px;
     }
 
+    /* Search Bar Styling */
     .search-bar {
-      padding: 10px;
-      font-size: 16px;
-      width: 300px;
-      border-radius: 5px;
-      border: 2px solid red;
-      background-color: black;
-      color: red;
-      transition: border-color 0.3s;
+      padding: 15px 20px;
+      font-size: 18px;
+      width: 350px;
+      border-radius: 50px;
+      border: 2px solid #ff9b00;
+      background-color: #333;
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .search-bar::placeholder {
+      color: #aaa;
     }
 
     .search-bar:focus {
-      border-color: red;
-      outline: none;
+      border-color: #ff9b00;
+      box-shadow: 0 0 8px rgba(255, 155, 0, 0.8);
+      background-color: #444;
     }
 
+    /* Description Section */
     .desc {
-      color: red;
+      color: #ff9b00;
       text-align: center;
-      margin-top: 10px;
+      margin-top: 20px;
     }
 
     #uv-error {
-      color: red;
+      color: #ff9b00;
       font-size: 14px;
     }
 
-    main {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 80vh;
+    /* Hover Effects */
+    .search-bar:hover {
+      background-color: #444;
+      border-color: #ff9b00;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .search-bar {
+        width: 80%;
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -266,7 +330,7 @@ switch (theme) {
     });
 
     // Add hover effects dynamically using the stylesheet
-    styleSheet.innerHTML = `
+    styleSheet.innerHTML = `  
       button, a {
         transition: background-color 0.3s, color 0.3s;
       }
@@ -283,86 +347,6 @@ switch (theme) {
     styleSheet.id = 'dynamic-theme-styles';
     document.head.appendChild(styleSheet);
     return styleSheet;
-  }
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Load the saved panic key from localStorage
-    const savedPanicKey = localStorage.getItem('panicKey');
-
-    if (savedPanicKey) {
-      // Listen for key presses globally to activate the panic key
-      document.addEventListener('keydown', function (event) {
-        if (event.key === savedPanicKey) {
-          // Redirect to Google Classroom when the panic key is pressed
-          window.location.href = 'https://classroom.google.com';
-        }
-      });
-    }
-  });
-</script>
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Load the saved tab cloak setting from localStorage
-    const savedCloak = localStorage.getItem('tabCloak');
-    if (savedCloak) {
-      applyTabCloak(savedCloak);
-    }
-
-    // Listen for changes in the tab cloak setting (if a selector is present)
-    const tabCloakSelector = document.getElementById('tab-cloak-selector');
-    if (tabCloakSelector) {
-      tabCloakSelector.addEventListener('change', function () {
-        const selectedCloak = tabCloakSelector.value;
-        localStorage.setItem('tabCloak', selectedCloak);
-        applyTabCloak(selectedCloak);
-      });
-    }
-  });
-
-  // Function to apply tab cloaking settings dynamically
-  function applyTabCloak(cloak) {
-    let title, faviconUrl;
-    switch (cloak) {
-      case 'google-classroom':
-        title = 'Google Classroom';
-        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
-        break;
-      case 'amplify':
-        title = 'Amplify';
-        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
-        break;
-      case 'google-docs':
-        title = 'Google Docs';
-        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
-        break;
-      case 'desmos':
-        title = 'Desmos Calculator';
-        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
-        break;
-      default:
-        // Default case - reset title and favicon
-        title = 'YoBoiJake';
-        faviconUrl = '/assets/images/logo.png';
-    }
-
-    // Apply the title and favicon to the page
-    document.title = title;
-
-    // Create a new link element or update the existing one
-    let link = document.createElement('link');
-    link.rel = 'icon';
-    link.type = 'image/png';
-    link.href = faviconUrl;
-
-    // Check if the link already exists and remove it if so
-    let existingLink = document.querySelector('link[rel="icon"]');
-    if (existingLink) {
-      document.head.removeChild(existingLink);
-    }
-
-    // Append the new link element for the favicon
-    document.head.appendChild(link);
   }
 </script>
 
