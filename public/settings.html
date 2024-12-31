@@ -120,7 +120,6 @@
             <option value="mint">Minty Fresh</option>
             <option value="neon-green">Neon Green</option>
             <option value="sunrise">Sunrise</option>
-            <option value="rainbow">Rainbow</option> <!-- Added Rainbow theme option -->
           </select>
         </div>
       </div>
@@ -317,84 +316,145 @@
       case 'neon-green':
         backgroundColor = '#00ff00';
         textColor = '#000000';
-        borderColor = '#32cd32';
-        hoverBackgroundColor = '#228b22';
-        hoverTextColor = '#a9dfbf';
+        borderColor = '#009900';
+        hoverBackgroundColor = '#00cc00';
+        hoverTextColor = '#000000';
         break;
       case 'sunrise':
-        backgroundColor = '#ffcc99';
-        textColor = '#6c3f1b';
-        borderColor = '#ff8c42';
-        hoverBackgroundColor = '#ff9642';
-        hoverTextColor = '#3e1f12';
-        break;
-      case 'rainbow': // Rainbow theme
-        backgroundColor = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)';
-        textColor = 'white';
-        borderColor = 'white';
-        hoverBackgroundColor = 'linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red)';
-        hoverTextColor = 'white';
+        backgroundColor = '#ff7f50';
+        textColor = '#ffcc00';
+        borderColor = '#ff4500';
+        hoverBackgroundColor = '#ff5500';
+        hoverTextColor = '#ff9f40';
         break;
       default:
-        backgroundColor = '';
-        textColor = '';
-        borderColor = '';
-        hoverBackgroundColor = '';
-        hoverTextColor = '';
-        break;
+        return;
     }
 
-    // Apply styles dynamically
     allElements.forEach(el => {
       el.style.backgroundColor = backgroundColor;
       el.style.color = textColor;
       el.style.borderColor = borderColor;
-      el.addEventListener('mouseenter', function() {
-        el.style.backgroundColor = hoverBackgroundColor;
-        el.style.color = hoverTextColor;
-      });
-      el.addEventListener('mouseleave', function() {
-        el.style.backgroundColor = backgroundColor;
-        el.style.color = textColor;
-      });
     });
+
+    styleSheet.innerHTML = 
+      'button, a { transition: background-color 0.3s, color 0.3s; }' +
+      'button:hover, a:hover { background-color: ' + hoverBackgroundColor + '; color: ' + hoverTextColor + '; }';
   }
 
-  // Create and add the dynamic stylesheet
   function createDynamicStyleSheet() {
-    const style = document.createElement('style');
-    style.id = 'dynamic-theme-styles';
-    document.head.appendChild(style);
-    return style;
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'dynamic-theme-styles';
+    document.head.appendChild(styleSheet);
+    return styleSheet;
   }
 
-  // Apply tab cloaking
+  // Function to apply tab cloaking settings
   function applyTabCloak(cloak) {
-    const title = document.querySelector('title');
-    const icon = document.querySelector('link[rel="icon"]');
+    let title, faviconUrl;
     switch (cloak) {
       case 'google-classroom':
-        title.textContent = 'Google Classroom';
-        icon.href = '/assets/icons/classroom-icon.png';
+        title = 'Google Classroom';
+        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
         break;
       case 'amplify':
-        title.textContent = 'Amplify';
-        icon.href = '/assets/icons/amplify-icon.png';
+        title = 'Amplify';
+        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
         break;
       case 'google-docs':
-        title.textContent = 'Google Docs';
-        icon.href = '/assets/icons/docs-icon.png';
+        title = 'Google Docs';
+        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
         break;
       case 'desmos':
-        title.textContent = 'Desmos';
-        icon.href = '/assets/icons/desmos-icon.png';
-        break;
-      default:
-        title.textContent = 'YoBoiJake';
-        icon.href = '/assets/images/logo.png';
-        break;
+        title = 'Desmos Calculator';
+        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+         break;
+    default:
+      // Default case - reset title and favicon
+      title = 'YoBoiJake';
+      faviconUrl = '/assets/images/logo.png';
+  }
+
+
+    document.title = title;
+
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = faviconUrl;
+
+    let existingLink = document.querySelector('link[rel="icon"]');
+    if (existingLink) {
+      document.head.removeChild(existingLink);
     }
+
+    document.head.appendChild(link);
   }
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load the saved tab cloak setting from localStorage
+    const savedCloak = localStorage.getItem('tabCloak');
+    if (savedCloak) {
+      applyTabCloak(savedCloak);
+    }
+
+    // Listen for changes in the tab cloak setting (if a selector is present)
+    const tabCloakSelector = document.getElementById('tab-cloak-selector');
+    if (tabCloakSelector) {
+      tabCloakSelector.addEventListener('change', function () {
+        const selectedCloak = tabCloakSelector.value;
+        localStorage.setItem('tabCloak', selectedCloak);
+        applyTabCloak(selectedCloak);
+      });
+    }
+  });
+
+  // Function to apply tab cloaking settings dynamically
+  function applyTabCloak(cloak) {
+    let title, faviconUrl;
+    switch (cloak) {
+      case 'google-classroom':
+        title = 'Google Classroom';
+        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
+        break;
+      case 'amplify':
+        title = 'Amplify';
+        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
+        break;
+      case 'google-docs':
+        title = 'Google Docs';
+        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
+        break;
+      case 'desmos':
+        title = 'Desmos Calculator';
+        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+        break;
+      default:
+        // Default case - reset title and favicon
+        title = 'YoBoiJake';
+        faviconUrl = '/assets/images/logo.png';
+    }
+
+    // Apply the title and favicon to the page
+    document.title = title;
+
+    // Create a new link element or update the existing one
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = faviconUrl;
+
+    // Check if the link already exists and remove it if so
+    let existingLink = document.querySelector('link[rel="icon"]');
+    if (existingLink) {
+      document.head.removeChild(existingLink);
+    }
+
+    // Append the new link element for the favicon
+    document.head.appendChild(link);
+  }
+</script>
+
 </body>
 </html>
