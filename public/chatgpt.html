@@ -221,13 +221,22 @@
   </script>
 
   <script>
-    // Panic Key functionality
-    document.addEventListener('keydown', function (e) {
-      const panicKey = localStorage.getItem('panicKey');
-      if (panicKey && e.key.toUpperCase() === panicKey) {
-        window.location.href = 'https://classroom.google.com';
+    // New Panic Key functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      // Load the saved panic key from localStorage
+      const savedPanicKey = localStorage.getItem('panicKey');
+
+      if (savedPanicKey) {
+        // Listen for key presses globally to activate the panic key
+        document.addEventListener('keydown', function (event) {
+          if (event.key === savedPanicKey) {
+            // Redirect to Google Classroom when the panic key is pressed
+            window.location.href = 'https://classroom.google.com';
+          }
+        });
       }
     });
+  </script>
 
     // Ad configuration
     atOptions = {
