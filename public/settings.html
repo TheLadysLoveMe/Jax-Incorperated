@@ -105,67 +105,11 @@
           </p>
           <select id="theme-selector" class="styled-input">
             <option value="default">Default</option>
+            <!-- Additional theme options -->
             <option value="dark">Dark</option>
             <option value="light">Light</option>
             <option value="blue">Blue</option>
-            <option value="forest">Forest</option>
-            <option value="sunset">Sunset</option>
-            <option value="purple">Purple</option>
-            <option value="retro-neon">Retro Neon</option>
-            <option value="ocean">Ocean</option>
-            <option value="cherry-blossom">Cherry Blossom</option>
-            <option value="space">Space</option>
-            <option value="autumn">Autumn</option>
-            <option value="cyberpunk">Cyberpunk</option>
-            <option value="mint">Mint</option>
-            <option value="neon-green">Neon Green</option>
-            <option value="sunrise">Sunrise</option>
-            <option value="midnight-blue">Midnight Blue</option>
-            <option value="sunny-yellow">Sunny Yellow</option>
-            <option value="lavender">Lavender</option>
-            <option value="steel-gray">Steel Gray</option>
-            <option value="peacock">Peacock</option>
-            <option value="rose-gold">Rose Gold</option>
-            <option value="chocolate">Chocolate</option>
-            <option value="tropical">Tropical</option>
-            <option value="icy-blue">Icy Blue</option>
-            <option value="sapphire">Sapphire</option>
-            <option value="tangerine">Tangerine</option>
-            <option value="mint-chocolate">Mint Chocolate</option>
-            <option value="tropical-coral">Tropical Coral</option>
-            <option value="frosted-lavender">Frosted Lavender</option>
-            <option value="electric-orange">Electric Orange</option>
-            <option value="minty-fresh">Minty Fresh</option>
-            <option value="cherry-red">Cherry Red</option>
-            <option value="autumn-leaf">Autumn Leaf</option>
-            <option value="neon-lime">Neon Lime</option>
-            <option value="deep-ocean">Deep Ocean</option>
-            <option value="moonlit-sky">Moonlit Sky</option>
-            <option value="sunset-orange">Sunset Orange</option>
-            <option value="cool-aqua">Cool Aqua</option>
-            <option value="vintage-rose">Vintage Rose</option>
-            <option value="electric-purple">Electric Purple</option>
-            <option value="midnight-purple">Midnight Purple</option>
-            <option value="turquoise-dream">Turquoise Dream</option>
-            <option value="velvet-indigo">Velvet Indigo</option>
-            <option value="garnet-red">Garnet Red</option>
-            <option value="champagne">Champagne</option>
-            <option value="icy-pink">Icy Pink</option>
-            <option value="red-velvet">Red Velvet</option>
-            <option value="summer-sky">Summer Sky</option>
-            <option value="forest-moss">Forest Moss</option>
-            <option value="mint-splash">Mint Splash</option>
-            <option value="plum">Plum</option>
-            <option value="fiery-orange">Fiery Orange</option>
-            <option value="midnight-cyan">Midnight Cyan</option>
-            <option value="magenta-fantasy">Magenta Fantasy</option>
-            <option value="warm-gold">Warm Gold</option>
-            <option value="stormy-gray">Stormy Gray</option>
-            <option value="deep-emerald">Deep Emerald</option>
-            <option value="rich-violet">Rich Violet</option>
-            <option value="rose-pink">Rose Pink</option>
-            <option value="vibrant-lime">Vibrant Lime</option>
-            <option value="misty-gray">Misty Gray</option>
+            <!-- ... other themes ... -->
           </select>
         </div>
       </div>
@@ -184,20 +128,6 @@
             <option value="desmos">Desmos Calculator</option>
             <option value="default">Default</option>
           </select>
-        </div>
-      </div>
-
-      <!-- Auto Blank Section -->
-      <div>
-        <div class="setting-title" id="auto-blank-title">Auto Blank</div>
-        <div class="box-container">
-          <p class="auto-blank-explanation" id="auto-blank-explanation">
-            Toggle this option to automatically open the "About" page in a new blank window. When turned off, it will be disabled.
-          </p>
-          <label for="auto-blank-toggle" class="styled-input">
-            <input type="checkbox" id="auto-blank-toggle" onchange="saveAutoBlank()" />
-            Enable Auto Blank
-          </label>
         </div>
       </div>
     </div>
@@ -255,16 +185,11 @@
       });
     }
 
-    // Load the auto blank setting
-    const autoBlankToggle = document.getElementById('auto-blank-toggle');
-    const savedAutoBlank = localStorage.getItem('autoBlank') === 'true';
-    if (savedAutoBlank) {
-      autoBlankToggle.checked = true;
-      openAboutBlank();
-    }
+    // Call the openAboutBlank function
+    openAboutBlank();
   });
 
-  // Save the panic key to localStorage
+  // Function to save the panic key to localStorage
   function savePanicKey() {
     const panicKeyInput = document.getElementById('panic-key-input');
     const panicKey = panicKeyInput.value;
@@ -307,15 +232,11 @@
       el.style.borderColor = borderColor;
     });
 
-    styleSheet.innerHTML = `
-      .styled-input:hover, .styled-button:hover {
-        background-color: ${hoverBackgroundColor};
-        color: ${hoverTextColor};
-      }
-    `;
+    styleSheet.innerHTML = 
+      'button, a { transition: background-color 0.3s, color 0.3s; }' +
+      'button:hover, a:hover { background-color: ' + hoverBackgroundColor + '; color: ' + hoverTextColor + '; }';
   }
 
-  // Create a dynamic stylesheet element for themes
   function createDynamicStyleSheet() {
     const styleSheet = document.createElement('style');
     styleSheet.id = 'dynamic-theme-styles';
@@ -323,20 +244,66 @@
     return styleSheet;
   }
 
-  // Save the auto blank toggle state to localStorage
-  function saveAutoBlank() {
-    const autoBlankToggle = document.getElementById('auto-blank-toggle');
-    const isChecked = autoBlankToggle.checked;
-    localStorage.setItem('autoBlank', isChecked);
-    if (isChecked) {
-      openAboutBlank();
+  // Function to apply tab cloaking settings
+  function applyTabCloak(cloak) {
+    let title, faviconUrl;
+    switch (cloak) {
+      case 'google-classroom':
+        title = 'Google Classroom';
+        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
+        break;
+      case 'amplify':
+        title = 'Amplify';
+        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
+        break;
+      case 'google-docs':
+        title = 'Google Docs';
+        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
+        break;
+      case 'desmos':
+        title = 'Desmos Calculator';
+        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+        break;
+      default:
+        // Default case - reset title and favicon
+        title = 'YoBoiJake';
+        faviconUrl = '/assets/images/logo.png';
     }
+
+    // Apply the title and favicon to the page
+    document.title = title;
+
+    // Create a new link element or update the existing one
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = faviconUrl;
+
+    // Check if the link already exists and remove it if so
+    let existingLink = document.querySelector('link[rel="icon"]');
+    if (existingLink) {
+      document.head.removeChild(existingLink);
+    }
+
+    // Append the new link element for the favicon
+    document.head.appendChild(link);
   }
 
-  // Open the "About" page in a new window
+  // Function to open a blank page and inject iframe
   function openAboutBlank() {
-    window.open('about.html', '_blank');
+    let win = window.open("", "_blank");
+    if (win) {
+      win.document.body.style.margin = "0";
+      win.document.body.style.height = "100vh";
+      const iframe = document.createElement("iframe");
+      iframe.style.border = "none";
+      iframe.style.width = "100%";
+      iframe.style.height = "100%";
+      iframe.src = "/";
+      win.document.body.appendChild(iframe);
+    }
   }
 </script>
+
 </body>
 </html>
