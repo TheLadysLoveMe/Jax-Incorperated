@@ -145,18 +145,14 @@
   </div>
 
   <script>
-    // Function to convert Markdown-like syntax to HTML and check for code blocks
-    function parseMarkdown(text) {
-      // Convert headings (###) into <h3>
-      text = text.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
-      // Convert bold (****) into <b>
-      text = text.replace(/\*\*\*\*(.*?)\*\*\*\*/g, '<b>$1</b>');
-      // Convert inline code (single backticks `code`) into <code> elements
-      text = text.replace(/`(.*?)`/g, '<code>$1</code>');
-      // Convert multiline code blocks (triple backticks ```code```) into <pre><code> elements
-      text = text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
-      return text;
-    }
+    document.addEventListener('keydown', function (e) {
+      const panicKey = localStorage.getItem('panicKey');
+      if (panicKey && e.key.toUpperCase() === panicKey) {
+        window.location.href = 'https://classroom.google.com';
+      }
+    });
+  </script>
+
 
     // Function to handle the AI's response
     async function handleChatResponse(response) {
