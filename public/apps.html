@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Games - YoBoiJake</title>
+  <title>Apps - YoBoiJake</title>
   <link rel="manifest" href="/manifest.json"/>
   <link rel="icon" type="image/png" href="/assets/images/logo.png">
   <link rel="stylesheet" href="/css/styles.css">
@@ -15,110 +15,43 @@
     <nav>
       <a href="/">Home</a>
       <a href="/games.html">Games</a>
+      <a href="/apps.html">Apps</a>
       <a href="/search.html">Search</a>
       <a href="/chatgpt.html">ChatGPT</a>
       <a href="/settings.html">Settings</a>
     </nav>
   </header>
 
-  <main id="games-content">
-    <h1>Games:</h1>
-    <div id="game-container">
-      <a href="#cookieclicker" class="game" onclick="showGame('/assets/games/cookieclicker/')">
-        <img src="/assets/images/cookieclicker/game.png" alt="Cookie Clicker">
-        <span>Cookie Clicker</span>
+  <main id="apps-content">
+    <h1>Apps:</h1>
+    <div id="app-container">
+      <a href="#notepad" class="app" onclick="showApp('/assets/apps/notepad/')">
+        <img src="/assets/images/notepad/app.png" alt="Notepad">
+        <span>Notepad</span>
       </a>
-      <a href="#fireboyandwatergirl" class="game" onclick="showGame('/assets/games/fireboyandwatergirl/')">
-        <img src="/assets/images/fireboyandwatergirl/game.png" alt="Fireboy and Watergirl">
-        <span>Fireboy and Watergirl</span>
+      <a href="#calculator" class="app" onclick="showApp('/assets/apps/calculator/')">
+        <img src="/assets/images/calculator/app.png" alt="Calculator">
+        <span>Calculator</span>
       </a>
-      <a href="#bloxorz" class="game" onclick="showGame('/assets/games/bloxorz/')">
-        <img src="/assets/images/bloxorz/game.png" alt="Bloxorz">
-        <span>Bloxorz</span>
+      <a href="#weather" class="app" onclick="showApp('/assets/apps/weather/')">
+        <img src="/assets/images/weather/app.png" alt="Weather App">
+        <span>Weather</span>
       </a>
-      <a href="#driftboss" class="game" onclick="showGame('/assets/games/driftboss/')">
-        <img src="/assets/images/driftboss/game.png" alt="Drift Boss">
-        <span>Drift Boss</span>
+      <a href="#translator" class="app" onclick="showApp('/assets/apps/translator/')">
+        <img src="/assets/images/translator/app.png" alt="Translator">
+        <span>Translator</span>
       </a>
-      <a href="#2048" class="game" onclick="showGame('/assets/games/2048/')">
-        <img src="/assets/images/2048/game.png" alt="Drift Boss">
-        <span>2048</span>
+      <a href="#todo" class="app" onclick="showApp('/assets/apps/todo/')">
+        <img src="/assets/images/todo/app.png" alt="To-Do List">
+        <span>To-Do List</span>
       </a>
-      <a href="#retrobowl" class="game" onclick="showGame('/assets/games/retrobowl/')">
-        <img src="/assets/images/retrobowl/game.png" alt="retrobowl">
-        <span>Retro Bowl</span>
-      </a>
-      <a href="#basketball stars" class="game" onclick="showGame('/assets/games/basketball stars/')">
-        <img src="/assets/images/basketball stars/game.png" alt="basketball stars">
-        <span>Basketball Stars</span>
-      </a>
-      <a href="#slope" class="game" onclick="showGame('/assets/games/slope/')">
-        <img src="/assets/images/slope/game.png" alt="slope">
-        <span>Slope</span>
-      </a>
-      <a href="#f1" class="game" onclick="showGame('/assets/games/f1/')">
-        <img src="/assets/images/f1/game.png" alt="Fnaf 1">
-        <span>Fnaf 1</span>
-      </a>
-      <a href="#bob1" class="game" onclick="showGame('/assets/games/bob1/')">
-        <img src="/assets/images/bob1/game.png" alt="Bob The Robber">
-        <span>Bob The Robber</span>
-      </a>
-      <a href="#bitlife" class="game" onclick="showGame('/assets/games/bitlife/')">
-        <img src="/assets/images/Bitlife/game.png" alt="bitlife">
-        <span>Bitlife</span>      
-      </a>
-      <a href="#blockblast" class="game" onclick="showGame('/assets/games/blockblast/')">
-        <img src="/assets/images/blockblast/game.png" alt="blockblast">
-        <span>Block Blast</span>
-      </a>
-      <a href="#1v1" class="game" onclick="showGame('/assets/games/1v1/')">
-        <img src="/assets/images/1v1/game.png" alt="1v1">
-        <span>1v1.lol</span>
-      </a>
-      <a href="#slith" class="game" onclick="showGame('/assets/games/slith/')">
-        <img src="/assets/images/slith/game.png" alt="slith">
-        <span>Slither.io</span>
-      </a>  
-       <a href="#agar" class="game" onclick="showGame('/assets/games/agar/')">
-        <img src="/assets/images/agar/game.png" alt="agar">
-        <span>Agar.io</span>
-      </a>  
-       <a href="#1v1h" class="game" onclick="showGame('/assets/games/1v1h/')">
-        <img src="/assets/images/1v1/game.png" alt="1v1h">
-        <span>1v1.lol Hacks</span>
-      </a>
-       <a href="#mine" class="game" onclick="showGame('/assets/games/mine/')">
-        <img src="/assets/images/mine/game.png" alt="mine">
-        <span>Minecraft</span>
-      </a> 
-       <a href="#pok" class="game" onclick="showGame('/assets/games/pok/')">
-        <img src="/assets/images/pok/game.png" alt="pok">
-        <span>Poki</span>
-      </a>   
-       <a href="#geo" class="game" onclick="showGame('/assets/games/geo/')">
-        <img src="/assets/images/geo/game.png" alt="geo">
-        <span>Geometry Dash Lite</span>
-      </a>
-       <a href="#dead" class="game" onclick="showGame('/assets/games/dead/')">
-        <img src="/assets/images/dead/game.png" alt="dead">
-        <span>Deadshot.io</span>
-      </a>
-       <a href="#tun" class="game" onclick="showGame('/assets/games/tun/')">
-        <img src="/assets/images/tun/game.png" alt="tun">
-        <span>Tunnel Rush</span>
-      </a>
-       <a href="#x" class="game" onclick="showGame('/assets/games/x/')">
-        <img src="/assets/images/x/game.png" alt="x">
-        <span>Twitter</span>
-      </a>      
     </div>
 
-    <div id="game-display" style="display: none;">
-      <div id="game-frame-container">
-        <iframe id="game-frame" src="" width="800" height="600"></iframe>
-        <div id="game-buttons">
-          <button onclick="exitGame()">Exit</button>
+    <div id="app-display" style="display: none;">
+      <div id="app-frame-container">
+        <iframe id="app-frame" src="" width="800" height="600"></iframe>
+        <div id="app-buttons">
+          <button onclick="exitApp()">Exit</button>
           <button onclick="toggleFullScreen()">Fullscreen</button>
         </div>
       </div>
@@ -126,52 +59,86 @@
   </main>
 
   <script src="/js/scripts.js"></script>
-    <script>
-    // Panic Key functionality
+  <script>
+    function showApp(url) {
+      document.getElementById('app-container').style.display = 'none';
+      const appDisplay = document.getElementById('app-display');
+      appDisplay.style.display = 'block';
+      document.getElementById('app-frame').src = url;
+    }
+
+    function exitApp() {
+      document.getElementById('app-container').style.display = 'flex';
+      const appDisplay = document.getElementById('app-display');
+      appDisplay.style.display = 'none';
+      document.getElementById('app-frame').src = '';
+    }
+
+    function toggleFullScreen() {
+      const iframe = document.getElementById('app-frame');
+      if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+      } else if (iframe.mozRequestFullScreen) {
+        iframe.mozRequestFullScreen();
+      } else if (iframe.webkitRequestFullscreen) {
+        iframe.webkitRequestFullscreen();
+      } else if (iframe.msRequestFullscreen) {
+        iframe.msRequestFullscreen();
+      }
+    }
+  </script>
+  <script>
     document.addEventListener('keydown', function (e) {
       const panicKey = localStorage.getItem('panicKey');
       if (panicKey && e.key.toUpperCase() === panicKey) {
         window.location.href = 'https://classroom.google.com';
       }
     });
+  </script>
+ <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load and apply the saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    }
 
-
-    // Theme handling
-    document.addEventListener('DOMContentLoaded', function () {
-      const savedTheme = localStorage.getItem('theme');
+    // Initialize the theme selector if it exists
+    const themeSelector = document.getElementById('theme-selector');
+    if (themeSelector) {
       if (savedTheme) {
-        applyTheme(savedTheme);
+        themeSelector.value = savedTheme;
       }
 
-      const themeSelector = document.getElementById('theme-selector');
-      if (themeSelector) {
-        if (savedTheme) {
-          themeSelector.value = savedTheme;
-        }
-        themeSelector.addEventListener('change', function () {
-          const selectedTheme = themeSelector.value;
-          localStorage.setItem('theme', selectedTheme);
-          applyTheme(selectedTheme);
-        });
-      }
-    });
+      // Save and apply theme when the dropdown changes
+      themeSelector.addEventListener('change', function () {
+        const selectedTheme = themeSelector.value;
+        localStorage.setItem('theme', selectedTheme);
+        applyTheme(selectedTheme);
+      });
+    }
+  });
 
-    function applyTheme(theme) {
-      const allElements = document.querySelectorAll("*");
-      const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+  // Function to apply a theme dynamically to all elements
+  function applyTheme(theme) {
+    const allElements = document.querySelectorAll("*"); // Select all elements
+    const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
 
-      if (theme === 'default') {
-        allElements.forEach(el => {
-          el.style.backgroundColor = '';
-          el.style.color = '';
-          el.style.borderColor = '';
-        });
-        styleSheet.innerHTML = '';
-        return;
-      }
+    // Clear previously applied styles for the default theme
+    if (theme === 'default') {
+      allElements.forEach(el => {
+        el.style.backgroundColor = ''; // Clear inline background color
+        el.style.color = '';           // Clear inline text color
+        el.style.borderColor = '';     // Clear inline border color
+      });
+      styleSheet.innerHTML = ''; // Remove hover styles
+      return;
+    }
 
-      let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
-      switch (theme) {
+    // Apply theme colors dynamically
+    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
+
+switch (theme) {
       case 'dark':
         backgroundColor = '#121212';
         textColor = 'white';
@@ -599,35 +566,38 @@ case 'misty-gray':
     hoverBackgroundColor = '#616161'; // Darker gray hover
     hoverTextColor = '#ffffff'; // White hover text
     break;
-        default:
-          return;
+  default:
+    return;
+}
+
+    // Apply the base styles to all elements
+    allElements.forEach(el => {
+      el.style.backgroundColor = backgroundColor;
+      el.style.color = textColor;
+      el.style.borderColor = borderColor;
+    });
+
+    // Add hover effects dynamically using the stylesheet
+    styleSheet.innerHTML = `
+      button, a {
+        transition: background-color 0.3s, color 0.3s;
       }
+      button:hover, a:hover {
+        background-color: ${hoverBackgroundColor};
+        color: ${hoverTextColor};
+      }
+    `;
+  }
 
-      allElements.forEach(el => {
-        el.style.backgroundColor = backgroundColor;
-        el.style.color = textColor;
-        el.style.borderColor = borderColor;
-      });
-
-      styleSheet.innerHTML = `
-        button, a {
-          transition: background-color 0.3s, color 0.3s;
-        }
-        button:hover, a:hover {
-          background-color: ${hoverBackgroundColor};
-          color: ${hoverTextColor};
-        }
-      `;
-    }
-
-    function createDynamicStyleSheet() {
-      const styleSheet = document.createElement('style');
-      styleSheet.id = 'dynamic-theme-styles';
-      document.head.appendChild(styleSheet);
-      return styleSheet;
-    }
-  </script>
-  <script>
+  // Helper function to create or find the dynamic stylesheet
+  function createDynamicStyleSheet() {
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'dynamic-theme-styles';
+    document.head.appendChild(styleSheet);
+    return styleSheet;
+  }
+</script>
+<script>
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved panic key from localStorage
     const savedPanicKey = localStorage.getItem('panicKey');
@@ -707,5 +677,6 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
+
 </body>
 </html>
