@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,10 +32,10 @@
       </a>    
     </div>
 
-    <div id="app-display" style="display: none;">
-      <div id="app-frame-container">
-        <iframe id="app-frame" src="" width="800" height="600"></iframe>
-        <div id="app-buttons">
+    <div id="game-display" style="display: none;">
+      <div id="game-frame-container">
+        <iframe id="game-frame" src="" width="800" height="600"></iframe>
+        <div id="game-buttons">
           <button onclick="exitGame()">Exit</button>
           <button onclick="toggleFullScreen()">Fullscreen</button>
         </div>
@@ -64,7 +65,7 @@
         window.location.href = 'https://classroom.google.com';
       }
     });
-      
+
     // Theme handling (same as before)
     document.addEventListener('DOMContentLoaded', function () {
       const savedTheme = localStorage.getItem('theme');
