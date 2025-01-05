@@ -55,6 +55,16 @@
 
   <script src="/js/scripts.js"></script>
   <script>
+      <script src="/js/scripts.js"></script>
+    <script>
+    // Panic Key functionality
+    document.addEventListener('keydown', function (e) {
+      const panicKey = localStorage.getItem('panicKey');
+      if (panicKey && e.key.toUpperCase() === panicKey) {
+        window.location.href = 'https://classroom.google.com';
+      }
+    });
+      
     // Theme handling (same as before)
     document.addEventListener('DOMContentLoaded', function () {
       const savedTheme = localStorage.getItem('theme');
