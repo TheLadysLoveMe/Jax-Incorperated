@@ -641,17 +641,21 @@ case 'misty-gray':
       });
     }
 
-    // Reapply the tab cloak after a search
-    const searchBar = document.getElementById('uv-address');
-    if (searchBar) {
-      searchBar.addEventListener('change', function () {
-        const savedCloak = localStorage.getItem('tabCloak');
-        if (savedCloak) {
-          applyTabCloak(savedCloak);
-        }
-      });
-    }
+    // Apply the tab cloak on URL changes or navigations within `/math/`
+    window.addEventListener('popstate', detectMathURL);
+    window.addEventListener('hashchange', detectMathURL);
+    detectMathURL(); // Check the URL on page load
   });
+
+  function detectMathURL() {
+    const currentURL = window.location.href;
+    if (currentURL.includes('/math/')) {
+      const savedCloak = localStorage.getItem('tabCloak');
+      if (savedCloak) {
+        applyTabCloak(savedCloak);
+      }
+    }
+  }
 
   // Function to apply tab cloaking settings dynamically
   function applyTabCloak(cloak) {
@@ -674,6 +678,7 @@ case 'misty-gray':
         faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
         break;
       default:
+        // Default case - reset title and favicon
         title = 'YoBoiJake';
         faviconUrl = '/assets/images/logo.png';
     }
@@ -681,16 +686,21 @@ case 'misty-gray':
     // Apply the title and favicon to the page
     document.title = title;
 
-    // Create or update the favicon
+    // Create a new link element or update the existing one
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = faviconUrl;
+
+    // Check if the link already exists and remove it if so
     let existingLink = document.querySelector('link[rel="icon"]');
-    if (!existingLink) {
-      existingLink = document.createElement('link');
-      existingLink.rel = 'icon';
-      document.head.appendChild(existingLink);
+    if (existingLink) {
+      document.head.removeChild(existingLink);
     }
-    existingLink.href = faviconUrl;
+
+    // Append the new link element for the favicon
+    document.head.appendChild(link);
   }
 </script>
-
 </body>
 </html>
