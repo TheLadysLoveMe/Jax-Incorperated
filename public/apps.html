@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Games - YoBoiJake</title>
+  <title>Apps - YoBoiJake</title>
   <link rel="manifest" href="/manifest.json"/>
   <link rel="icon" type="image/png" href="/assets/images/logo.png">
   <link rel="stylesheet" href="/css/styles.css">
@@ -15,39 +15,39 @@
     <nav>
       <a href="/">Home</a>
       <a href="/games.html">Games</a>
-      <a href="/apps.html">Apps</a> <!-- New Apps Tab -->
+      <a href="/apps.html">Apps</a> <!-- New apps Tab -->
       <a href="/search.html">Search</a>
       <a href="/chatgpt.html">ChatGPT</a>
       <a href="/settings.html">Settings</a>
     </nav>
   </header>
 
-  <main id="games-content">
-    <h1>Apps:</h1>
-    <div id="game-container">
-       <a href="#red" class="game" onclick="showGame('/assets/apps/red/')">
-        <img src="/assets/appimages/red/app.png" alt="red">
+  <main id="apps-content">
+    <h1>apps:</h1>
+    <div id="apps-container">
+       <a href="#red" class="apps" onclick="showapps('/assets/apps/red/')">
+        <img src="/assets/appsimages/red/apps.png" alt="red">
         <span>Reddit</span>
       </a>    
     </div>
 
-    <div id="game-display" style="display: none;">
-      <div id="game-frame-container">
-        <iframe id="game-frame" src="" width="800" height="600"></iframe>
-        <div id="game-buttons">
-          <button onclick="exitGame()">Exit</button>
+    <div id="apps-display" style="display: none;">
+      <div id="apps-frame-container">
+        <iframe id="apps-frame" src="" width="800" height="600"></iframe>
+        <div id="apps-buttons">
+          <button onclick="exitapps()">Exit</button>
           <button onclick="toggleFullScreen()">Fullscreen</button>
         </div>
       </div>
     </div>
 
-    <!-- New App Display Section (similar to the game display section) -->
-    <div id="app-display" style="display: none;">
-      <div id="app-frame-container">
-        <iframe id="app-frame" src="" width="800" height="600"></iframe>
-        <div id="app-buttons">
-          <button onclick="exitApp()">Exit</button>
-          <button onclick="toggleAppFullScreen()">Fullscreen</button>
+    <!-- New apps Display Section (similar to the apps display section) -->
+    <div id="apps-display" style="display: none;">
+      <div id="apps-frame-container">
+        <iframe id="apps-frame" src="" width="800" height="600"></iframe>
+        <div id="apps-buttons">
+          <button onclick="exitapps()">Exit</button>
+          <button onclick="toggleappsFullScreen()">Fullscreen</button>
         </div>
       </div>
     </div>
@@ -69,7 +69,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) {
-        applyTheme(savedTheme);
+        appslyTheme(savedTheme);
       }
 
       const themeSelector = document.getElementById('theme-selector');
@@ -80,12 +80,12 @@
         themeSelector.addEventListener('change', function () {
           const selectedTheme = themeSelector.value;
           localStorage.setItem('theme', selectedTheme);
-          applyTheme(selectedTheme);
+          appslyTheme(selectedTheme);
         });
       }
     });
 
-    function applyTheme(theme) {
+    function appslyTheme(theme) {
       const allElements = document.querySelectorAll("*");
       const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
 
@@ -269,8 +269,8 @@ case 'icy-blue':
     hoverBackgroundColor = '#0288d1'; // Darker blue hover
     hoverTextColor = '#ffffff'; // White hover text
     break;
-case 'sapphire':
-    backgroundColor = '#0d47a1'; // Deep sapphire blue
+case 'sappshire':
+    backgroundColor = '#0d47a1'; // Deep sappshire blue
     textColor = '#ffffff'; // White text
     borderColor = '#1976d2'; // Medium blue border
     hoverBackgroundColor = '#1565c0'; // Darker blue hover
@@ -520,8 +520,8 @@ case 'icy-blue':
     hoverBackgroundColor = '#0288d1'; // Darker blue hover
     hoverTextColor = '#ffffff'; // White hover text
     break;
-case 'sapphire':
-    backgroundColor = '#0d47a1'; // Deep sapphire blue
+case 'sappshire':
+    backgroundColor = '#0d47a1'; // Deep sappshire blue
     textColor = '#ffffff'; // White text
     borderColor = '#1976d2'; // Medium blue border
     hoverBackgroundColor = '#1565c0'; // Darker blue hover
@@ -803,42 +803,42 @@ case 'misty-gray':
     function createDynamicStyleSheet() {
       const styleSheet = document.createElement('style');
       styleSheet.id = 'dynamic-theme-styles';
-      document.head.appendChild(styleSheet);
+      document.head.appsendChild(styleSheet);
       return styleSheet;
     }
 
     function createDynamicStyleSheet() {
       const styleSheet = document.createElement('style');
       styleSheet.id = 'dynamic-theme-styles';
-      document.head.appendChild(styleSheet);
+      document.head.appsendChild(styleSheet);
       return styleSheet;
     }
 
-    // Show App function (similar to showGame)
-    function showApp(appUrl) {
-      const appDisplay = document.getElementById('app-display');
-      const appFrame = document.getElementById('app-frame');
-      appFrame.src = appUrl;
-      appDisplay.style.display = 'block';
-      document.getElementById('games-content').style.display = 'none';
+    // Show apps function (similar to showapps)
+    function showapps(appsUrl) {
+      const appsDisplay = document.getElementById('apps-display');
+      const appsFrame = document.getElementById('apps-frame');
+      appsFrame.src = appsUrl;
+      appsDisplay.style.display = 'block';
+      document.getElementById('apps-content').style.display = 'none';
     }
 
-    function exitApp() {
-      const appDisplay = document.getElementById('app-display');
-      appDisplay.style.display = 'none';
+    function exitapps() {
+      const appsDisplay = document.getElementById('apps-display');
+      appsDisplay.style.display = 'none';
       document.getElementById('apps-content').style.display = 'block';
     }
 
-    function toggleAppFullScreen() {
-      const appFrame = document.getElementById('app-frame');
-      if (appFrame.requestFullscreen) {
-        appFrame.requestFullscreen();
-      } else if (appFrame.mozRequestFullScreen) {
-        appFrame.mozRequestFullScreen();
-      } else if (appFrame.webkitRequestFullscreen) {
-        appFrame.webkitRequestFullscreen();
-      } else if (appFrame.msRequestFullscreen) {
-        appFrame.msRequestFullscreen();
+    function toggleappsFullScreen() {
+      const appsFrame = document.getElementById('apps-frame');
+      if (appsFrame.requestFullscreen) {
+        appsFrame.requestFullscreen();
+      } else if (appsFrame.mozRequestFullScreen) {
+        appsFrame.mozRequestFullScreen();
+      } else if (appsFrame.webkitRequestFullscreen) {
+        appsFrame.webkitRequestFullscreen();
+      } else if (appsFrame.msRequestFullscreen) {
+        appsFrame.msRequestFullscreen();
       }
     }
   </script>
