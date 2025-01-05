@@ -609,13 +609,10 @@ case 'misty-gray':
 </script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Check if the current URL includes the specified domain
-    if (window.location.href.includes('https://yoboijakev2beta.jemix.sg/')) {
-      // Load the saved tab cloak setting from localStorage
-      const savedCloak = localStorage.getItem('tabCloak');
-      if (savedCloak) {
-        applyTabCloak(savedCloak);
-      }
+    // Always load the saved tab cloak from localStorage on any page
+    const savedCloak = localStorage.getItem('tabCloak');
+    if (savedCloak) {
+      applyTabCloak(savedCloak);
     }
 
     // Listen for changes in the tab cloak setting (if a selector is present)
