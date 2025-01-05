@@ -22,26 +22,26 @@
     </nav>
   </header>
 
-  <main id="apps-content">
+  <main id="games-content">
     <h1>Apps:</h1>
-    <div id="app-container">
-       <a href="#red" class="app" onclick="showapp('/assets/apps/red/')">
+    <div id="game-container">
+       <a href="#red" class="game" onclick="showGame('/assets/apps/red/')">
         <img src="/assets/appimages/red/app.png" alt="red">
         <span>Reddit</span>
       </a>    
     </div>
 
-    <div id="app-display" style="display: none;">
-      <div id="app-frame-container">
-        <iframe id="app-frame" src="" width="800" height="600"></iframe>
-        <div id="app-buttons">
-          <button onclick="exitapp()">Exit</button>
+    <div id="game-display" style="display: none;">
+      <div id="game-frame-container">
+        <iframe id="game-frame" src="" width="800" height="600"></iframe>
+        <div id="game-buttons">
+          <button onclick="exitGame()">Exit</button>
           <button onclick="toggleFullScreen()">Fullscreen</button>
         </div>
       </div>
     </div>
 
-    <!-- New App Display Section (similar to the app display section) -->
+    <!-- New App Display Section (similar to the game display section) -->
     <div id="app-display" style="display: none;">
       <div id="app-frame-container">
         <iframe id="app-frame" src="" width="800" height="600"></iframe>
@@ -814,7 +814,7 @@ case 'misty-gray':
       return styleSheet;
     }
 
-    // Show App function (similar to showapp)
+    // Show App function (similar to showGame)
     function showApp(appUrl) {
       const appDisplay = document.getElementById('app-display');
       const appFrame = document.getElementById('app-frame');
