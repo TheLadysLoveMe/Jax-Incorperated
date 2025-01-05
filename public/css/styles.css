@@ -189,3 +189,77 @@ nav a:hover {
   background-color: red;
   color: black;
 }
+#app-container {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.app {
+  width: 200px;
+  text-align: center;
+  border: 2px solid red;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: black;
+  transition: transform 0.3s, background-color 0.3s;
+  color: red;
+  text-decoration: none;
+}
+
+.app img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.app:hover {
+  transform: scale(1.05);
+  background-color: red;
+  color: black;
+}
+
+.app span {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#app-display {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#app-frame-container {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  background-color: black;
+}
+
+#app-buttons {
+  margin-top: 10px;
+}
+
+#app-buttons button {
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: black;
+  color: red;
+  border: 2px solid red;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#app-buttons button:hover {
+  background-color: red;
+  color: black;
+}
+
+
+
