@@ -623,7 +623,7 @@ case 'misty-gray':
     }
   });
 </script>
-  <script>
+<script>
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved tab cloak setting from localStorage
     const savedCloak = localStorage.getItem('tabCloak');
@@ -638,6 +638,17 @@ case 'misty-gray':
         const selectedCloak = tabCloakSelector.value;
         localStorage.setItem('tabCloak', selectedCloak);
         applyTabCloak(selectedCloak);
+      });
+    }
+
+    // Reapply the tab cloak after a search
+    const searchBar = document.getElementById('uv-address');
+    if (searchBar) {
+      searchBar.addEventListener('change', function () {
+        const savedCloak = localStorage.getItem('tabCloak');
+        if (savedCloak) {
+          applyTabCloak(savedCloak);
+        }
       });
     }
   });
@@ -663,7 +674,6 @@ case 'misty-gray':
         faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
         break;
       default:
-        // Default case - reset title and favicon
         title = 'YoBoiJake';
         faviconUrl = '/assets/images/logo.png';
     }
@@ -671,20 +681,14 @@ case 'misty-gray':
     // Apply the title and favicon to the page
     document.title = title;
 
-    // Create a new link element or update the existing one
-    let link = document.createElement('link');
-    link.rel = 'icon';
-    link.type = 'image/png';
-    link.href = faviconUrl;
-
-    // Check if the link already exists and remove it if so
+    // Create or update the favicon
     let existingLink = document.querySelector('link[rel="icon"]');
-    if (existingLink) {
-      document.head.removeChild(existingLink);
+    if (!existingLink) {
+      existingLink = document.createElement('link');
+      existingLink.rel = 'icon';
+      document.head.appendChild(existingLink);
     }
-
-    // Append the new link element for the favicon
-    document.head.appendChild(link);
+    existingLink.href = faviconUrl;
   }
 </script>
 
