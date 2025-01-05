@@ -824,11 +824,10 @@ case 'misty-gray':
       document.getElementById('games-content').style.display = 'none';
     }
 
-    function exitApp() {
-      const appDisplay = document.getElementById('app-display');
-      appDisplay.style.display = 'none';
-      document.getElementById('apps-content').style.display = 'block';
-    }
+function exitApp() {
+  // Updated to redirect to apps.html instead of hiding the app display
+  window.location.href = '/apps.html';  <!-- This is the change -->
+}
 
     function toggleAppFullScreen() {
       const appFrame = document.getElementById('app-frame');
