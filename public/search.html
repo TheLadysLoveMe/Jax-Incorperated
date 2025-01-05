@@ -609,26 +609,10 @@ case 'misty-gray':
 </script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Load the saved panic key from localStorage
-    const savedPanicKey = localStorage.getItem('panicKey');
-
-    if (savedPanicKey) {
-      // Listen for key presses globally to activate the panic key
-      document.addEventListener('keydown', function (event) {
-        if (event.key === savedPanicKey) {
-          // Redirect to Google Classroom when the panic key is pressed
-          window.location.href = 'https://classroom.google.com';
-        }
-      });
-    }
-  });
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
     // Load the saved tab cloak setting from localStorage
     const savedCloak = localStorage.getItem('tabCloak');
     if (savedCloak) {
-      applyTabCloak(savedCloak);
+      checkAndApplyTabCloak(savedCloak);
     }
 
     // Listen for changes in the tab cloak setting (if a selector is present)
@@ -637,11 +621,11 @@ case 'misty-gray':
       tabCloakSelector.addEventListener('change', function () {
         const selectedCloak = tabCloakSelector.value;
         localStorage.setItem('tabCloak', selectedCloak);
-        applyTabCloak(selectedCloak);
+        checkAndApplyTabCloak(selectedCloak);
       });
     }
 
-    // Apply the tab cloak on URL changes or navigations within `/math/`
+    // Apply the tab cloak on URL changes
     window.addEventListener('popstate', detectMathURL);
     window.addEventListener('hashchange', detectMathURL);
     detectMathURL(); // Check the URL on page load
@@ -649,7 +633,8 @@ case 'misty-gray':
 
   function detectMathURL() {
     const currentURL = window.location.href;
-    if (currentURL.includes('/math/')) {
+    const mathBaseURL = "https://yoboijakev2beta.jemix.sg/math/";
+    if (currentURL.startsWith(mathBaseURL)) {
       const savedCloak = localStorage.getItem('tabCloak');
       if (savedCloak) {
         applyTabCloak(savedCloak);
@@ -702,5 +687,6 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
+
 </body>
 </html>
