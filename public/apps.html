@@ -815,33 +815,34 @@ case 'misty-gray':
       return styleSheet;
     }
 
-    // Show App function (similar to showGame)
-    function showApp(appUrl) {
-      const appDisplay = document.getElementById('app-display');
-      const appFrame = document.getElementById('app-frame');
-      appFrame.src = appUrl;
-      appDisplay.style.display = 'block';
-      document.getElementById('games-content').style.display = 'none';
-    }
+<script>
+  // Show App function (similar to showGame)
+  function showApp(appUrl) {
+    const appDisplay = document.getElementById('app-display');
+    const appFrame = document.getElementById('app-frame');
+    appFrame.src = appUrl;
+    appDisplay.style.display = 'block';
+    document.getElementById('games-content').style.display = 'none';
+  }
 
-function exitApp() {
-  // Updated to redirect to apps.html instead of hiding the app display
-  window.location.href = '/apps.html';  <!-- This is the change -->
-}
+  function exitApp() {
+    // Updated to redirect to apps.html instead of hiding the app display
+    window.location.href = '/apps.html';  <!-- This is where the change was made -->
+  }
 
-    function toggleAppFullScreen() {
-      const appFrame = document.getElementById('app-frame');
-      if (appFrame.requestFullscreen) {
-        appFrame.requestFullscreen();
-      } else if (appFrame.mozRequestFullScreen) {
-        appFrame.mozRequestFullScreen();
-      } else if (appFrame.webkitRequestFullscreen) {
-        appFrame.webkitRequestFullscreen();
-      } else if (appFrame.msRequestFullscreen) {
-        appFrame.msRequestFullscreen();
-      }
+  function toggleAppFullScreen() {
+    const appFrame = document.getElementById('app-frame');
+    if (appFrame.requestFullscreen) {
+      appFrame.requestFullscreen();
+    } else if (appFrame.mozRequestFullScreen) {
+      appFrame.mozRequestFullScreen();
+    } else if (appFrame.webkitRequestFullscreen) {
+      appFrame.webkitRequestFullscreen();
+    } else if (appFrame.msRequestFullscreen) {
+      appFrame.msRequestFullscreen();
     }
-  </script>
+  }
+</script>
 
   <script>
   document.addEventListener('DOMContentLoaded', function () {
