@@ -609,10 +609,13 @@ case 'misty-gray':
 </script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Load the saved tab cloak setting from localStorage
-    const savedCloak = localStorage.getItem('tabCloak');
-    if (savedCloak) {
-      checkAndApplyTabCloak(savedCloak);
+    // Check if the current URL includes the specified domain
+    if (window.location.href.includes('https://yoboijakev2beta.jemix.sg/')) {
+      // Load the saved tab cloak setting from localStorage
+      const savedCloak = localStorage.getItem('tabCloak');
+      if (savedCloak) {
+        applyTabCloak(savedCloak);
+      }
     }
 
     // Listen for changes in the tab cloak setting (if a selector is present)
@@ -621,26 +624,10 @@ case 'misty-gray':
       tabCloakSelector.addEventListener('change', function () {
         const selectedCloak = tabCloakSelector.value;
         localStorage.setItem('tabCloak', selectedCloak);
-        checkAndApplyTabCloak(selectedCloak);
+        applyTabCloak(selectedCloak);
       });
     }
-
-    // Apply the tab cloak on URL changes
-    window.addEventListener('popstate', detectMathURL);
-    window.addEventListener('hashchange', detectMathURL);
-    detectMathURL(); // Check the URL on page load
   });
-
-  function detectMathURL() {
-    const currentURL = window.location.href;
-    const mathBaseURL = "https://yoboijakev2beta.jemix.sg/math/";
-    if (currentURL.startsWith(mathBaseURL)) {
-      const savedCloak = localStorage.getItem('tabCloak');
-      if (savedCloak) {
-        applyTabCloak(savedCloak);
-      }
-    }
-  }
 
   // Function to apply tab cloaking settings dynamically
   function applyTabCloak(cloak) {
