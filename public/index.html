@@ -32,6 +32,31 @@
       transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     } 
   </style>
+    <style>
+    /* Add the bottom-left tab style for About button */
+    #help-tab {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background-color: transparent;
+      color: red;
+      padding: 10px 20px;
+      border: 2px solid red;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    #help-tab:hover {
+      background-color: red;
+      color: black;
+    }
+    /* Additional styles for body, header, etc. to ensure full theme coverage */
+    body, header, nav, footer, main, h1, p, a, div, button {
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    } 
+  </style>
 </head>
 <body>
   <header>
@@ -58,6 +83,9 @@
 
   <!-- Fixed "About" tab in the bottom left -->
   <div id="about-tab" onclick="window.location.href='/about.html'">
+    About
+  </div>
+    <div id="help-tab" onclick="window.location.href='/help.html'">
     About
   </div>
 
