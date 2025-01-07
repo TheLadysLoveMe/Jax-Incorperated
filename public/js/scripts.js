@@ -69,3 +69,44 @@ function toggleFullScreen() {
     }
   }
 }
+function showApp(appUrl) {
+  // Hide the app list container
+  document.getElementById("app-container").style.display = "none";
+
+  // Dynamically create and load the iframe
+  const appFrameContainer = document.getElementById("app-frame-container");
+  const existingFrame = document.getElementById("app-frame");
+
+  if (!existingFrame) {
+    const iframe = document.createElement("iframe");
+    iframe.id = "app-frame";
+    iframe.src = appUrl;
+    iframe.width = "800";
+    iframe.height = "600";
+    iframe.style.border = "none";
+    appFrameContainer.appendChild(iframe);
+  } else {
+    existingFrame.src = appUrl;
+  }
+
+  // Show the app display section
+  document.getElementById("app-display").style.display = "block";
+}
+
+function exitApp() {
+  // Redirect to the apps.html page
+  window.location.href = "/apps.html";
+}
+
+function toggleFullScreen() {
+  const appFrame = document.getElementById("app-frame");
+
+  if (appFrame) {
+    if (!document.fullscreenElement) {
+      appFrame.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+}
+    
