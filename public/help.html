@@ -56,12 +56,25 @@
     }
 
     main {
-      padding: 20px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    h1, h2 {
-      margin: 20px 0;
+    h1 {
       color: red;
+      font-size: 36px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    p {
+      color: red;
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      max-width: 900px;
+      margin: 20px auto;
     }
 
     #discord-link {
@@ -89,14 +102,15 @@
       margin: 20px 0;
       text-align: left;
       display: inline-block;
+      max-width: 800px;
     }
 
     li {
-      margin: 5px 0;
+      margin: 10px 0;
       font-size: 18px;
       color: red;
       border: 2px solid red;
-      padding: 10px;
+      padding: 12px 15px;
       border-radius: 10px;
       background-color: black;
       transition: background-color 0.3s, color 0.3s;
@@ -106,6 +120,29 @@
       background-color: red;
       color: black;
     }
+
+    .help-section {
+      background-color: #1c1c1c;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid red;
+      margin: 0 auto;
+      max-width: 800px;
+    }
+
+    .help-section p {
+      font-size: 18px;
+      text-align: left;
+      margin: 10px 0;
+      color: white;
+    }
+
+    .help-section h2 {
+      font-size: 24px;
+      color: red;
+      margin-bottom: 15px;
+    }
+
   </style>
 </head>
 <body>
@@ -123,39 +160,40 @@
   </header>
 
   <main>
-    <h1>Help</h1>
-    <p>If you click on a game or app and it gives this error TypeError: 
-      Failed to fetch either refresh or exit the game or app and go back 
-      into it until it is fixed</p>
-
+    <div class="help-section">
+      <h1>Help</h1>
+      <h2>Encountering an Error?</h2>
+      <p>If you click on a game or app and it gives you the error message: <strong>TypeError: Failed to fetch</strong>, try one of the following:</p>
+      <ul>
+        <li>Refresh the page and try again.</li>
+        <li>Exit the game or app and go back in after a few moments.</li>
+        <li>If the problem keeps happening keep doing it until it works it should work by the 3 try if not keep trying.</li>
+      </ul>
   </main>
-<script>
-  document.addEventListener('keydown', function (e) {
-    const panicKey = localStorage.getItem('panicKey');
-    if (panicKey && e.key.toUpperCase() === panicKey) {
-      window.location.href = 'https://classroom.google.com';
-    }
-  });
-</script>
+
+  <script>
+    document.addEventListener('keydown', function (e) {
+      const panicKey = localStorage.getItem('panicKey');
+      if (panicKey && e.key.toUpperCase() === panicKey) {
+        window.location.href = 'https://classroom.google.com';
+      }
+    });
   </script>
   <script type="text/javascript" src="//www.highperformanceformat.com/b7ce0045a6c724134a50361a5ae06e0a/invoke.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Load and apply the saved theme
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       applyTheme(savedTheme);
     }
 
-    // Initialize the theme selector if it exists
     const themeSelector = document.getElementById('theme-selector');
     if (themeSelector) {
       if (savedTheme) {
         themeSelector.value = savedTheme;
       }
 
-      // Save and apply theme when the dropdown changes
       themeSelector.addEventListener('change', function () {
         const selectedTheme = themeSelector.value;
         localStorage.setItem('theme', selectedTheme);
@@ -164,26 +202,23 @@
     }
   });
 
-  // Function to apply a theme dynamically to all elements
   function applyTheme(theme) {
-    const allElements = document.querySelectorAll("*"); // Select all elements
+    const allElements = document.querySelectorAll("*");
     const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
 
-    // Clear previously applied styles for the default theme
     if (theme === 'default') {
       allElements.forEach(el => {
-        el.style.backgroundColor = ''; // Clear inline background color
-        el.style.color = '';           // Clear inline text color
-        el.style.borderColor = '';     // Clear inline border color
+        el.style.backgroundColor = '';
+        el.style.color = '';
+        el.style.borderColor = '';
       });
-      styleSheet.innerHTML = ''; // Remove hover styles
+      styleSheet.innerHTML = '';
       return;
     }
 
-    // Apply theme colors dynamically
     let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
 
-switch (theme) {
+    switch (theme) {
       case 'dark':
         backgroundColor = '#121212';
         textColor = 'white';
