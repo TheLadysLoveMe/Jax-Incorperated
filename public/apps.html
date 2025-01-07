@@ -24,11 +24,11 @@
   <main id="apps-content">
     <h1>Apps:</h1>
     <div id="app-container">
-      <a href="#Calculator" class="app" onclick="showApps('/assets/apps/calculator/')">
+      <a href="#Calculator" class="app" onclick="showApp('/assets/apps/calculator/')">
         <img src="/assets/images/calculator/app.png" alt="Calculator">
         <span>Calculator</span>
       </a>
-      <a href="#Notes" class="app" onclick="showApps('/assets/apps/notes/')">
+      <a href="#Notes" class="app" onclick="showApp('/assets/apps/notes/')">
         <img src="/assets/images/notes/app.png" alt="Notes">
         <span>Notes</span>
       </a>
@@ -38,7 +38,7 @@
       <div id="app-frame-container">
         <iframe id="app-frame" src="" width="800" height="600"></iframe>
         <div id="app-buttons">
-          <button onclick="exitApps()">Exit</button>
+          <button onclick="exitApp()">Exit</button>
           <button onclick="toggleFullScreen()">Fullscreen</button>
         </div>
       </div>
@@ -47,23 +47,100 @@
 
   <script src="/js/scripts.js"></script>
   <script>
-    // Function to display an app
-    function showApps(appUrl) {
+    // Panic Key functionality
+    document.addEventListener('keydown', function (e) {
+      const panicKey = localStorage.getItem('panicKey');
+      if (panicKey && e.key.toUpperCase() === panicKey) {
+        window.location.href = 'https://classroom.google.com';
+      }
+    });
+
+    // Theme handling
+    document.addEventListener('DOMContentLoaded', function () {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        applyTheme(savedTheme);
+      }
+
+      const themeSelector = document.getElementById('theme-selector');
+      if (themeSelector) {
+        if (savedTheme) {
+          themeSelector.value = savedTheme;
+        }
+        themeSelector.addEventListener('change', function () {
+          const selectedTheme = themeSelector.value;
+          localStorage.setItem('theme', selectedTheme);
+          applyTheme(selectedTheme);
+        });
+      }
+    });
+
+    function applyTheme(theme) {
+      const allElements = document.querySelectorAll("*");
+      const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+
+      if (theme === 'default') {
+        allElements.forEach(el => {
+          el.style.backgroundColor = '';
+          el.style.color = '';
+          el.style.borderColor = '';
+        });
+        styleSheet.innerHTML = '';
+        return;
+      }
+
+      let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
+      switch (theme) {
+      case 'dark':
+        backgroundColor = '#121212';
+        textColor = 'white';
+        borderColor = 'gray';
+        hoverBackgroundColor = '#1c1c1c';
+        hoverTextColor = '#f0f0f0';
+        break;
+        default:
+          return;
+      }
+
+      allElements.forEach(el => {
+        el.style.backgroundColor = backgroundColor;
+        el.style.color = textColor;
+        el.style.borderColor = borderColor;
+      });
+
+      styleSheet.innerHTML = `
+        button, a {
+          transition: background-color 0.3s, color 0.3s;
+        }
+        button:hover, a:hover {
+          background-color: ${hoverBackgroundColor};
+          color: ${hoverTextColor};
+        }
+      `;
+    }
+
+    function createDynamicStyleSheet() {
+      const styleSheet = document.createElement('style');
+      styleSheet.id = 'dynamic-theme-styles';
+      document.head.appendChild(styleSheet);
+      return styleSheet;
+    }
+
+    // App functionality
+    function showApp(appUrl) {
       const appFrame = document.getElementById('app-frame');
       const appDisplay = document.getElementById('app-display');
       appFrame.src = appUrl;
       appDisplay.style.display = 'block';
     }
 
-    // Function to exit the app view
-    function exitApps() {
+    function exitApp() {
       const appFrame = document.getElementById('app-frame');
       const appDisplay = document.getElementById('app-display');
       appFrame.src = '';
       appDisplay.style.display = 'none';
     }
 
-    // Function to toggle fullscreen mode
     function toggleFullScreen() {
       const appFrame = document.getElementById('app-frame');
       if (appFrame.requestFullscreen) {
@@ -73,6 +150,62 @@
       } else if (appFrame.msRequestFullscreen) {
         appFrame.msRequestFullscreen();
       }
+    }
+
+    // Tab Cloak functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const savedCloak = localStorage.getItem('tabCloak');
+      if (savedCloak) {
+        applyTabCloak(savedCloak);
+      }
+
+      const tabCloakSelector = document.getElementById('tab-cloak-selector');
+      if (tabCloakSelector) {
+        tabCloakSelector.addEventListener('change', function () {
+          const selectedCloak = tabCloakSelector.value;
+          localStorage.setItem('tabCloak', selectedCloak);
+          applyTabCloak(selectedCloak);
+        });
+      }
+    });
+
+    function applyTabCloak(cloak) {
+      let title, faviconUrl;
+      switch (cloak) {
+        case 'google-classroom':
+          title = 'Google Classroom';
+          faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
+          break;
+        case 'amplify':
+          title = 'Amplify';
+          faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
+          break;
+        case 'google-docs':
+          title = 'Google Docs';
+          faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
+          break;
+        case 'desmos':
+          title = 'Desmos Calculator';
+          faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+          break;
+        default:
+          title = 'YoBoiJake';
+          faviconUrl = '/assets/images/logo.png';
+      }
+
+      document.title = title;
+
+      let link = document.createElement('link');
+      link.rel = 'icon';
+      link.type = 'image/png';
+      link.href = faviconUrl;
+
+      let existingLink = document.querySelector('link[rel="icon"]');
+      if (existingLink) {
+        document.head.removeChild(existingLink);
+      }
+
+      document.head.appendChild(link);
     }
   </script>
 </body>
