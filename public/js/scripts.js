@@ -94,8 +94,8 @@ function showapps(appsUrl) {
 }
 
 function exitapps() {
-  // Redirect to the appss.html page
-  window.location.href = "/appss.html";
+  // Redirect to the apps.html page
+  window.location.href = "/apps.html";
 }
 
 function toggleFullScreen() {
