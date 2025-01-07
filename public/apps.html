@@ -24,13 +24,9 @@
   <main id="apps-content">
     <h1>Apps:</h1>
     <div id="app-container">
-      <a href="#Calculator" class="app" onclick="showApp('/assets/apps/calculator/')">
-        <img src="/assets/images/calculator/app.png" alt="Calculator">
-        <span>Calculator</span>
-      </a>
-      <a href="#Notes" class="app" onclick="showApp('/assets/apps/notes/')">
-        <img src="/assets/images/notes/app.png" alt="Notes">
-        <span>Notes</span>
+      <a href="#Stop" class="app" onclick="showApp('/assets/apps/yourapp/')">
+        <img src="/assets/images/yourapp/app-icon.png" alt="Your App">
+        <span>Your App</span>
       </a>
     </div>
 
@@ -91,13 +87,13 @@
 
       let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
       switch (theme) {
-      case 'dark':
-        backgroundColor = '#121212';
-        textColor = 'white';
-        borderColor = 'gray';
-        hoverBackgroundColor = '#1c1c1c';
-        hoverTextColor = '#f0f0f0';
-        break;
+        case 'dark':
+          backgroundColor = '#121212';
+          textColor = 'white';
+          borderColor = 'gray';
+          hoverBackgroundColor = '#1c1c1c';
+          hoverTextColor = '#f0f0f0';
+          break;
         default:
           return;
       }
@@ -108,15 +104,14 @@
         el.style.borderColor = borderColor;
       });
 
-      styleSheet.innerHTML = `
-        button, a {
+      styleSheet.innerHTML = 
+        `button, a {
           transition: background-color 0.3s, color 0.3s;
         }
         button:hover, a:hover {
           background-color: ${hoverBackgroundColor};
           color: ${hoverTextColor};
-        }
-      `;
+        }`;
     }
 
     function createDynamicStyleSheet() {
@@ -126,17 +121,17 @@
       return styleSheet;
     }
 
-    // App functionality
+    // Apps handling
     function showApp(appUrl) {
-      const appFrame = document.getElementById('app-frame');
       const appDisplay = document.getElementById('app-display');
+      const appFrame = document.getElementById('app-frame');
       appFrame.src = appUrl;
       appDisplay.style.display = 'block';
     }
 
     function exitApp() {
-      const appFrame = document.getElementById('app-frame');
       const appDisplay = document.getElementById('app-display');
+      const appFrame = document.getElementById('app-frame');
       appFrame.src = '';
       appDisplay.style.display = 'none';
     }
@@ -145,67 +140,13 @@
       const appFrame = document.getElementById('app-frame');
       if (appFrame.requestFullscreen) {
         appFrame.requestFullscreen();
-      } else if (appFrame.webkitRequestFullscreen) {
+      } else if (appFrame.mozRequestFullScreen) { // Firefox
+        appFrame.mozRequestFullScreen();
+      } else if (appFrame.webkitRequestFullscreen) { // Chrome and Safari
         appFrame.webkitRequestFullscreen();
-      } else if (appFrame.msRequestFullscreen) {
+      } else if (appFrame.msRequestFullscreen) { // IE/Edge
         appFrame.msRequestFullscreen();
       }
-    }
-
-    // Tab Cloak functionality
-    document.addEventListener('DOMContentLoaded', function () {
-      const savedCloak = localStorage.getItem('tabCloak');
-      if (savedCloak) {
-        applyTabCloak(savedCloak);
-      }
-
-      const tabCloakSelector = document.getElementById('tab-cloak-selector');
-      if (tabCloakSelector) {
-        tabCloakSelector.addEventListener('change', function () {
-          const selectedCloak = tabCloakSelector.value;
-          localStorage.setItem('tabCloak', selectedCloak);
-          applyTabCloak(selectedCloak);
-        });
-      }
-    });
-
-    function applyTabCloak(cloak) {
-      let title, faviconUrl;
-      switch (cloak) {
-        case 'google-classroom':
-          title = 'Google Classroom';
-          faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
-          break;
-        case 'amplify':
-          title = 'Amplify';
-          faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
-          break;
-        case 'google-docs':
-          title = 'Google Docs';
-          faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
-          break;
-        case 'desmos':
-          title = 'Desmos Calculator';
-          faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
-          break;
-        default:
-          title = 'YoBoiJake';
-          faviconUrl = '/assets/images/logo.png';
-      }
-
-      document.title = title;
-
-      let link = document.createElement('link');
-      link.rel = 'icon';
-      link.type = 'image/png';
-      link.href = faviconUrl;
-
-      let existingLink = document.querySelector('link[rel="icon"]');
-      if (existingLink) {
-        document.head.removeChild(existingLink);
-      }
-
-      document.head.appendChild(link);
     }
   </script>
 </body>
