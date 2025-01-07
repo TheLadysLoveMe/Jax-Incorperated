@@ -14,10 +14,6 @@
       background-color: black;
       color: red;
       text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
     }
 
     header {
@@ -63,10 +59,6 @@
       padding: 40px 20px;
       max-width: 1200px;
       margin: 0 auto;
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
     h1 {
@@ -75,7 +67,6 @@
       margin-bottom: 20px;
       font-weight: bold;
     }
-
     p {
       color: red;
       font-size: 18px;
@@ -128,29 +119,25 @@
       background-color: red;
       color: black;
     }
-
     .help-section {
-      background-color: #000000; /* Updated to black */
+      background-color: #1c1c1c;
       padding: 20px;
       border-radius: 10px;
       border: 1px solid red;
-      width: 100%;
+      margin: 0 auto;
       max-width: 800px;
-      text-align: left;
     }
-
     .help-section p {
       font-size: 18px;
+      text-align: left;
       margin: 10px 0;
       color: white;
     }
-
     .help-section h2 {
       font-size: 24px;
       color: red;
       margin-bottom: 15px;
     }
-
   </style>
 </head>
 <body>
@@ -175,9 +162,8 @@
       <ul>
         <li>Refresh the page and try again.</li>
         <li>Exit the game or app and go back in after a few moments.</li>
-        <li>If the problem keeps happening keep doing it until it works. It should work by the third try, if not, keep trying.</li>
+        <li>If the problem keeps happening keep doing it until it works it should work by the 3 try if not keep trying.</li>
       </ul>
-    </div>
   </main>
   <script>
     document.addEventListener('keydown', function (e) {
@@ -654,35 +640,38 @@ case 'misty-gray':
     hoverBackgroundColor = '#616161'; // Darker gray hover
     hoverTextColor = '#ffffff'; // White hover text
     break;
-        default:
-          return;
+  default:
+    return;
+}
+
+    // Apply the base styles to all elements
+    allElements.forEach(el => {
+      el.style.backgroundColor = backgroundColor;
+      el.style.color = textColor;
+      el.style.borderColor = borderColor;
+    });
+
+    // Add hover effects dynamically using the stylesheet
+    styleSheet.innerHTML = `
+      button, a {
+        transition: background-color 0.3s, color 0.3s;
       }
+      button:hover, a:hover {
+        background-color: ${hoverBackgroundColor};
+        color: ${hoverTextColor};
+      }
+    `;
+  }
 
-      allElements.forEach(el => {
-        el.style.backgroundColor = backgroundColor;
-        el.style.color = textColor;
-        el.style.borderColor = borderColor;
-      });
-
-      styleSheet.innerHTML = `
-        button, a {
-          transition: background-color 0.3s, color 0.3s;
-        }
-        button:hover, a:hover {
-          background-color: ${hoverBackgroundColor};
-          color: ${hoverTextColor};
-        }
-      `;
-    }
-
-    function createDynamicStyleSheet() {
-      const styleSheet = document.createElement('style');
-      styleSheet.id = 'dynamic-theme-styles';
-      document.head.appendChild(styleSheet);
-      return styleSheet;
-    }
-  </script>
-  <script>
+  // Helper function to create or find the dynamic stylesheet
+  function createDynamicStyleSheet() {
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'dynamic-theme-styles';
+    document.head.appendChild(styleSheet);
+    return styleSheet;
+  }
+</script>
+<script>
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved panic key from localStorage
     const savedPanicKey = localStorage.getItem('panicKey');
@@ -762,5 +751,6 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
+
 </body>
 </html>
