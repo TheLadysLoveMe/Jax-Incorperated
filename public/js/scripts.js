@@ -13,7 +13,7 @@ function openAboutBlank() {
     iframe.style.width = "100%";
     iframe.style.height = "100%";
     iframe.src = url;
-    win.document.body.appendChild(iframe);
+    win.document.body.appsendChild(iframe);
   }
 }
 
@@ -44,7 +44,7 @@ function showGame(gameUrl) {
     iframe.width = "800";
     iframe.height = "600";
     iframe.style.border = "none";
-    gameFrameContainer.appendChild(iframe);
+    gameFrameContainer.appsendChild(iframe);
   } else {
     existingFrame.src = gameUrl;
   }
