@@ -3,14 +3,13 @@ body {
   font-family: Arial, sans-serif;
   background-color: black;
   color: red;
-  text-align: center;
+  text-align: left; /* Align everything to the left */
   overflow-y: scroll; /* Ensure scrollbar always appears */
 }
 
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 10px 20px;
   border-bottom: 2px solid red;
   background-color: black; /* Default header background color */
@@ -36,6 +35,7 @@ nav {
   display: flex;
   gap: 15px;
   margin-left: auto;
+  justify-content: flex-start; /* Align nav items to the left */
 }
 
 nav a {
@@ -56,10 +56,11 @@ nav a:hover {
 #settings-content, #home-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start; /* Align content to the left */
+  justify-content: flex-start; /* Align content to the top */
   height: 80vh;
   padding-top: 80px; /* To prevent the header from overlapping the content */
+  margin-left: 20px; /* Optional: Add some left margin for spacing */
 }
 
 #settings-content h1, #home-content h1 {
@@ -71,12 +72,13 @@ nav a:hover {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start; /* Align items to the left */
+  margin-left: 20px; /* Optional: Add some left margin for spacing */
 }
 
 .cloak-button, .game, .apps {
   width: 200px;
-  text-align: center;
+  text-align: left; /* Align text to the left */
   border: 2px solid red;
   border-radius: 10px;
   padding: 10px;
@@ -108,8 +110,9 @@ nav a:hover {
 
 #game-display, #apps-display {
   display: none;
-  text-align: center;
+  text-align: left; /* Align text to the left */
   margin-top: 20px;
+  margin-left: 20px; /* Optional: Add some left margin for spacing */
 }
 
 #game-frame-container, #apps-frame-container {
@@ -138,7 +141,6 @@ nav a:hover {
   background-color: red;
   color: black;
 }
-
 
 #apps-container {
   display: flex;
