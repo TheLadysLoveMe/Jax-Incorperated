@@ -14,7 +14,7 @@
     <span id="logo-name">YoBoiJake</span>
     <nav>
       <a href="/">Home</a>
-      <a href="/apps.html">Apps</a> 
+      <a href="/apps.html">Apps</a>   
       <a href="/search.html">Search</a>
       <a href="/chatgpt.html">ChatGPT</a>
       <a href="/settings.html">Settings</a>
@@ -24,9 +24,13 @@
   <main id="apps-content">
     <h1>Apps:</h1>
     <div id="app-container">
-      <a href="#red" class="app" onclick="showApp('/assets/apps/red/')">
-        <img src="/assets/appimages/red/app.png" alt="Reddit">
-        <span>Reddit</span>
+      <a href="#Calculator" class="app" onclick="showApps('/assets/apps/calculator/')">
+        <img src="/assets/images/calculator/app.png" alt="Calculator">
+        <span>Calculator</span>
+      </a>
+      <a href="#Notes" class="app" onclick="showApps('/assets/apps/notes/')">
+        <img src="/assets/images/notes/app.png" alt="Notes">
+        <span>Notes</span>
       </a>
     </div>
 
@@ -34,8 +38,8 @@
       <div id="app-frame-container">
         <iframe id="app-frame" src="" width="800" height="600"></iframe>
         <div id="app-buttons">
-          <button onclick="exitApp()">Exit</button>
-          <button onclick="toggleAppFullScreen()">Fullscreen</button>
+          <button onclick="exitApps()">Exit</button>
+          <button onclick="toggleFullScreen()">Fullscreen</button>
         </div>
       </div>
     </div>
@@ -43,120 +47,27 @@
 
   <script src="/js/scripts.js"></script>
   <script>
-    // Panic Key functionality
-    document.addEventListener('keydown', function (e) {
-      const panicKey = localStorage.getItem('panicKey');
-      if (panicKey && e.key.toUpperCase() === panicKey) {
-        window.location.href = 'https://classroom.google.com';
-      }
-    });
-
-    // Theme handling
-    document.addEventListener('DOMContentLoaded', function () {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        applyTheme(savedTheme);
-      }
-
-      const themeSelector = document.getElementById('theme-selector');
-      if (themeSelector) {
-        if (savedTheme) {
-          themeSelector.value = savedTheme;
-        }
-        themeSelector.addEventListener('change', function () {
-          const selectedTheme = themeSelector.value;
-          localStorage.setItem('theme', selectedTheme);
-          applyTheme(selectedTheme);
-        });
-      }
-    });
-
-    function applyTheme(theme) {
-      const allElements = document.querySelectorAll("*");
-      const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
-
-      if (theme === 'default') {
-        allElements.forEach(el => {
-          el.style.backgroundColor = '';
-          el.style.color = '';
-          el.style.borderColor = '';
-        });
-        styleSheet.innerHTML = '';
-        return;
-      }
-
-      let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
-      switch (theme) {
-        case 'dark':
-          backgroundColor = '#121212';
-          textColor = 'white';
-          borderColor = 'gray';
-          hoverBackgroundColor = '#1c1c1c';
-          hoverTextColor = '#f0f0f0';
-          break;
-        case 'light':
-          backgroundColor = 'white';
-          textColor = 'black';
-          borderColor = 'black';
-          hoverBackgroundColor = '#f7f7f7';
-          hoverTextColor = '#333';
-          break;
-        case 'blue':
-          backgroundColor = '#1e3a5f';
-          textColor = '#a9d6e5';
-          borderColor = '#4682b4';
-          hoverBackgroundColor = '#24476d';
-          hoverTextColor = '#c0e9f5';
-          break;
-        default:
-          return;
-      }
-
-      allElements.forEach(el => {
-        el.style.backgroundColor = backgroundColor;
-        el.style.color = textColor;
-        el.style.borderColor = borderColor;
-      });
-
-      styleSheet.innerHTML = `
-        button, a {
-          transition: background-color 0.3s, color 0.3s;
-        }
-        button:hover, a:hover {
-          background-color: ${hoverBackgroundColor};
-          color: ${hoverTextColor};
-        }
-      `;
-    }
-
-    function createDynamicStyleSheet() {
-      const styleSheet = document.createElement('style');
-      styleSheet.id = 'dynamic-theme-styles';
-      document.head.appendChild(styleSheet);
-      return styleSheet;
-    }
-
-    // Show App function
-    function showApp(appUrl) {
-      const appDisplay = document.getElementById('app-display');
+    // Function to display an app
+    function showApps(appUrl) {
       const appFrame = document.getElementById('app-frame');
+      const appDisplay = document.getElementById('app-display');
       appFrame.src = appUrl;
       appDisplay.style.display = 'block';
-      document.getElementById('apps-content').style.display = 'none';
     }
 
-    function exitApp() {
+    // Function to exit the app view
+    function exitApps() {
+      const appFrame = document.getElementById('app-frame');
       const appDisplay = document.getElementById('app-display');
+      appFrame.src = '';
       appDisplay.style.display = 'none';
-      document.getElementById('apps-content').style.display = 'block';
     }
 
-    function toggleAppFullScreen() {
+    // Function to toggle fullscreen mode
+    function toggleFullScreen() {
       const appFrame = document.getElementById('app-frame');
       if (appFrame.requestFullscreen) {
         appFrame.requestFullscreen();
-      } else if (appFrame.mozRequestFullScreen) {
-        appFrame.mozRequestFullScreen();
       } else if (appFrame.webkitRequestFullscreen) {
         appFrame.webkitRequestFullscreen();
       } else if (appFrame.msRequestFullscreen) {
@@ -166,4 +77,3 @@
   </script>
 </body>
 </html>
-
