@@ -14,7 +14,7 @@
     <span id="logo-name">YoBoiJake</span>
     <nav>
       <a href="/">Home</a>
-      <a href="/apps.html">Apps</a>   
+      <a href="/games.html">Games</a>   
       <a href="/search.html">Search</a>
       <a href="/chatgpt.html">ChatGPT</a>
       <a href="/settings.html">Settings</a>
@@ -24,9 +24,9 @@
   <main id="apps-content">
     <h1>Apps:</h1>
     <div id="app-container">
-      <a href="#Stop" class="app" onclick="showApp('/assets/apps/yourapp/')">
-        <img src="/assets/images/yourapp/app-icon.png" alt="Your App">
-        <span>Your App</span>
+      <a href="#Stop" class="app" onclick="showApp('/assets/apps/cookieclicker/')">
+        <img src="/assets/images/cookieclicker/app.png" alt="Stop">
+        <span>Cookie Clicker</span>
       </a>
     </div>
 
@@ -105,13 +105,13 @@
       });
 
       styleSheet.innerHTML = 
-        `button, a {
-          transition: background-color 0.3s, color 0.3s;
-        }
-        button:hover, a:hover {
-          background-color: ${hoverBackgroundColor};
-          color: ${hoverTextColor};
-        }`;
+        'button, a {' +
+          'transition: background-color 0.3s, color 0.3s;' +
+        '}' +
+        'button:hover, a:hover {' +
+          'background-color: ' + hoverBackgroundColor + ';' +
+          'color: ' + hoverTextColor + ';' +
+        '}';
     }
 
     function createDynamicStyleSheet() {
@@ -120,33 +120,87 @@
       document.head.appendChild(styleSheet);
       return styleSheet;
     }
+  </script>
 
-    // Apps handling
-    function showApp(appUrl) {
-      const appDisplay = document.getElementById('app-display');
-      const appFrame = document.getElementById('app-frame');
-      appFrame.src = appUrl;
-      appDisplay.style.display = 'block';
-    }
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Load the saved panic key from localStorage
+      const savedPanicKey = localStorage.getItem('panicKey');
 
-    function exitApp() {
-      const appDisplay = document.getElementById('app-display');
-      const appFrame = document.getElementById('app-frame');
-      appFrame.src = '';
-      appDisplay.style.display = 'none';
-    }
-
-    function toggleFullScreen() {
-      const appFrame = document.getElementById('app-frame');
-      if (appFrame.requestFullscreen) {
-        appFrame.requestFullscreen();
-      } else if (appFrame.mozRequestFullScreen) { // Firefox
-        appFrame.mozRequestFullScreen();
-      } else if (appFrame.webkitRequestFullscreen) { // Chrome and Safari
-        appFrame.webkitRequestFullscreen();
-      } else if (appFrame.msRequestFullscreen) { // IE/Edge
-        appFrame.msRequestFullscreen();
+      if (savedPanicKey) {
+        // Listen for key presses globally to activate the panic key
+        document.addEventListener('keydown', function (event) {
+          if (event.key === savedPanicKey) {
+            // Redirect to Google Classroom when the panic key is pressed
+            window.location.href = 'https://classroom.google.com';
+          }
+        });
       }
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Load the saved tab cloak setting from localStorage
+      const savedCloak = localStorage.getItem('tabCloak');
+      if (savedCloak) {
+        applyTabCloak(savedCloak);
+      }
+
+      // Listen for changes in the tab cloak setting (if a selector is present)
+      const tabCloakSelector = document.getElementById('tab-cloak-selector');
+      if (tabCloakSelector) {
+        tabCloakSelector.addEventListener('change', function () {
+          const selectedCloak = tabCloakSelector.value;
+          localStorage.setItem('tabCloak', selectedCloak);
+          applyTabCloak(selectedCloak);
+        });
+      }
+    });
+
+    // Function to apply tab cloaking settings dynamically
+    function applyTabCloak(cloak) {
+      let title, faviconUrl;
+      switch (cloak) {
+        case 'google-classroom':
+          title = 'Google Classroom';
+          faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
+          break;
+        case 'amplify':
+          title = 'Amplify';
+          faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
+          break;
+        case 'google-docs':
+          title = 'Google Docs';
+          faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
+          break;
+        case 'desmos':
+          title = 'Desmos Calculator';
+          faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+          break;
+        default:
+          // Default case - reset title and favicon
+          title = 'YoBoiJake';
+          faviconUrl = '/assets/images/logo.png';
+      }
+
+      // Apply the title and favicon to the page
+      document.title = title;
+
+      // Create a new link element or update the existing one
+      let link = document.createElement('link');
+      link.rel = 'icon';
+      link.type = 'image/png';
+      link.href = faviconUrl;
+
+      // Check if the link already exists and remove it if so
+      let existingLink = document.querySelector('link[rel="icon"]');
+      if (existingLink) {
+        document.head.removeChild(existingLink);
+      }
+
+      // Append the new link element for the favicon
+      document.head.appendChild(link);
     }
   </script>
 </body>
