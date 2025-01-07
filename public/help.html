@@ -1,184 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Help - YoBoiJake</title>
-  <link rel="manifest" href="/manifest.json"/>
-  <link rel="icon" type="image/png" href="/assets/images/logo.png">
-  <link rel="stylesheet" href="/css/styles.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: black;
-      color: red;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+ <style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: red;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    header {
-      display: flex;
-      align-items: center;
-      padding: 10px 20px;
-      border-bottom: 2px solid red;
-    }
+  .help-section {
+    background-color: black;
+    padding: 40px 20px;
+    border-radius: 10px;
+    border: 2px solid red;
+    max-width: 800px;
+    width: 100%;
+    text-align: left;
+    color: red;
+  }
 
-    header img {
-      height: 50px;
-    }
+  .help-section h1 {
+    font-size: 36px;
+    color: red;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
 
-    #logo-name {
-      font-size: 24px;
-      color: red;
-      font-weight: bold;
-      margin-left: 10px;
-    }
+  .help-section h2 {
+    font-size: 24px;
+    color: red;
+    margin-bottom: 15px;
+  }
 
-    nav {
-      display: flex;
-      gap: 15px;
-      margin-left: auto;
-    }
+  .help-section p {
+    font-size: 18px;
+    margin: 10px 0;
+  }
 
-    nav a {
-      color: red;
-      text-decoration: none;
-      font-size: 16px;
-      padding: 5px 10px;
-      border: 1px solid red;
-      border-radius: 5px;
-      transition: background-color 0.3s, color 0.3s;
-    }
+  .help-section ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+  }
 
-    nav a:hover {
-      background-color: red;
-      color: black;
-    }
+  .help-section li {
+    margin: 10px 0;
+    font-size: 18px;
+    color: red;
+    border: 2px solid red;
+    padding: 12px 15px;
+    border-radius: 10px;
+    background-color: black;
+    transition: background-color 0.3s, color 0.3s;
+  }
 
-    main {
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  .help-section li:hover {
+    background-color: red;
+    color: black;
+  }
+</style>
 
-    h1 {
-      color: red;
-      font-size: 36px;
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
+<main>
+  <div class="help-section">
+    <h1>Help</h1>
+    <h2>Encountering an Error?</h2>
+    <p>If you click on a game or app and it gives you the error message: <strong>TypeError: Failed to fetch</strong>, try one of the following:</p>
+    <ul>
+      <li>Refresh the page and try again.</li>
+      <li>Exit the game or app and go back in after a few moments.</li>
+      <li>If the problem keeps happening keep doing it until it works it should work by the Third try if not keep trying.</li>
+    </ul>
+  </div>
+</main>
 
-    p {
-      color: red;
-      font-size: 18px;
-      line-height: 1.6;
-      margin-bottom: 30px;
-      max-width: 900px;
-      margin: 20px auto;
-    }
-
-    #discord-link {
-      display: inline-block;
-      margin: 20px 0;
-      padding: 10px 20px;
-      color: red;
-      background-color: black;
-      border: 2px solid red;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 16px;
-      text-decoration: none;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    #discord-link:hover {
-      background-color: red;
-      color: black;
-    }
-
-    ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 20px 0;
-      text-align: left;
-      display: inline-block;
-      max-width: 800px;
-    }
-
-    li {
-      margin: 10px 0;
-      font-size: 18px;
-      color: red;
-      border: 2px solid red;
-      padding: 12px 15px;
-      border-radius: 10px;
-      background-color: black;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    li:hover {
-      background-color: red;
-      color: black;
-    }
-
-    .help-section {
-      background-color: #000000; /* Updated to black */
-      padding: 20px;
-      border-radius: 10px;
-      border: 1px solid red;
-      width: 100%;
-      max-width: 800px;
-      text-align: left;
-    }
-
-    .help-section p {
-      font-size: 18px;
-      margin: 10px 0;
-      color: white;
-    }
-
-    .help-section h2 {
-      font-size: 24px;
-      color: red;
-      margin-bottom: 15px;
-    }
-
-  </style>
-</head>
-<body>
-  <header>
-    <img src="/assets/images/logo.png" alt="YoBoiJake Logo">
-    <span id="logo-name">YoBoiJake</span>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/games.html">Games</a> 
-      <a href="/apps.html">Apps</a>      
-      <a href="/search.html">Search</a>
-      <a href="/chatgpt.html">ChatGPT</a>
-      <a href="/settings.html">Settings</a>
-    </nav>
-  </header>
-
-  <main>
-    <div class="help-section">
-      <h1>Help</h1>
-      <h2>Encountering an Error?</h2>
-      <p>If you click on a game or app and it gives you the error message: <strong>TypeError: Failed to fetch</strong>, try one of the following:</p>
-      <ul>
-        <li>Refresh the page and try again.</li>
-        <li>Exit the game or app and go back in after a few moments.</li>
-        <li>If the problem keeps happening keep doing it until it works. It should work by the third try, if not, keep trying.</li>
-      </ul>
-    </div>
-  </main>
   <script>
     document.addEventListener('keydown', function (e) {
       const panicKey = localStorage.getItem('panicKey');
