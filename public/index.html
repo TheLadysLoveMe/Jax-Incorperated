@@ -31,6 +31,65 @@
     body, header, nav, footer, main, h1, p, a, div, button {
       transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     } 
+
+    /* Popup styling */
+    #error-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      border: 2px solid red;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      z-index: 1000;
+      display: none; /* Hidden by default */
+    }
+
+    #error-popup h3 {
+      margin: 0 0 10px 0;
+      color: red;
+      text-align: center;
+    }
+
+    #error-popup p {
+      margin: 10px 0;
+      font-size: 14px;
+      color: #333;
+      text-align: center;
+    }
+
+    #error-popup .popup-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #error-popup .popup-footer button {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    #error-popup .popup-footer button:hover {
+      background-color: darkred;
+    }
+
+    #error-popup .popup-footer label {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #555;
+    }
+
+    #error-popup .popup-footer input[type="checkbox"] {
+      margin-right: 5px;
+    }
   </style>
 </head>
 <body>
@@ -61,6 +120,23 @@
     About
   </div>
 
+  <!-- Popup for error message -->
+  <div id="error-popup">
+    <h3>Error Notice</h3>
+    <p>
+      If you click on a game or app and see this error: 
+      <strong>"TypeError: Failed to fetch"</strong>, 
+      either refresh the page or exit the game/app and re-enter it.
+    </p>
+    <div class="popup-footer">
+      <label>
+        <input type="checkbox" id="dont-show-again">
+        Don't show this again
+      </label>
+      <button onclick="closePopup()">OK</button>
+    </div>
+  </div>
+
   <script>
     // Function to open a blank page
     function openAboutBlank() {
@@ -77,22 +153,19 @@
       }
     }
 
-       // Array of verses
+    // Function to randomize verse every 24 hours
     const verses = [
       "John 3:16 - For God so loved the world that He gave His one and only Son, that whoever believes in Him shall not perish but have eternal life.",
-    "Psalm 23:1 - The Lord is my shepherd; I shall not want.",
-    "Philippians 4:13 - I can do all things through Christ who strengthens me.",
-    "Matthew 5:16 - Let your light shine before others, that they may see your good deeds and glorify your Father in heaven.",
-
+      "Psalm 23:1 - The Lord is my shepherd; I shall not want.",
+      "Philippians 4:13 - I can do all things through Christ who strengthens me.",
+      "Matthew 5:16 - Let your light shine before others, that they may see your good deeds and glorify your Father in heaven.",
     ];
 
-    // Function to randomize verse every 24 hours
     function getDailyVerse() {
-      const today = new Date().toISOString().slice(0, 10); // Get today's date in YYYY-MM-DD format
+      const today = new Date().toISOString().slice(0, 10); 
       const randomIndex = parseInt(localStorage.getItem("verseIndex"));
       const lastUpdated = localStorage.getItem("lastUpdated");
 
-      // Check if the date has changed
       if (today !== lastUpdated || randomIndex === null) {
         const newIndex = Math.floor(Math.random() * verses.length);
         localStorage.setItem("verseIndex", newIndex);
@@ -102,12 +175,24 @@
       return verses[randomIndex];
     }
 
-    // Display the verse of the day
     document.addEventListener("DOMContentLoaded", () => {
       const dailyVerseElement = document.getElementById("daily-verse");
       dailyVerseElement.textContent = getDailyVerse();
+
+      // Check if the popup should be shown
+      const hidePopup = localStorage.getItem("hideErrorPopup");
+      if (!hidePopup) {
+        document.getElementById("error-popup").style.display = "block";
+      }
     });
-  </script>
+
+    function closePopup() {
+      const dontShowAgain = document.getElementById("dont-show-again").checked;
+      if (dontShowAgain) {
+        localStorage.setItem("hideErrorPopup", "true");
+      }
+      document.getElementById("error-popup").style.display = "none";
+    }
   <script>
     document.addEventListener('keydown', function (e) {
       const panicKey = localStorage.getItem('panicKey');
