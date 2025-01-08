@@ -58,43 +58,25 @@
     });
 
 
-    // Theme handling
-    document.addEventListener('DOMContentLoaded', function () {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        applyTheme(savedTheme);
-      }
+// Function to apply a theme dynamically to all elements
+function applyTheme(theme) {
+  const allElements = document.querySelectorAll("*");
+  const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
 
-      const themeSelector = document.getElementById('theme-selector');
-      if (themeSelector) {
-        if (savedTheme) {
-          themeSelector.value = savedTheme;
-        }
-        themeSelector.addEventListener('change', function () {
-          const selectedTheme = themeSelector.value;
-          localStorage.setItem('theme', selectedTheme);
-          applyTheme(selectedTheme);
-        });
-      }
+  if (theme === 'default') {
+    allElements.forEach(el => {
+      el.style.backgroundColor = '';
+      el.style.color = '';
+      el.style.borderColor = '';
+      el.style.backgroundImage = '';  // Reset background image for default
     });
+    styleSheet.innerHTML = '';
+    return;
+  }
 
-    function applyTheme(theme) {
-      const allElements = document.querySelectorAll("*");
-      const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
-
-      if (theme === 'default') {
-        allElements.forEach(el => {
-          el.style.backgroundColor = '';
-          el.style.color = '';
-          el.style.borderColor = '';
-        });
-        styleSheet.innerHTML = '';
-        return;
-      }
-
-      let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
-      switch (theme) {
-case 'dark':
+  let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, backgroundImage;
+  switch (theme) {
+      case 'dark':
     backgroundColor = '#121212';
     textColor = 'white';
     borderColor = 'gray';
@@ -158,12 +140,12 @@ case 'cherry-blossom':
     hoverTextColor = '#4d2a2a';
     break;
 case 'space':
-    backgroundColor = '#000000';
+    backgroundImage = 'url(/assets/images/space/theme.png)';
     textColor = '#ffffff';
     borderColor = '#404040';
     hoverBackgroundColor = '#333333';
     hoverTextColor = '#e6e6e6';
-    break;
+    break;    
 case 'autumn':
     backgroundColor = '#d56d2e';
     textColor = '#d8a56d';
@@ -523,31 +505,25 @@ case 'misty-gray':
     break;
         default:
           return;
-      }
+      }      
 
-      allElements.forEach(el => {
-        el.style.backgroundColor = backgroundColor;
-        el.style.color = textColor;
-        el.style.borderColor = borderColor;
-      });
+  // Apply the styles
+  allElements.forEach(el => {
+    el.style.backgroundColor = backgroundColor || '';
+    el.style.color = textColor || '';
+    el.style.borderColor = borderColor || '';
+    el.style.backgroundImage = backgroundImage || '';  // Set background image
+  });
 
-      styleSheet.innerHTML = `
-        button, a {
-          transition: background-color 0.3s, color 0.3s;
-        }
-        button:hover, a:hover {
-          background-color: ${hoverBackgroundColor};
-          color: ${hoverTextColor};
-        }
-      `;
+  // Apply hover styles via dynamic stylesheet
+  styleSheet.innerHTML = `
+    *:hover {
+      background-color: ${hoverBackgroundColor};
+      color: ${hoverTextColor};
     }
+  `;
+}
 
-    function createDynamicStyleSheet() {
-      const styleSheet = document.createElement('style');
-      styleSheet.id = 'dynamic-theme-styles';
-      document.head.appendChild(styleSheet);
-      return styleSheet;
-    }
   </script>
   <script>
   document.addEventListener('DOMContentLoaded', function () {
