@@ -205,15 +205,7 @@
       dailyVerseElement.textContent = getDailyVerse();
     });
   </script>
-  <script>
-    document.addEventListener('keydown', function (e) {
-      const panicKey = localStorage.getItem('panicKey');
-      if (panicKey && e.key.toUpperCase() === panicKey) {
-        window.location.href = 'https://classroom.google.com';
-      }
-    });
-  </script>
- <script>
+<script>
   document.addEventListener('DOMContentLoaded', function () {
     // Load and apply the saved theme
     const savedTheme = localStorage.getItem('theme');
@@ -237,7 +229,7 @@
     }
   });
 
-// Function to apply a theme dynamically to all elements
+ // Function to apply a theme dynamically to all elements
 function applyTheme(theme) {
   const allElements = document.querySelectorAll("*");
   const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
@@ -703,8 +695,13 @@ case 'misty-gray':
   `;
 }
 
-</script>
-<script>
+
+  function createDynamicStyleSheet() {
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'dynamic-theme-styles';
+    document.head.appendChild(styleSheet);
+    return styleSheet;
+  }
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved panic key from localStorage
     const savedPanicKey = localStorage.getItem('panicKey');
