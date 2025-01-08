@@ -140,9 +140,31 @@
 </script>
   </script>
   <script type="text/javascript" src="//www.highperformanceformat.com/b7ce0045a6c724134a50361a5ae06e0a/invoke.js"></script>
-
 <script>
-// Function to apply a theme dynamically to all elements
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load and apply the saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    }
+
+    // Initialize the theme selector if it exists
+    const themeSelector = document.getElementById('theme-selector');
+    if (themeSelector) {
+      if (savedTheme) {
+        themeSelector.value = savedTheme;
+      }
+
+      // Save and apply theme when the dropdown changes
+      themeSelector.addEventListener('change', function () {
+        const selectedTheme = themeSelector.value;
+        localStorage.setItem('theme', selectedTheme);
+        applyTheme(selectedTheme);
+      });
+    }
+  });
+
+ // Function to apply a theme dynamically to all elements
 function applyTheme(theme) {
   const allElements = document.querySelectorAll("*");
   const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
@@ -608,8 +630,13 @@ case 'misty-gray':
   `;
 }
 
-</script>
-<script>
+
+  function createDynamicStyleSheet() {
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'dynamic-theme-styles';
+    document.head.appendChild(styleSheet);
+    return styleSheet;
+  }
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved panic key from localStorage
     const savedPanicKey = localStorage.getItem('panicKey');
