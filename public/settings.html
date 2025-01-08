@@ -106,6 +106,7 @@
           </p>
           <select id="theme-selector" class="styled-input">
             <option value="default">Default</option>
+<option value="galaxy">Galaxy</option>            
 <option value="dark">Dark</option>
 <option value="light">Light</option>
 <option value="blue">Blue</option>
@@ -272,6 +273,13 @@ function applyTheme(theme) {
 
   let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, backgroundImage;
   switch (theme) {
+case 'galaxy':
+    backgroundImage = 'url(/assets/images/galaxy/)';
+    textColor = '#ffffff'; // White text to stand out against dark space
+    borderColor = '#9c27b0'; // A subtle purple border for galaxy feel
+    hoverBackgroundColor = '#9c27b0'; // Matching hover effect for border color
+    hoverTextColor = '#ffffff'; // Keeping text white on hover
+    break;
       case 'dark':
     backgroundColor = '#121212';
     textColor = 'white';
@@ -336,7 +344,7 @@ case 'cherry-blossom':
     hoverTextColor = '#4d2a2a';
     break;
 case 'space':
-    backgroundImage = 'url(/assets/images/space.png)';
+    backgroundImage = 'url(/assets/images/space/)';
     textColor = '#ffffff';
     borderColor = '#404040';
     hoverBackgroundColor = '#333333';
