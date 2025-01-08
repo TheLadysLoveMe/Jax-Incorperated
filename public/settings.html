@@ -234,7 +234,6 @@
         tabCloakSelector.value = savedCloak;
         applyTabCloak(savedCloak);
       }
-
       tabCloakSelector.addEventListener('change', function () {
         const selectedCloak = tabCloakSelector.value;
         localStorage.setItem('tabCloak', selectedCloak);
@@ -266,7 +265,6 @@
       styleSheet.innerHTML = '';
       return;
     }
-
     let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
     switch (theme) {
 case 'dark':
@@ -699,7 +697,6 @@ case 'misty-gray':
       default:
         return;
     }
-
     allElements.forEach(el => {
       el.style.backgroundColor = backgroundColor;
       el.style.color = textColor;
@@ -825,107 +822,5 @@ case 'misty-gray':
   }
 </script>
 
-        </div>
-      </div>
-
-      <!-- Image Themes Section -->
-      <div>
-        <div class="setting-title" id="image-themes-title">Image Themes</div>
-        <div class="box-container">
-          <p class="image-theme-explanation" id="image-theme-explanation">
-            Choose an image theme to customize the website's background with beautiful visuals. Your selection will be saved.
-          </p>
-          <select id="image-theme-selector" class="styled-input">
-            <option value="default">Default</option>
-            <option value="space">Space</option>
-            <option value="forest">Forest</option>
-            <option value="beach">Beach</option>
-            <option value="mountains">Mountains</option>
-            <option value="abstract">Abstract</option>
-            <option value="cityscape">Cityscape</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Tab Cloaking Section -->
-      <div>
-        <div class="setting-title" id="tab-cloaking-title">Tab Cloaking</div>
-        <div class="box-container">
-          <p class="tab-cloaking-explanation" id="tab-cloaking-explanation">
-            Choose a service to customize the tab's title and icon. Your selection will be saved.
-          </p>
-          <select id="tab-cloak-selector" class="styled-input">
-            <option value="google-classroom">Google Classroom</option>
-            <option value="amplify">Amplify</option>
-            <option value="google-docs">Google Docs</option>
-            <option value="desmos">Desmos Calculator</option>
-            <option value="default">Default</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Load the saved settings
-      const panicKeyInput = document.getElementById('panic-key-input');
-      const savedPanicKey = localStorage.getItem('panicKey');
-      if (savedPanicKey) panicKeyInput.value = savedPanicKey;
-
-      const themeSelector = document.getElementById('theme-selector');
-      const savedTheme = localStorage.getItem('theme');
-      if (themeSelector && savedTheme) {
-        themeSelector.value = savedTheme;
-        applyTheme(savedTheme);
-      }
-
-      const imageThemeSelector = document.getElementById('image-theme-selector');
-      const savedImageTheme = localStorage.getItem('imageTheme');
-      if (imageThemeSelector && savedImageTheme) {
-        imageThemeSelector.value = savedImageTheme;
-        applyImageTheme(savedImageTheme);
-      }
-
-      // Event listeners
-      panicKeyInput.addEventListener('input', () => {
-        localStorage.setItem('panicKey', panicKeyInput.value);
-      });
-
-      if (themeSelector) {
-        themeSelector.addEventListener('change', () => {
-          const selectedTheme = themeSelector.value;
-          localStorage.setItem('theme', selectedTheme);
-          applyTheme(selectedTheme);
-        });
-      }
-
-      if (imageThemeSelector) {
-        imageThemeSelector.addEventListener('change', () => {
-          const selectedImageTheme = imageThemeSelector.value;
-          localStorage.setItem('imageTheme', selectedImageTheme);
-          applyImageTheme(selectedImageTheme);
-        });
-      }
-    });
-
-    function applyTheme(theme) {
-      document.body.className = ''; // Reset classes
-      if (theme !== 'default') document.body.classList.add(theme);
-    }
-
-    function applyImageTheme(imageTheme) {
-      const backgrounds = {
-        space: 'https://wallpaperaccess.com/full/329583.jpg',
-        forest: 'https://wallpaperaccess.com/full/1153865.jpg',
-        beach: 'https://wallpaperaccess.com/full/217263.jpg',
-        mountains: 'https://wallpaperaccess.com/full/206861.jpg',
-        abstract: 'https://wallpaperaccess.com/full/14886.jpg',
-        cityscape: 'https://wallpaperaccess.com/full/354738.jpg',
-        default: ''
-      };
-      document.body.style.backgroundImage = imageTheme !== 'default' ? `url('${backgrounds[imageTheme]}')` : '';
-    }
-  </script>
 </body>
 </html>
