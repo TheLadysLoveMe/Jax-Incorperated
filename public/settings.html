@@ -747,25 +747,28 @@ function applyTheme(theme) {
     let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, backgroundImage;
     
     switch (theme) {
-        case 'galaxy':
-            backgroundColor = '';
-            textColor = 'white';
-            borderColor = 'gray';
-            hoverBackgroundColor = '#1c1c1c';
-            hoverTextColor = '#f0f0f0';
-            backgroundImage = 'https://images.rawpixel.com/image_social_landscape/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3B4MTM2NjcxMC1pbWFnZS1rd3Z4eGVxcC5qcGc.jpg'; // You can leave this empty for color themes
+        case 'Galaxy':
+            backgroundColor = ''; // No color background
+            textColor = 'purple';
+            borderColor = 'purple';
+            hoverBackgroundColor = '#purple';
+            hoverTextColor = '#white';
+            backgroundImage = 'url("/assets/images/galaxy/image.png")'; // Image file in your website directory
             break;
+        // Add more cases for other themes as needed
     }
-    
+
     // Apply styles to all elements
     allElements.forEach(el => {
         el.style.backgroundColor = backgroundColor;
         el.style.color = textColor;
         el.style.borderColor = borderColor;
-        el.style.backgroundImage = backgroundImage; // Apply the background image
+        el.style.backgroundImage = backgroundImage; // Set the background image
+        el.style.backgroundSize = 'cover'; // Ensure the image covers the entire background
+        el.style.backgroundPosition = 'center'; // Center the image
     });
 
-    // If you need to apply hover styles, you can also dynamically add them to the stylesheet
+    // If you need to apply hover styles, you can dynamically add them to the stylesheet
     styleSheet.innerHTML = `
         *:hover {
             background-color: ${hoverBackgroundColor};
@@ -773,6 +776,7 @@ function applyTheme(theme) {
         }
     `;
 }
+
 
 
   // Function to apply tab cloaking settings
