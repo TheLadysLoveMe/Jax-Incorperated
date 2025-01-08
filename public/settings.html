@@ -169,7 +169,20 @@
 <option value="misty-gray">Misty Gray</option>
          </select>
         </div>
+      </div>      <!-- Images Themes Section -->
+      <div>
+        <div class="setting-title" id="image themes-title">Image Themes</div>
+        <div class="box-container">
+          <p class="theme-explanation" id="image themes-explanation">
+            Choose a image theme to customize the background of the website. Your selection will be saved.
+          </p>
+          <select id="theme-selector" class="styled-input">
+            <option value="default">Default</option>
+<option value="galaxy">Galaxy</option>
+         </select>
+        </div>
       </div>
+
 
       <!-- Tab Cloaking Section -->
       <div>
@@ -714,6 +727,53 @@ case 'misty-gray':
     document.head.appendChild(styleSheet);
     return styleSheet;
   }
+
+// Function to apply a theme dynamically to all elements
+function applyTheme(theme) {
+    const allElements = document.querySelectorAll("*");
+    const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+    
+    if (theme === 'default') {
+        allElements.forEach(el => {
+            el.style.backgroundColor = '';
+            el.style.color = '';
+            el.style.borderColor = '';
+            el.style.backgroundImage = ''; // Clear background image
+        });
+        styleSheet.innerHTML = '';
+        return;
+    }
+
+    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, backgroundImage;
+    
+    switch (theme) {
+        case 'galaxy':
+            backgroundColor = '';
+            textColor = 'white';
+            borderColor = 'gray';
+            hoverBackgroundColor = '#1c1c1c';
+            hoverTextColor = '#f0f0f0';
+            backgroundImage = 'https://images.rawpixel.com/image_social_landscape/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3B4MTM2NjcxMC1pbWFnZS1rd3Z4eGVxcC5qcGc.jpg'; // You can leave this empty for color themes
+            break;
+    }
+    
+    // Apply styles to all elements
+    allElements.forEach(el => {
+        el.style.backgroundColor = backgroundColor;
+        el.style.color = textColor;
+        el.style.borderColor = borderColor;
+        el.style.backgroundImage = backgroundImage; // Apply the background image
+    });
+
+    // If you need to apply hover styles, you can also dynamically add them to the stylesheet
+    styleSheet.innerHTML = `
+        *:hover {
+            background-color: ${hoverBackgroundColor};
+            color: ${hoverTextColor};
+        }
+    `;
+}
+
 
   // Function to apply tab cloaking settings
   function applyTabCloak(cloak) {
