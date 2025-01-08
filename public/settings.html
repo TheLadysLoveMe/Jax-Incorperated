@@ -748,7 +748,6 @@ function applyTheme(theme) {
     
     switch (theme) {
         case 'Galaxy':
-            backgroundColor = ''; // No color background
             textColor = 'purple';
             borderColor = 'purple';
             hoverBackgroundColor = '#purple';
@@ -760,7 +759,6 @@ function applyTheme(theme) {
 
     // Apply styles to all elements
     allElements.forEach(el => {
-        el.style.backgroundColor = backgroundColor;
         el.style.color = textColor;
         el.style.borderColor = borderColor;
         el.style.backgroundImage = backgroundImage; // Set the background image
