@@ -151,7 +151,14 @@
     let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
 
 switch (theme) {
-    case 'dark':
+  case 'galaxy':
+    backgroundImage = 'url(/assets/images/galaxy/theme.png)';
+    textColor = '#ffffff'; // White text to stand out against dark space
+    borderColor = '#9c27b0'; // A subtle purple border for galaxy feel
+    hoverBackgroundColor = '#9c27b0'; // Matching hover effect for border color
+    hoverTextColor = '#ffffff'; // Keeping text white on hover
+    break;
+      case 'dark':
     backgroundColor = '#121212';
     textColor = 'white';
     borderColor = 'gray';
@@ -215,12 +222,12 @@ case 'cherry-blossom':
     hoverTextColor = '#4d2a2a';
     break;
 case 'space':
-    backgroundColor = '#000000';
+    backgroundImage = 'url(/assets/images/space/theme.png)';
     textColor = '#ffffff';
     borderColor = '#404040';
     hoverBackgroundColor = '#333333';
     hoverTextColor = '#e6e6e6';
-    break;
+    break;    
 case 'autumn':
     backgroundColor = '#d56d2e';
     textColor = '#d8a56d';
@@ -578,8 +585,8 @@ case 'misty-gray':
     hoverBackgroundColor = '#616161';
     hoverTextColor = '#ffffff';
     break;
-  default:
-    return;
+        default:
+          return;
 }
 
     // Apply the base styles to all elements
