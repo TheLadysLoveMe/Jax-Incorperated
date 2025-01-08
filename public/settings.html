@@ -273,8 +273,8 @@ case 'dark':
     backgroundColor = '#121212';
     textColor = 'white';
     borderColor = 'gray';
-    hoverBackgroundColor = '#1c1c1c';
-    hoverTextColor = '#f0f0f0';
+    hoverBackgroundColor = '#999999';
+    hoverTextColor = '#000000';
     break;
 case 'light':
     backgroundColor = 'white';
@@ -704,6 +704,7 @@ case 'misty-gray':
       el.style.backgroundColor = backgroundColor;
       el.style.color = textColor;
       el.style.borderColor = borderColor;
+      el.style.backgroundUrl = backgroundUrl;
     });
 
     styleSheet.innerHTML = 
