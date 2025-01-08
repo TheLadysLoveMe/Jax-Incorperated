@@ -142,13 +142,14 @@
         el.style.backgroundColor = ''; // Clear inline background color
         el.style.color = '';           // Clear inline text color
         el.style.borderColor = '';     // Clear inline border color
+        el.style.backgroundImage = '';  // Reset background image for default
       });
       styleSheet.innerHTML = ''; // Remove hover styles
       return;
     }
 
     // Apply theme colors dynamically
-    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
+    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, backgroundImage;
 
 switch (theme) {
   case 'galaxy':
