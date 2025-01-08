@@ -13,8 +13,9 @@
       border: 2px solid red;
       border-radius: 12px;
       padding: 20px;
-      width: 300px;
-      margin: 20px;
+      width: 100%; /* Take full width of grid column */
+      max-width: 400px; /* Restrict max width for better aesthetics */
+      margin: auto; /* Center box within the column */
       text-align: center;
       background-color: black;
       color: red;
@@ -47,13 +48,16 @@
       color: red;
     }
 
-    /* Grid for aligning boxes in the center */
+    /* Improved grid layout */
     .settings-container {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+      grid-gap: 40px; /* Space between items */
       justify-items: center;
-      margin-top: 40px;
+      align-items: start; /* Align items to the top */
+      margin: 40px auto;
+      max-width: 1200px; /* Restrict max container width */
+      padding: 20px;
     }
 
     /* Ensure smooth transitions for all elements */
@@ -217,6 +221,11 @@
         default:
           backgroundImage = '';
       }
+
+      body.style.backgroundImage = backgroundImage;
+      body.style.backgroundSize = 'cover';
+      body.style.backgroundRepeat = 'no-repeat';
+    }
 
       body.style.backgroundImage = backgroundImage;
       body.style.backgroundSize = 'cover';
