@@ -169,20 +169,7 @@
 <option value="misty-gray">Misty Gray</option>
          </select>
         </div>
-      </div>      <!-- Images Themes Section -->
-      <div>
-        <div class="setting-title" id="image themes-title">Image Themes</div>
-        <div class="box-container">
-          <p class="theme-explanation" id="image themes-explanation">
-            Choose a image theme to customize the background of the website. Your selection will be saved.
-          </p>
-          <select id="theme-selector" class="styled-input">
-            <option value="default">Default</option>
-<option value="galaxy">Galaxy</option>
-         </select>
-        </div>
       </div>
-
 
       <!-- Tab Cloaking Section -->
       <div>
@@ -247,6 +234,7 @@
         tabCloakSelector.value = savedCloak;
         applyTabCloak(savedCloak);
       }
+
       tabCloakSelector.addEventListener('change', function () {
         const selectedCloak = tabCloakSelector.value;
         localStorage.setItem('tabCloak', selectedCloak);
@@ -278,6 +266,7 @@
       styleSheet.innerHTML = '';
       return;
     }
+
     let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
     switch (theme) {
 case 'dark':
@@ -710,6 +699,7 @@ case 'misty-gray':
       default:
         return;
     }
+
     allElements.forEach(el => {
       el.style.backgroundColor = backgroundColor;
       el.style.color = textColor;
@@ -727,55 +717,6 @@ case 'misty-gray':
     document.head.appendChild(styleSheet);
     return styleSheet;
   }
-
-// Function to apply a theme dynamically to all elements
-function applyTheme(theme) {
-    const allElements = document.querySelectorAll("*");
-    const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
-    
-    if (theme === 'default') {
-        allElements.forEach(el => {
-            el.style.backgroundColor = '';
-            el.style.color = '';
-            el.style.borderColor = '';
-            el.style.backgroundImage = ''; // Clear background image
-        });
-        styleSheet.innerHTML = '';
-        return;
-    }
-
-    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, backgroundImage;
-    
-    switch (theme) {
-        case 'Galaxy':
-            textColor = 'purple';
-            borderColor = 'purple';
-            hoverBackgroundColor = '#purple';
-            hoverTextColor = '#white';
-            backgroundImage = 'url("/assets/images/galaxy/image.png")'; // Image file in your website directory
-            break;
-        // Add more cases for other themes as needed
-    }
-
-    // Apply styles to all elements
-    allElements.forEach(el => {
-        el.style.color = textColor;
-        el.style.borderColor = borderColor;
-        el.style.backgroundImage = backgroundImage; // Set the background image
-        el.style.backgroundSize = 'cover'; // Ensure the image covers the entire background
-        el.style.backgroundPosition = 'center'; // Center the image
-    });
-
-    // If you need to apply hover styles, you can dynamically add them to the stylesheet
-    styleSheet.innerHTML = `
-        *:hover {
-            background-color: ${hoverBackgroundColor};
-            color: ${hoverTextColor};
-        }
-    `;
-}
-
-
 
   // Function to apply tab cloaking settings
   function applyTabCloak(cloak) {
