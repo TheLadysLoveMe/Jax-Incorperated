@@ -147,11 +147,184 @@
       return;
     }
 
-    // Apply theme colors dynamically
-    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor;
 
-switch (theme) {
-  case 'galaxy':
+      <!-- Themes Section -->
+      <div>
+        <div class="setting-title" id="themes-title">Themes</div>
+        <div class="box-container">
+          <p class="theme-explanation" id="theme-explanation">
+            Choose a theme to customize the appearance of the website. Your selection will be saved.
+          </p>
+          <select id="theme-selector" class="styled-input">
+            <option value="default">Default</option>
+<option value="galaxy">Galaxy</option>            
+<option value="dark">Dark</option>
+<option value="light">Light</option>
+<option value="blue">Blue</option>
+<option value="forest">Forest</option>
+<option value="sunset">Sunset</option>
+<option value="purple">Purple</option>
+<option value="retro-neon">Retro Neon</option>
+<option value="ocean">Ocean</option>
+<option value="cherry-blossom">Cherry Blossom</option>
+<option value="space">Space</option>
+<option value="autumn">Autumn</option>
+<option value="cyberpunk">Cyberpunk</option>
+<option value="mint">Mint</option>
+<option value="neon-green">Neon Green</option>
+<option value="sunrise">Sunrise</option>
+<option value="midnight-blue">Midnight Blue</option>
+<option value="sunny-yellow">Sunny Yellow</option>
+<option value="lavender">Lavender</option>
+<option value="steel-gray">Steel Gray</option>
+<option value="peacock">Peacock</option>
+<option value="rose-gold">Rose Gold</option>
+<option value="chocolate">Chocolate</option>
+<option value="tropical">Tropical</option>
+<option value="icy-blue">Icy Blue</option>
+<option value="sapphire">Sapphire</option>
+<option value="tangerine">Tangerine</option>
+<option value="mint-chocolate">Mint Chocolate</option>
+<option value="tropical-coral">Tropical Coral</option>
+<option value="frosted-lavender">Frosted Lavender</option>
+<option value="electric-orange">Electric Orange</option>
+<option value="minty-fresh">Minty Fresh</option>
+<option value="cherry-red">Cherry Red</option>
+<option value="autumn-leaf">Autumn Leaf</option>
+<option value="neon-lime">Neon Lime</option>
+<option value="deep-ocean">Deep Ocean</option>
+<option value="moonlit-sky">Moonlit Sky</option>
+<option value="sunset-orange">Sunset Orange</option>
+<option value="cool-aqua">Cool Aqua</option>
+<option value="vintage-rose">Vintage Rose</option>
+<option value="electric-purple">Electric Purple</option>
+<option value="midnight-purple">Midnight Purple</option>
+<option value="turquoise-dream">Turquoise Dream</option>
+<option value="velvet-indigo">Velvet Indigo</option>
+<option value="garnet-red">Garnet Red</option>
+<option value="champagne">Champagne</option>
+<option value="icy-pink">Icy Pink</option>
+<option value="red-velvet">Red Velvet</option>
+<option value="summer-sky">Summer Sky</option>
+<option value="forest-moss">Forest Moss</option>
+<option value="mint-splash">Mint Splash</option>
+<option value="plum">Plum</option>
+<option value="fiery-orange">Fiery Orange</option>
+<option value="midnight-cyan">Midnight Cyan</option>
+<option value="magenta-fantasy">Magenta Fantasy</option>
+<option value="warm-gold">Warm Gold</option>
+<option value="stormy-gray">Stormy Gray</option>
+<option value="deep-emerald">Deep Emerald</option>
+<option value="rich-violet">Rich Violet</option>
+<option value="rose-pink">Rose Pink</option>
+<option value="vibrant-lime">Vibrant Lime</option>
+<option value="misty-gray">Misty Gray</option>
+         </select>
+        </div>
+      </div>
+
+
+      <!-- Tab Cloaking Section -->
+      <div>
+        <div class="setting-title" id="tab-cloaking-title">Tab Cloaking</div>
+        <div class="box-container">
+          <p class="tab-cloaking-explanation" id="tab-cloaking-explanation">
+            Choose a service to customize the tab's title and icon. Your selection will be saved.
+          </p>
+          <select id="tab-cloak-selector" class="styled-input">
+            <option value="google-classroom">Google Classroom</option>
+            <option value="amplify">Amplify</option>
+            <option value="google-docs">Google Docs</option>
+            <option value="desmos">Desmos Calculator</option>
+            <option value="default">Default</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load the saved panic key
+    const panicKeyInput = document.getElementById('panic-key-input');
+    const savedPanicKey = localStorage.getItem('panicKey');
+    if (savedPanicKey) {
+      panicKeyInput.value = savedPanicKey;
+    }
+
+    // Listen for key presses globally to activate the panic key
+    document.addEventListener('keydown', function (event) {
+      if (event.key === localStorage.getItem('panicKey')) {
+        // Redirect to Google Classroom when the panic key is pressed
+        window.location.href = 'https://classroom.google.com';
+      }
+    });
+
+    // Load and apply the saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    }
+
+    // Initialize the theme selector if it exists
+    const themeSelector = document.getElementById('theme-selector');
+    if (themeSelector) {
+      if (savedTheme) {
+        themeSelector.value = savedTheme;
+      }
+      themeSelector.addEventListener('change', function () {
+        const selectedTheme = themeSelector.value;
+        localStorage.setItem('theme', selectedTheme);
+        applyTheme(selectedTheme);
+      });
+    }
+
+    // Initialize the tab cloaking selector if it exists
+    const tabCloakSelector = document.getElementById('tab-cloak-selector');
+    if (tabCloakSelector) {
+      const savedCloak = localStorage.getItem('tabCloak');
+      if (savedCloak) {
+        tabCloakSelector.value = savedCloak;
+        applyTabCloak(savedCloak);
+      }
+
+      tabCloakSelector.addEventListener('change', function () {
+        const selectedCloak = tabCloakSelector.value;
+        localStorage.setItem('tabCloak', selectedCloak);
+        applyTabCloak(selectedCloak);
+      });
+    }
+  });
+
+  // Save the panic key to localStorage
+  function savePanicKey() {
+    const panicKeyInput = document.getElementById('panic-key-input');
+    const panicKey = panicKeyInput.value;
+
+    if (panicKey.length === 1) { // Ensure only a single character is saved
+      localStorage.setItem('panicKey', panicKey);
+    }
+  }
+
+// Function to apply a theme dynamically to all elements
+function applyTheme(theme) {
+  const allElements = document.querySelectorAll("*");
+  const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+
+  if (theme === 'default') {
+    allElements.forEach(el => {
+      el.style.backgroundColor = '';
+      el.style.color = '';
+      el.style.borderColor = '';
+      el.style.backgroundImage = '';  // Reset background image for default
+    });
+    styleSheet.innerHTML = '';
+    return;
+  }
+
+  let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, backgroundImage;
+  switch (theme) {
+case 'galaxy':
     backgroundImage = 'url(/assets/images/galaxy/theme.png)';
     textColor = '#ffffff'; // White text to stand out against dark space
     borderColor = '#9c27b0'; // A subtle purple border for galaxy feel
@@ -587,28 +760,26 @@ case 'misty-gray':
     break;
         default:
           return;
+      }      
+
+  // Apply the styles
+  allElements.forEach(el => {
+    el.style.backgroundColor = backgroundColor || '';
+    el.style.color = textColor || '';
+    el.style.borderColor = borderColor || '';
+    el.style.backgroundImage = backgroundImage || '';  // Set background image
+  });
+
+  // Apply hover styles via dynamic stylesheet
+  styleSheet.innerHTML = `
+    *:hover {
+      background-color: ${hoverBackgroundColor};
+      color: ${hoverTextColor};
+    }
+  `;
 }
 
-    // Apply the base styles to all elements
-    allElements.forEach(el => {
-      el.style.backgroundColor = backgroundColor;
-      el.style.color = textColor;
-      el.style.borderColor = borderColor;
-    });
 
-    // Add hover effects dynamically using the stylesheet
-    styleSheet.innerHTML = `
-      button, a {
-        transition: background-color 0.3s, color 0.3s;
-      }
-      button:hover, a:hover {
-        background-color: ${hoverBackgroundColor};
-        color: ${hoverTextColor};
-      }
-    `;
-  }
-
-  // Helper function to create or find the dynamic stylesheet
   function createDynamicStyleSheet() {
     const styleSheet = document.createElement('style');
     styleSheet.id = 'dynamic-theme-styles';
