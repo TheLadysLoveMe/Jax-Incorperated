@@ -131,28 +131,25 @@
     }
   });
 
-  // Function to apply a theme dynamically to all elements
-  function applyTheme(theme) {
-    const allElements = document.querySelectorAll("*"); // Select all elements
-    const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+ // Function to apply a theme dynamically to all elements
+function applyTheme(theme) {
+  const allElements = document.querySelectorAll("*");
+  const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
 
-    // Clear previously applied styles for the default theme
-    if (theme === 'default') {
-      allElements.forEach(el => {
-        el.style.backgroundColor = ''; // Clear inline background color
-        el.style.color = '';           // Clear inline text color
-        el.style.borderColor = '';     // Clear inline border color
-        el.style.backgroundImage = '';  // Reset background image for default
-      });
-      styleSheet.innerHTML = ''; // Remove hover styles
-      return;
-    }
+  if (theme === 'default') {
+    allElements.forEach(el => {
+      el.style.backgroundColor = '';
+      el.style.color = '';
+      el.style.borderColor = '';
+      el.style.backgroundImage = '';  // Reset background image for default
+    });
+    styleSheet.innerHTML = '';
+    return;
+  }
 
-    // Apply theme colors dynamically
-    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, backgroundImage;
-
-switch (theme) {
-  case 'galaxy':
+  let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, backgroundImage;
+  switch (theme) {
+case 'galaxy':
     backgroundImage = 'url(/assets/images/galaxy/theme.png)';
     textColor = '#ffffff'; // White text to stand out against dark space
     borderColor = '#9c27b0'; // A subtle purple border for galaxy feel
@@ -588,36 +585,32 @@ case 'misty-gray':
     break;
         default:
           return;
+      }      
+
+  // Apply the styles
+  allElements.forEach(el => {
+    el.style.backgroundColor = backgroundColor || '';
+    el.style.color = textColor || '';
+    el.style.borderColor = borderColor || '';
+    el.style.backgroundImage = backgroundImage || '';  // Set background image
+  });
+
+  // Apply hover styles via dynamic stylesheet
+  styleSheet.innerHTML = `
+    *:hover {
+      background-color: ${hoverBackgroundColor};
+      color: ${hoverTextColor};
+    }
+  `;
 }
 
-    // Apply the base styles to all elements
-    allElements.forEach(el => {
-      el.style.backgroundColor = backgroundColor;
-      el.style.color = textColor;
-      el.style.borderColor = borderColor;
-    });
 
-    // Add hover effects dynamically using the stylesheet
-    styleSheet.innerHTML = `
-      button, a {
-        transition: background-color 0.3s, color 0.3s;
-      }
-      button:hover, a:hover {
-        background-color: ${hoverBackgroundColor};
-        color: ${hoverTextColor};
-      }
-    `;
-  }
-
-  // Helper function to create or find the dynamic stylesheet
   function createDynamicStyleSheet() {
     const styleSheet = document.createElement('style');
     styleSheet.id = 'dynamic-theme-styles';
     document.head.appendChild(styleSheet);
     return styleSheet;
   }
-</script>
-<script>
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved panic key from localStorage
     const savedPanicKey = localStorage.getItem('panicKey');
