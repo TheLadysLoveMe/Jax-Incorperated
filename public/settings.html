@@ -658,14 +658,6 @@ case 'misty-gray':
     el.style.backgroundImage = backgroundImage || '';  // Set background image
   });
 
-  // Apply hover styles via dynamic stylesheet
-  styleSheet.innerHTML = `
-    *:hover {
-      background-color: ${ };
-      color: ${hoverTextColor};
-    }
-  `;
-}
 
 
   function createDynamicStyleSheet() {
