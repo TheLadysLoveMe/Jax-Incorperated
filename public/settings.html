@@ -105,8 +105,7 @@
             Choose a theme to customize the appearance of the website. Your selection will be saved.
           </p>
           <select id="theme-selector" class="styled-input">
-            <option value="default">Default</option>
-<option value="galaxy">Galaxy</option>            
+            <option value="default">Default</option>          
 <option value="dark">Dark</option>
 <option value="light">Light</option>
 <option value="blue">Blue</option>
@@ -273,13 +272,6 @@ function applyTheme(theme) {
 
   let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, backgroundImage;
   switch (theme) {
-case 'galaxy':
-    backgroundImage = 'url(/assets/images/galaxy/theme.png)';
-    textColor = '#ffffff'; // White text to stand out against dark space
-    borderColor = '#9c27b0'; // A subtle purple border for galaxy feel
-    hoverBackgroundColor = '#9c27b0'; // Matching hover effect for border color
-    hoverTextColor = '#ffffff'; // Keeping text white on hover
-    break;
       case 'dark':
     backgroundColor = '#121212';
     textColor = 'white';
