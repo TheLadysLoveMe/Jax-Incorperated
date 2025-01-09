@@ -13,7 +13,7 @@ function openAboutBlank() {
     iframe.style.width = "100%";
     iframe.style.height = "100%";
     iframe.src = url;
-    win.document.body.appsendChild(iframe);
+    win.document.body.appendChild(iframe);
   }
 }
 
@@ -30,35 +30,31 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function showGame(gameUrl) {
-  // Hide the game list container
   document.getElementById("game-container").style.display = "none";
 
-  // Dynamically create and load the iframe
   const gameFrameContainer = document.getElementById("game-frame-container");
-  const existingFrame = document.getElementById("game-frame");
+  let gameFrame = document.getElementById("game-frame");
 
-  if (!existingFrame) {
-    const iframe = document.createElement("iframe");
-    iframe.id = "game-frame";
-    iframe.src = gameUrl;
-    iframe.width = "800";
-    iframe.height = "600";
-    iframe.style.border = "none";
-    gameFrameContainer.appsendChild(iframe);
+  if (!gameFrame) {
+    gameFrame = document.createElement("iframe");
+    gameFrame.id = "game-frame";
+    gameFrame.src = gameUrl;
+    gameFrame.width = "800";
+    gameFrame.height = "600";
+    gameFrame.style.border = "none";
+    gameFrameContainer.appendChild(gameFrame);
   } else {
-    existingFrame.src = gameUrl;
+    gameFrame.src = gameUrl;
   }
 
-  // Show the game display section
   document.getElementById("game-display").style.display = "block";
 }
 
 function exitGame() {
-  // Redirect to the games.html page
   window.location.href = "/games.html";
 }
 
-function toggleFullScreen() {
+function toggleGameFullScreen() {
   const gameFrame = document.getElementById("game-frame");
 
   if (gameFrame) {
@@ -69,36 +65,33 @@ function toggleFullScreen() {
     }
   }
 }
-function showapps(appsUrl) {
-  // Hide the apps list container
+
+function showApps(appsUrl) {
   document.getElementById("apps-container").style.display = "none";
 
-  // Dynamically create and load the iframe
   const appsFrameContainer = document.getElementById("apps-frame-container");
-  const existingFrame = document.getElementById("apps-frame");
+  let appsFrame = document.getElementById("apps-frame");
 
-  if (!existingFrame) {
-    const iframe = document.createElement("iframe");
-    iframe.id = "apps-frame";
-    iframe.src = appsUrl;
-    iframe.width = "800";
-    iframe.height = "600";
-    iframe.style.border = "none";
-    appsFrameContainer.appsendChild(iframe);
+  if (!appsFrame) {
+    appsFrame = document.createElement("iframe");
+    appsFrame.id = "apps-frame";
+    appsFrame.src = appsUrl;
+    appsFrame.width = "800";
+    appsFrame.height = "600";
+    appsFrame.style.border = "none";
+    appsFrameContainer.appendChild(appsFrame);
   } else {
-    existingFrame.src = appsUrl;
+    appsFrame.src = appsUrl;
   }
 
-  // Show the apps display section
   document.getElementById("apps-display").style.display = "block";
 }
 
-function exitapps() {
-  // Redirect to the apps.html page
+function exitApps() {
   window.location.href = "/apps.html";
 }
 
-function toggleFullScreen() {
+function toggleAppsFullScreen() {
   const appsFrame = document.getElementById("apps-frame");
 
   if (appsFrame) {
