@@ -7,16 +7,16 @@
   <link rel="manifest" href="/manifest.json"/>
   <link rel="icon" type="image/png" href="/assets/images/jax.png">
   <link rel="stylesheet" href="/css/styles.css">
-  <style>
+<style>
     /* Add the bottom-left tab style for About button */
     #about-tab {
       position: fixed;
       bottom: 10px;
       left: 10px;
       background-color: transparent;
-      color: red;
+      color: #c9a98a; /* Accent color */
       padding: 10px 20px;
-      border: 2px solid red;
+      border: 2px solid #c9a98a; /* Accent color */
       border-radius: 10px;
       font-weight: bold;
       cursor: pointer;
@@ -24,24 +24,19 @@
     }
 
     #about-tab:hover {
-      background-color: red;
-      color: black;
+      background-color: #c9a98a; /* Accent background on hover */
+      color: #6b4f3f; /* Contrast text color on hover */
     }
-    /* Additional styles for body, header, etc. to ensure full theme coverage */
-    body, header, nav, footer, main, h1, p, a, div, button {
-      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-    } 
-  </style>
-    <style>
-    /* Add the bottom-left tab style for Help button */
+
+    /* Add the bottom-right tab style for Help button */
     #help-tab {
       position: fixed;
       bottom: 10px;
       right: 10px;
       background-color: transparent;
-      color: red;
+      color: #c9a98a; /* Accent color */
       padding: 10px 20px;
-      border: 2px solid red;
+      border: 2px solid #c9a98a; /* Accent color */
       border-radius: 10px;
       font-weight: bold;
       cursor: pointer;
@@ -49,14 +44,16 @@
     }
 
     #help-tab:hover {
-      background-color: red;
-      color: black;
+      background-color: #c9a98a; /* Accent background on hover */
+      color: #6b4f3f; /* Contrast text color on hover */
     }
-    /* Additional styles for body, header, etc. to ensure full theme coverage */
+
+    /* Smooth transition for body, header, nav, etc. */
     body, header, nav, footer, main, h1, p, a, div, button {
       transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-    } 
-  </style>
+    }
+</style>
+
 </head>
 <body>
   <header>
