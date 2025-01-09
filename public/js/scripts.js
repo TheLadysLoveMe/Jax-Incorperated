@@ -13,7 +13,7 @@ function openAboutBlank() {
     iframe.style.width = "100%";
     iframe.style.height = "100%";
     iframe.src = url;
-    win.document.body.appendChild(iframe);
+    win.document.body.appsendChild(iframe);
   }
 }
 
@@ -44,7 +44,7 @@ function showGame(gameUrl) {
     iframe.width = "800";
     iframe.height = "600";
     iframe.style.border = "none";
-    gameFrameContainer.appendChild(iframe);
+    gameFrameContainer.appsendChild(iframe);
   } else {
     existingFrame.src = gameUrl;
   }
@@ -69,37 +69,42 @@ function toggleFullScreen() {
     }
   }
 }
-function showApp(appUrl) {
-  // Hide the app list container
-  document.getElementById("app-container").style.display = "none";
+function showapps(appsUrl) {
+  // Hide the apps list container
+  document.getElementById("apps-container").style.display = "none";
+
   // Dynamically create and load the iframe
-  const appFrameContainer = document.getElementById("app-frame-container");
-  const existingFrame = document.getElementById("app-frame");
+  const appsFrameContainer = document.getElementById("apps-frame-container");
+  const existingFrame = document.getElementById("apps-frame");
+
   if (!existingFrame) {
     const iframe = document.createElement("iframe");
-    iframe.id = "app-frame";
-    iframe.src = appUrl;
+    iframe.id = "apps-frame";
+    iframe.src = appsUrl;
     iframe.width = "800";
     iframe.height = "600";
     iframe.style.border = "none";
-    appFrameContainer.appendChild(iframe);
+    appsFrameContainer.appsendChild(iframe);
   } else {
-    existingFrame.src = appUrl;
+    existingFrame.src = appsUrl;
   }
-  // Show the app display section
-  document.getElementById("app-display").style.display = "block";
+
+  // Show the apps display section
+  document.getElementById("apps-display").style.display = "block";
 }
-function exitApp() {
+
+function exitapps() {
   // Redirect to the apps.html page
   window.location.href = "/apps.html";
 }
+
 function toggleFullScreen() {
-  const appFrame = document.getElementById("app-frame");
-  if (appFrame) {
+  const appsFrame = document.getElementById("apps-frame");
+
+  if (appsFrame) {
     if (!document.fullscreenElement) {
-      appFrame.requestFullscreen();
+      appsFrame.requestFullscreen();
     } else {
       document.exitFullscreen();
     }
   }
-}
