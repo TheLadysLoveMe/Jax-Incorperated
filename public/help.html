@@ -14,22 +14,56 @@
     background-color: #6b4f3f;
     color: #e8dcc8;
     text-align: center;
+  }
+
+  header {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    padding: 10px 20px;
+    border-bottom: 2px solid #e8dcc8;
+  }
+
+  header img {
+    height: 50px;
+  }
+
+  #logo-name {
+    font-size: 24px;
+    color: #e8dcc8;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  nav {
+    display: flex;
+    gap: 15px;
+    margin-left: auto;
+  }
+
+  nav a {
+    color: #e8dcc8;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    border: 1px solid #e8dcc8;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  nav a:hover {
+    background-color: #e8dcc8;
+    color: #6b4f3f;
   }
 
   main {
-    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: calc(100vh - 70px); /* Adjusting for header height */
   }
 
   .help-section {
-    max-width: 600px; /* Adjust as necessary */
+    max-width: 600px; /* Keeps content manageable */
     text-align: center;
     border: 2px solid #e8dcc8;
     padding: 20px;
@@ -84,7 +118,8 @@
     background-color: #e8dcc8;
     color: #6b4f3f;
   }
-</style>=
+</style>
+
 </head>
 <body>
   <header>
