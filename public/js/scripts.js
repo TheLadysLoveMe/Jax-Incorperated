@@ -13,7 +13,7 @@ function openAboutBlank() {
     iframe.style.width = "100%";
     iframe.style.height = "100%";
     iframe.src = url;
-    win.document.body.appsendChild(iframe);
+    win.document.body.appendChild(iframe);
   }
 }
 
@@ -36,6 +36,7 @@ function showGame(gameUrl) {
   // Dynamically create and load the iframe
   const gameFrameContainer = document.getElementById("game-frame-container");
   const existingFrame = document.getElementById("game-frame");
+
   if (!existingFrame) {
     const iframe = document.createElement("iframe");
     iframe.id = "game-frame";
@@ -43,7 +44,7 @@ function showGame(gameUrl) {
     iframe.width = "800";
     iframe.height = "600";
     iframe.style.border = "none";
-    gameFrameContainer.appsendChild(iframe);
+    gameFrameContainer.appendChild(iframe);
   } else {
     existingFrame.src = gameUrl;
   }
@@ -68,40 +69,35 @@ function toggleFullScreen() {
     }
   }
 }
-function showapps(appsUrl) {
-  // Hide the apps list container
-  document.getElementById("apps-container").style.display = "none";
-
+function showApp(appUrl) {
+  // Hide the app list container
+  document.getElementById("app-container").style.display = "none";
   // Dynamically create and load the iframe
-  const appsFrameContainer = document.getElementById("apps-frame-container");
-  const existingFrame = document.getElementById("apps-frame");
+  const appFrameContainer = document.getElementById("app-frame-container");
+  const existingFrame = document.getElementById("app-frame");
   if (!existingFrame) {
     const iframe = document.createElement("iframe");
-    iframe.id = "apps-frame";
-    iframe.src = appsUrl;
+    iframe.id = "app-frame";
+    iframe.src = appUrl;
     iframe.width = "800";
     iframe.height = "600";
     iframe.style.border = "none";
-    appsFrameContainer.appsendChild(iframe);
+    appFrameContainer.appendChild(iframe);
   } else {
-    existingFrame.src = appsUrl;
+    existingFrame.src = appUrl;
   }
-
-  // Show the apps display section
-  document.getElementById("apps-display").style.display = "block";
+  // Show the app display section
+  document.getElementById("app-display").style.display = "block";
 }
-
-function exitapps() {
+function exitApp() {
   // Redirect to the apps.html page
   window.location.href = "/apps.html";
 }
-
 function toggleFullScreen() {
-  const appsFrame = document.getElementById("apps-frame");
-
-  if (appsFrame) {
+  const appFrame = document.getElementById("app-frame");
+  if (appFrame) {
     if (!document.fullscreenElement) {
-      appsFrame.requestFullscreen();
+      appFrame.requestFullscreen();
     } else {
       document.exitFullscreen();
     }
