@@ -5,75 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Search - Jax Incorporated</title>
   <link rel="stylesheet" href="/css/styles.css">
-  <style>
-    /* Search Section Styles */
-    #uv-form {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      margin-top: 50px;
-      padding: 20px;
-      border-radius: 10px;
-      background-color: #000000;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      width: 100%;
-      max-width: 500px;
-    }
+ <style>
+  /* Search Section Styles */
+  #uv-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #000000; /* Black background */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+  }
 
-    .search-bar {
-      padding: 15px;
-      font-size: 18px;
-      width: 100%;
-      max-width: 400px;
-      border-radius: 8px;
-      border: 2px solid #FF0000;
-      background-color: #000000;
-      color: white;
-      outline: none;
-      transition: all 0.3s ease;
-    }
+  .search-bar {
+    padding: 15px;
+    font-size: 18px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    border: 2px solid #FF0000; /* Red border */
+    background-color: #000000; /* Black background */
+    color: white; /* White text */
+    outline: none;
+    transition: all 0.3s ease;
+  }
 
-    .search-bar::placeholder {
-      color: #bbb;
-    }
+  .search-bar::placeholder {
+    color: #bbb; /* Light grey placeholder */
+  }
 
-    .search-bar:focus {
-      border-color: #FF0000
-      background-color: #000;
-    }
+  .search-bar:focus {
+    border-color: #FF0000; /* Red border on focus */
+    background-color: #000; /* Keep black background */
+  }
 
-    .desc {
-      color: #FF0000;
-      text-align: center;
-      margin-top: 15px;
-    }
+  .desc {
+    color: #FF0000; /* Red text */
+    text-align: center;
+    margin-top: 15px;
+  }
 
-    #uv-error {
-      color: red;
-      font-size: 14px;
-    }
+  #uv-error {
+    color: red; /* Red error text */
+    font-size: 14px;
+  }
 
-    main {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 80vh;
-      background-color: #000000;
-    }
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: #000000; /* Black background */
+  }
 
-    /* Hover effect for the input field */
-    .search-bar:hover {
-      border-color: #ff6600;
-      background-color: #000000;
-    }
+  /* Hover effect for the input field */
+  .search-bar:hover {
+    border-color: #ff6600; /* Orange border on hover */
+    background-color: #000000; /* Keep black background */
+  }
 
-    /* Error and description styling */
-    .desc p, .desc pre {
-      margin: 0;
-    }
-  </style>
+  /* Error and description styling */
+  .desc p, .desc pre {
+    margin: 0;
+  }
+</style>
+
 </head>
 <body>
   <header>
