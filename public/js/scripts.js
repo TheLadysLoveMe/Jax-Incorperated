@@ -13,7 +13,7 @@ function openAboutBlank() {
     iframe.style.width = "100%";
     iframe.style.height = "100%";
     iframe.src = url;
-    win.document.body.appendChild(iframe);
+    win.document.body.appsendChild(iframe);
   }
 }
 
@@ -44,7 +44,7 @@ function showGame(gameUrl) {
     iframe.width = "800";
     iframe.height = "600";
     iframe.style.border = "none";
-    gameFrameContainer.appendChild(iframe);
+    gameFrameContainer.appsendChild(iframe);
   } else {
     existingFrame.src = gameUrl;
   }
@@ -69,3 +69,44 @@ function toggleFullScreen() {
     }
   }
 }
+function showapps(appsUrl) {
+  // Hide the apps list container
+  document.getElementById("apps-container").style.display = "none";
+
+  // Dynamically create and load the iframe
+  const appsFrameContainer = document.getElementById("apps-frame-container");
+  const existingFrame = document.getElementById("apps-frame");
+
+  if (!existingFrame) {
+    const iframe = document.createElement("iframe");
+    iframe.id = "apps-frame";
+    iframe.src = appsUrl;
+    iframe.width = "800";
+    iframe.height = "600";
+    iframe.style.border = "none";
+    appsFrameContainer.appsendChild(iframe);
+  } else {
+    existingFrame.src = appsUrl;
+  }
+
+  // Show the apps display section
+  document.getElementById("apps-display").style.display = "block";
+}
+
+function exitapps() {
+  // Redirect to the apps.html page
+  window.location.href = "/apps.html";
+}
+
+function toggleFullScreen() {
+  const appsFrame = document.getElementById("apps-frame");
+
+  if (appsFrame) {
+    if (!document.fullscreenElement) {
+      appsFrame.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+}
+~
