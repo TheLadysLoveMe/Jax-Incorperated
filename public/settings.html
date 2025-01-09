@@ -7,60 +7,59 @@
   <link rel="manifest" href="/manifest.json"/>
   <link rel="icon" type="image/png" href="/assets/images/jax.png">
   <link rel="stylesheet" href="/css/styles.css">
-  <style>
-    /* General styling for container box */
-    .box-container {
-      border: 2px solid red;
-      border-radius: 12px;
-      padding: 20px;
-      width: 300px;
-      margin: 20px;
-      text-align: center;
-      /* Remove background-color */
-      color: red;
-    }
+<style>
+  /* General styling for container box */
+  .box-container {
+    border: 2px solid #4f362f; /* Dark brown border */
+    border-radius: 12px;
+    padding: 20px;
+    width: 300px;
+    margin: 20px;
+    text-align: center;
+    color: #4f362f; /* Dark brown text */
+  }
 
-    /* Input and button styles */
-    .styled-input, .styled-button {
-      padding: 10px;
-      font-size: 16px;
-      border: 2px solid red;
-      border-radius: 8px;
-      outline: none;
-      width: 90%;
-      margin-bottom: 10px;
-      background-color: black;
-      color: red;
-      transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    }
+  /* Input and button styles */
+  .styled-input, .styled-button {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #4f362f; /* Dark brown border */
+    border-radius: 8px;
+    outline: none;
+    width: 90%;
+    margin-bottom: 10px;
+    background-color: #d1b19d; /* Lighter brown background */
+    color: #4f362f; /* Dark brown text */
+    transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
 
-    .styled-input:focus, .styled-button:hover {
-      border-color: darkred;
-      background-color: #333;
-    }
+  .styled-input:focus, .styled-button:hover {
+    border-color: #4f362f; /* Dark brown border */
+    background-color: #d6b79e; /* Light brown background */
+  }
 
-    /* Larger text for the titles */
-    .setting-title {
-      font-size: 24px;
-      font-weight: bold;
-      text-align: center;
-      color: red;
-    }
+  /* Larger text for the titles */
+  .setting-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #4f362f; /* Dark brown text */
+  }
 
-    /* Grid for aligning boxes in the center */
-    .settings-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* 2 columns */
-      grid-gap: 20px;
-      justify-items: center;
-      margin-top: 40px;
-    }
+  /* Grid for aligning boxes in the center */
+  .settings-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-gap: 20px;
+    justify-items: center;
+    margin-top: 40px;
+  }
 
-    /* Ensure smooth transitions for all elements */
-    body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
-      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-    }
-  </style>
+  /* Ensure smooth transitions for all elements */
+  body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+</style>
 </head>
 <body>
   <header>
