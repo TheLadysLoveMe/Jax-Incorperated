@@ -118,16 +118,53 @@
       </a>           
       </div>
 
-   <div id="game-display" style="display: none;">
-      <div id="game-frame-container">
-        <iframe id="game-frame" src="" width="800" height="600"></iframe>
-        <div id="game-buttons">
-          <button onclick="exitGame()">Exit</button>
-          <button onclick="toggleFullScreen()">Fullscreen</button>
-        </div>
-      </div>
+<div id="game-display" style="display: none;">
+  <div id="game-frame-container">
+    <iframe id="game-frame" src="" width="800" height="600"></iframe>
+    <div id="game-buttons">
+      <button onclick="exitGame()">Exit</button>
+      <button onclick="toggleFullScreen()">Fullscreen</button>
     </div>
-  </main>
+  </div>
+</div>
+</main>
+
+<script>
+  function showGame(gameUrl) {
+    const gameFrame = document.getElementById("game-frame");
+    const gameDisplay = document.getElementById("game-display");
+
+    // Set the iframe source and display the game container
+    gameFrame.src = gameUrl;
+    gameDisplay.style.display = "block";
+  }
+
+  function exitGame() {
+    const gameFrame = document.getElementById("game-frame");
+    const gameDisplay = document.getElementById("game-display");
+
+    // Reset iframe source and hide the game container
+    gameFrame.src = "";
+    gameDisplay.style.display = "none";
+  }
+
+  function toggleFullScreen() {
+    const gameContainer = document.getElementById("game-frame-container");
+
+    // Check if fullscreen is supported
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else if (gameContainer.requestFullscreen) {
+      gameContainer.requestFullscreen();
+    } else if (gameContainer.mozRequestFullScreen) { // Firefox
+      gameContainer.mozRequestFullScreen();
+    } else if (gameContainer.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+      gameContainer.webkitRequestFullscreen();
+    } else if (gameContainer.msRequestFullscreen) { // IE/Edge
+      gameContainer.msRequestFullscreen();
+    }
+  }
+</script>
 
   <script src="/js/scripts.js"></script>
   <script>
