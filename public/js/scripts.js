@@ -36,7 +36,6 @@ function showGame(gameUrl) {
   // Dynamically create and load the iframe
   const gameFrameContainer = document.getElementById("game-frame-container");
   const existingFrame = document.getElementById("game-frame");
-
   if (!existingFrame) {
     const iframe = document.createElement("iframe");
     iframe.id = "game-frame";
@@ -76,7 +75,6 @@ function showapps(appsUrl) {
   // Dynamically create and load the iframe
   const appsFrameContainer = document.getElementById("apps-frame-container");
   const existingFrame = document.getElementById("apps-frame");
-
   if (!existingFrame) {
     const iframe = document.createElement("iframe");
     iframe.id = "apps-frame";
@@ -108,3 +106,4 @@ function toggleFullScreen() {
       document.exitFullscreen();
     }
   }
+}
