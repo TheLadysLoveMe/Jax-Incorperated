@@ -57,13 +57,14 @@
       color: #e8dcc8; /* Light beige text */
     }
 
-    /* Grid for aligning boxes in the center */
+    /* Grid for aligning boxes in a 2x2 layout */
     .settings-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive layout */
+      grid-template-columns: repeat(2, 1fr); /* Fixed 2 columns */
       grid-gap: 20px;
       justify-items: center;
-      margin-top: 40px;
+      margin: 40px auto;
+      max-width: 800px; /* Center grid and limit width */
     }
 
     /* Smooth transitions for all interactive elements */
