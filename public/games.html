@@ -118,16 +118,87 @@
       </a>           
       </div>
 
-    <div id="game-display" style="display: none;">
-      <div id="game-frame-container">
-        <iframe id="game-frame" src="" width="800" height="600"></iframe>
-        <div id="game-buttons">
-          <button onclick="exitGame()">Exit</button>
-          <button onclick="toggleFullScreen()">Fullscreen</button>
-        </div>
-      </div>
-    </div>
-  </main>
+ <div id="game-display" style="display: none;">
+    <button id="toggle-fullscreen-game">Toggle Fullscreen</button>
+    <button id="exit-game">Exit</button>
+    <div id="game-frame-container"></div>
+  </div>
+
+  <script>
+    var url = "/";
+    var win;
+
+    function openAboutBlank() {
+      if (win) {
+        win.focus();
+      } else {
+        win = window.open("", "_blank");
+        win.document.body.style.margin = "0";
+        win.document.body.style.height = "100vh";
+        var iframe = win.document.createElement("iframe");
+        iframe.style.border = "none";
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.src = url;
+        win.document.body.appendChild(iframe);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var switchInput = document.querySelector("#about-blank-btn");
+
+      if (switchInput) {
+        switchInput.addEventListener("change", function () {
+          if (this.checked) {
+            openAboutBlank();
+          }
+        });
+      }
+    });
+
+    function showGame(gameUrl) {
+      document.getElementById("game-container").style.display = "none";
+
+      const gameFrameContainer = document.getElementById("game-frame-container");
+      let gameFrame = document.getElementById("game-frame");
+
+      if (!gameFrame) {
+        gameFrame = document.createElement("iframe");
+        gameFrame.id = "game-frame";
+        gameFrame.src = gameUrl;
+        gameFrame.width = "800";
+        gameFrame.height = "600";
+        gameFrame.style.border = "none";
+        gameFrameContainer.appendChild(gameFrame);
+      } else {
+        gameFrame.src = gameUrl;
+      }
+
+      document.getElementById("game-display").style.display = "block";
+    }
+
+    function exitGame() {
+      window.location.href = "/games.html";
+    }
+
+    function toggleGameFullScreen() {
+      const gameFrame = document.getElementById("game-frame");
+
+      if (gameFrame) {
+        if (!document.fullscreenElement) {
+          gameFrame.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    // Button listeners for fullscreen and exit
+    document.getElementById("toggle-fullscreen-game").addEventListener("click", toggleGameFullScreen);
+    document.getElementById("exit-game").addEventListener("click", exitGame);
+  </script>
+</body>
+</html>
 
   <script src="/js/scripts.js"></script>
   <script>
