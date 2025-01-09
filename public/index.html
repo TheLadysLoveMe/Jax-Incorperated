@@ -8,123 +8,51 @@
   <link rel="icon" type="image/png" href="/assets/images/jax.png">
   <link rel="stylesheet" href="/css/styles.css">
 <style>
-  /* General Chat Container */
-  body {
-    background-color: #6b4f3f; /* Main background color */
-    color: #f4e4d4; /* Text color */
-    font-family: Arial, sans-serif;
-  }
-
-  #chat-container {
-    max-width: 700px;
-    margin: 50px auto;
-    padding: 10px;
-    border: 1px solid #a89f91; /* Soft border color */
-    border-radius: 10px;
-    background-color: #5e4332; /* Container background color */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Chat display area */
-  #chat-display {
-    height: 500px;
-    overflow-y: auto;
-    padding: 20px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #a89f91; /* Light brown border */
-    scroll-behavior: smooth;
-    background-color: #5e4332; /* Same container background */
-  }
-
-  /* User and AI message styles */
-  .message {
-    margin-bottom: 15px;
-    display: flex;
-    max-width: 80%;
-  }
-
-  .user-message {
-    background-color: #5e4332;
-    color: #f4e4d4; /* Light beige text */
-    padding: 12px 18px;
-    border: 2px solid #c9a98a; /* Accent border color */
-    border-radius: 20px;
-    align-self: flex-end;
-    margin-left: auto;
-    font-size: 14px;
-    word-wrap: break-word;
-  }
-
-  .ai-message {
-    background-color: #5e4332;
-    color: #f4e4d4; /* Light beige text */
-    padding: 12px 18px;
-    border: 2px solid #a89f91; /* Light brown border */
-    border-radius: 20px;
-    align-self: flex-start;
-    margin-right: auto;
-    font-size: 14px;
-    word-wrap: break-word;
-  }
-
-  /* Code block inside AI message */
-  .ai-message code {
-    display: block;
-    background-color: #8c6a4c;
-    color: #f4e4d4; /* Light beige text */
-    padding: 12px;
-    border-radius: 8px;
-    font-family: "Courier New", Courier, monospace;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-
-  /* Input area */
-  #user-input {
-    width: calc(100% - 120px);
-    padding: 12px;
-    border: 2px solid #a89f91; /* Light brown border */
-    border-radius: 25px;
-    margin-right: 10px;
-    font-size: 14px;
-    background-color: #8c6a4c; /* Muted brown background */
-    color: #f4e4d4; /* Light beige text */
-  }
-
-  /* Send button */
-  #send-button {
-    padding: 12px 20px;
-    color: #f4e4d4; /* Light beige text */
-    border: 2px solid #c9a98a; /* Accent border color */
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 14px;
+  /* Add the bottom-left tab style for About button */
+  #about-tab {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
     background-color: transparent;
+    color: #4f362f; /* Dark brown text */
+    padding: 10px 20px;
+    border: 2px solid #4f362f; /* Dark brown border */
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
   }
 
-  #send-button:hover {
-    background-color: #c9a98a; /* Light beige hover */
-    color: #5e4332; /* Dark brown text on hover */
+  #about-tab:hover {
+    background-color: #4f362f; /* Dark brown background on hover */
+    color: #d1b19d; /* Lighter brown text on hover */
   }
 
-  /* Typing indicator (optional) */
-  .typing-indicator {
-    font-style: italic;
-    color: #d4b597; /* Light muted color */
-    margin-top: 10px;
+  /* Add the bottom-left tab style for Help button */
+  #help-tab {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: transparent;
+    color: #4f362f; /* Dark brown text */
+    padding: 10px 20px;
+    border: 2px solid #4f362f; /* Dark brown border */
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
   }
 
-  /* Navigation links styling */
-  nav a {
-    color: #c9a98a; /* Accent color for links */
+  #help-tab:hover {
+    background-color: #4f362f; /* Dark brown background on hover */
+    color: #d1b19d; /* Lighter brown text on hover */
   }
 
-  nav a:hover {
-    color: #f4e4d4; /* Light beige text on hover */
+  /* Additional styles for body, header, etc. to ensure full theme coverage */
+  body, header, nav, footer, main, h1, p, a, div, button {
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   }
 </style>
-
 </head>
 <body>
   <header>
