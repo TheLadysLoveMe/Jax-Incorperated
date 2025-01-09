@@ -15,7 +15,7 @@
     <nav>
       <a href="/">Home</a>
       <a href="/games.html">Games</a> 
-      <a href="/apps.html">Apps</a>      
+      <a href="/games.html">games</a>      
       <a href="/search.html">Search</a>
       <a href="/chatgpt.html">ChatGPT</a>
       <a href="/settings.html">Settings</a>
@@ -118,69 +118,16 @@
       </a>           
     </div>
 
-    <div id="game-display" style="display: none;">
-      <div id="game-frame-container">
-        <iframe id="game-frame" src="" width="800" height="600"></iframe>
-        <div id="game-buttons">
-          <button onclick="exitGame()">Exit</button>
+    <div id="games-display" style="display: none;">
+      <div id="games-frame-container">
+        <iframe id="games-frame" src="" width="800" height="600"></iframe>
+        <div id="games-buttons">
+          <button onclick="exitgames()">Exit</button>
           <button onclick="toggleFullScreen()">Fullscreen</button>
         </div>
       </div>
     </div>
   </main>
-
-  <script>
-    function showGame(gameUrl) {
-      document.getElementById("game-container").style.display = "none";
-
-      const gameFrameContainer = document.getElementById("game-frame-container");
-      let gameFrame = document.getElementById("game-frame");
-
-      if (!gameFrame) {
-        gameFrame = document.createElement("iframe");
-        gameFrame.id = "game-frame";
-        gameFrame.src = gameUrl;
-        gameFrame.width = "800";
-        gameFrame.height = "600";
-        gameFrame.style.border = "none";
-        gameFrameContainer.appendChild(gameFrame);
-      } else {
-        gameFrame.src = gameUrl;
-      }
-
-      document.getElementById("game-display").style.display = "block";
-    }
-
-    function exitGame() {
-      window.location.href = "/games.html";
-    }
-
-    function toggleFullScreen() {
-      const gameFrame = document.getElementById("game-frame");
-
-      if (gameFrame) {
-        if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement) {
-          // Request fullscreen for the iframe
-          if (gameFrame.requestFullscreen) {
-            gameFrame.requestFullscreen();
-          } else if (gameFrame.mozRequestFullScreen) { // Firefox
-            gameFrame.mozRequestFullScreen();
-          } else if (gameFrame.webkitRequestFullscreen) { // Chrome, Safari and Opera
-            gameFrame.webkitRequestFullscreen();
-          }
-        } else {
-          // Exit fullscreen
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          } else if (document.mozCancelFullScreen) { // Firefox
-            document.mozCancelFullScreen();
-          } else if (document.webkitExitFullscreen) { // Chrome, Safari, and Opera
-            document.webkitExitFullscreen();
-          }
-        }
-      }
-    }
-  </script>
 
   <script src="/js/scripts.js"></script>
   <script>
