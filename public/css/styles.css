@@ -1,17 +1,18 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #6b4f3f;
-  color: #f4e4d4;
+  background: linear-gradient(180deg, #e7d6c4, #cbb59a); /* Soft beige to light brown gradient */
+  color: #5c4033; /* Darker brown for text */
   text-align: center;
+  background-attachment: fixed; /* Ensures the background stays in place */
 }
 
 header {
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  border-bottom: 2px solid #f4e4d4;
-  background-color: #6b4f3f; /* Default header background color */
+  border-bottom: 2px solid #5c4033; /* Darker brown for border */
+  background-color: rgba(235, 216, 190, 0.8); /* Translucent beige for a softer look */
 }
 
 header img {
@@ -20,7 +21,7 @@ header img {
 
 #logo-name {
   font-size: 24px;
-  color: #f4e4d4;
+  color: #5c4033;
   font-weight: bold;
   margin-left: 10px;
 }
@@ -32,18 +33,18 @@ nav {
 }
 
 nav a {
-  color: #f4e4d4;
+  color: #5c4033;
   text-decoration: none;
   font-size: 16px;
   padding: 5px 10px;
-  border: 1px solid #f4e4d4;
+  border: 1px solid #5c4033;
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
 }
 
 nav a:hover {
-  background-color: #c9a98a;
-  color: #6b4f3f;
+  background-color: #e7d6c4; /* Lighter beige hover effect */
+  color: #5c4033; /* Darker brown text on hover */
 }
 
 #settings-content {
@@ -57,55 +58,15 @@ nav a:hover {
 #settings-content h1 {
   font-size: 32px;
   margin-bottom: 20px;
+  color: #5c4033;
 }
 
-#cloaks {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.cloak-button {
-  background-color: #6b4f3f;
-  color: #f4e4d4;
-  border: 2px solid #f4e4d4;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.cloak-button img {
-  width: 24px;
-  height: 24px;
-}
-
-.cloak-button:hover {
-  background-color: #f4e4d4;
-  color: #6b4f3f;
-}
-
-#home-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 80vh;
-}
-
-#home-content h1 {
-  font-size: 32px;
-  margin-bottom: 20px;
-}
-
+/* Buttons and other elements with a watercolor-inspired theme */
+.cloak-button,
 #about-blank-btn {
-  background-color: #6b4f3f;
-  color: #f4e4d4;
-  border: 2px solid #f4e4d4;
+  background-color: rgba(235, 216, 190, 0.9); /* Translucent beige */
+  color: #5c4033;
+  border: 2px solid #5c4033;
   padding: 10px 20px;
   border-radius: 10px;
   font-size: 16px;
@@ -113,151 +74,25 @@ nav a:hover {
   transition: background-color 0.3s, color 0.3s;
 }
 
+.cloak-button:hover,
 #about-blank-btn:hover {
-  background-color: #f4e4d4;
-  color: #6b4f3f;
+  background-color: #cbb59a; /* Slightly darker beige on hover */
+  color: #f5f5dc; /* Light beige text on hover */
 }
 
-#game-container {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.game {
-  width: 200px;
-  text-align: center;
-  border: 2px solid #f4e4d4;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: #6b4f3f;
-  transition: transform 0.3s, background-color 0.3s;
-  color: #f4e4d4;
-  text-decoration: none;
-}
-
-.game img {
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.game:hover {
-  transform: scale(1.05);
-  background-color: #f4e4d4;
-  color: #6b4f3f;
-}
-
-.game span {
-  display: block;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-#game-display {
-  display: none;
-  text-align: center;
-  margin-top: 20px;
-}
-
-#game-frame-container {
-  position: relative;
-  display: inline-block;
-  max-width: 100%;
-  background-color: #6b4f3f;
-}
-
-#game-buttons {
-  margin-top: 10px;
-}
-
-#game-buttons button {
-  padding: 10px 20px;
-  margin: 5px;
-  background-color: #6b4f3f;
-  color: #f4e4d4;
-  border: 2px solid #f4e4d4;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-#game-buttons button:hover {
-  background-color: #f4e4d4;
-  color: #6b4f3f;
-}
-
-#apps-container {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
+.game,
 .apps {
-  width: 200px;
-  text-align: center;
-  border: 2px solid #f4e4d4;
+  background-color: rgba(235, 216, 190, 0.8); /* Translucent beige for cards */
+  color: #5c4033;
+  border: 2px solid #5c4033;
   border-radius: 10px;
   padding: 10px;
-  background-color: #6b4f3f;
   transition: transform 0.3s, background-color 0.3s;
-  color: #f4e4d4;
-  text-decoration: none;
 }
 
-.apps img {
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
+.game:hover,
 .apps:hover {
   transform: scale(1.05);
-  background-color: #f4e4d4;
-  color: #6b4f3f;
-}
-
-.apps span {
-  display: block;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-#apps-display {
-  display: none;
-  text-align: center;
-  margin-top: 20px;
-}
-
-#apps-frame-container {
-  position: relative;
-  display: inline-block;
-  max-width: 100%;
-  background-color: #6b4f3f;
-}
-
-#apps-buttons {
-  margin-top: 10px;
-}
-
-#apps-buttons button {
-  padding: 10px 20px;
-  margin: 5px;
-  background-color: #6b4f3f;
-  color: #f4e4d4;
-  border: 2px solid #f4e4d4;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-#apps-buttons button:hover {
-  background-color: #f4e4d4;
-  color: #6b4f3f;
+  background-color: #cbb59a; /* Slightly darker beige */
+  color: #f5f5dc; /* Light beige for text */
 }
