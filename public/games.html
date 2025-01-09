@@ -80,43 +80,43 @@
         <img src="/assets/images/slith/game.png" alt="Stop">
         <span>Slither.io</span>
       </a>  
-       <a href="#Stop" class="game" onclick="showGame('/assets/games/agar/')">
+      <a href="#Stop" class="game" onclick="showGame('/assets/games/agar/')">
         <img src="/assets/images/agar/game.png" alt="Stop">
         <span>Agar.io</span>
       </a>  
-       <a href="#Stop" class="game" onclick="showGame('/assets/games/1v1h/')">
+      <a href="#Stop" class="game" onclick="showGame('/assets/games/1v1h/')">
         <img src="/assets/images/1v1/game.png" alt="Stop">
         <span>1v1.lol Hacks</span>
       </a>
-       <a href="#Stop" class="game" onclick="showGame('/assets/games/mine/')">
+      <a href="#Stop" class="game" onclick="showGame('/assets/games/mine/')">
         <img src="/assets/images/mine/game.png" alt="Stop">
         <span>Minecraft</span>
       </a> 
-       <a href="#Stop" class="game" onclick="showGame('/assets/games/pok/')">
+      <a href="#Stop" class="game" onclick="showGame('/assets/games/pok/')">
         <img src="/assets/images/pok/game.png" alt="Stop">
         <span>Poki</span>
       </a>   
-       <a href="#Stop" class="game" onclick="showGame('/assets/games/geo/')">
+      <a href="#Stop" class="game" onclick="showGame('/assets/games/geo/')">
         <img src="/assets/images/geo/game.png" alt="Stop">
         <span>Geometry Dash Lite</span>
       </a>
-       <a href="#Stop" class="game" onclick="showGame('/assets/games/dead/')">
+      <a href="#Stop" class="game" onclick="showGame('/assets/games/dead/')">
         <img src="/assets/images/dead/game.png" alt="Stop">
         <span>Deadshot.io</span>
       </a>
-       <a href="#Stop" class="game" onclick="showGame('/assets/games/tun/')">
+      <a href="#Stop" class="game" onclick="showGame('/assets/games/tun/')">
         <img src="/assets/images/tun/game.png" alt="Stop">
         <span>Tunnel Rush</span>
       </a>
-       <a href="#Stop" class="game" onclick="showGame('/assets/games/mad/')">
+      <a href="#Stop" class="game" onclick="showGame('/assets/games/mad/')">
         <img src="/assets/images/mad/game.png" alt="Stop">
         <span>Drive Mad</span>
       </a>
-       <a href="#Stop" class="game" onclick="showGame('/assets/games/rope/')">
+      <a href="#Stop" class="game" onclick="showGame('/assets/games/rope/')">
         <img src="/assets/images/rope/game.png" alt="Stop">
         <span>Amazing Strange Rope Police</span>
       </a>           
-      </div>
+    </div>
 
     <div id="game-display" style="display: none;">
       <div id="game-frame-container">
@@ -128,6 +128,59 @@
       </div>
     </div>
   </main>
+
+  <script>
+    function showGame(gameUrl) {
+      document.getElementById("game-container").style.display = "none";
+
+      const gameFrameContainer = document.getElementById("game-frame-container");
+      let gameFrame = document.getElementById("game-frame");
+
+      if (!gameFrame) {
+        gameFrame = document.createElement("iframe");
+        gameFrame.id = "game-frame";
+        gameFrame.src = gameUrl;
+        gameFrame.width = "800";
+        gameFrame.height = "600";
+        gameFrame.style.border = "none";
+        gameFrameContainer.appendChild(gameFrame);
+      } else {
+        gameFrame.src = gameUrl;
+      }
+
+      document.getElementById("game-display").style.display = "block";
+    }
+
+    function exitGame() {
+      window.location.href = "/games.html";
+    }
+
+    function toggleFullScreen() {
+      const gameFrame = document.getElementById("game-frame");
+
+      if (gameFrame) {
+        if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement) {
+          // Request fullscreen for the iframe
+          if (gameFrame.requestFullscreen) {
+            gameFrame.requestFullscreen();
+          } else if (gameFrame.mozRequestFullScreen) { // Firefox
+            gameFrame.mozRequestFullScreen();
+          } else if (gameFrame.webkitRequestFullscreen) { // Chrome, Safari and Opera
+            gameFrame.webkitRequestFullscreen();
+          }
+        } else {
+          // Exit fullscreen
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.mozCancelFullScreen) { // Firefox
+            document.mozCancelFullScreen();
+          } else if (document.webkitExitFullscreen) { // Chrome, Safari, and Opera
+            document.webkitExitFullscreen();
+          }
+        }
+      }
+    }
+  </script>
 
   <script src="/js/scripts.js"></script>
   <script>
