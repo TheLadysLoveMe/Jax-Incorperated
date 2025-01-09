@@ -1,3 +1,8 @@
+/* Global hover color for all interactive elements */
+:root {
+  --hover-color: #c9a98a;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -42,7 +47,7 @@ nav a {
 }
 
 nav a:hover {
-  background-color: #c9a98a;
+  background-color: var(--hover-color);
   color: #6b4f3f;
 }
 
@@ -85,7 +90,7 @@ nav a:hover {
 }
 
 .cloak-button:hover {
-  background-color: #f4e4d4;
+  background-color: var(--hover-color);
   color: #6b4f3f;
 }
 
@@ -114,7 +119,7 @@ nav a:hover {
 }
 
 #about-blank-btn:hover {
-  background-color: #f4e4d4;
+  background-color: var(--hover-color);
   color: #6b4f3f;
 }
 
@@ -146,7 +151,7 @@ nav a:hover {
 
 .game:hover {
   transform: scale(1.05);
-  background-color: #f4e4d4;
+  background-color: var(--hover-color);
   color: #6b4f3f;
 }
 
@@ -186,7 +191,7 @@ nav a:hover {
 }
 
 #game-buttons button:hover {
-  background-color: #f4e4d4;
+  background-color: var(--hover-color);
   color: #6b4f3f;
 }
 
@@ -218,7 +223,7 @@ nav a:hover {
 
 .apps:hover {
   transform: scale(1.05);
-  background-color: #f4e4d4;
+  background-color: var(--hover-color);
   color: #6b4f3f;
 }
 
@@ -258,6 +263,6 @@ nav a:hover {
 }
 
 #apps-buttons button:hover {
-  background-color: #f4e4d4;
+  background-color: var(--hover-color);
   color: #6b4f3f;
 }
