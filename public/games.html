@@ -15,7 +15,7 @@
     <nav>
       <a href="/">Home</a>
       <a href="/games.html">Games</a> 
-      <a href="/games.html">games</a>      
+      <a href="/apps.html">Apps</a>      
       <a href="/search.html">Search</a>
       <a href="/chatgpt.html">ChatGPT</a>
       <a href="/settings.html">Settings</a>
@@ -80,49 +80,49 @@
         <img src="/assets/images/slith/game.png" alt="Stop">
         <span>Slither.io</span>
       </a>  
-      <a href="#Stop" class="game" onclick="showGame('/assets/games/agar/')">
+       <a href="#Stop" class="game" onclick="showGame('/assets/games/agar/')">
         <img src="/assets/images/agar/game.png" alt="Stop">
         <span>Agar.io</span>
       </a>  
-      <a href="#Stop" class="game" onclick="showGame('/assets/games/1v1h/')">
+       <a href="#Stop" class="game" onclick="showGame('/assets/games/1v1h/')">
         <img src="/assets/images/1v1/game.png" alt="Stop">
         <span>1v1.lol Hacks</span>
       </a>
-      <a href="#Stop" class="game" onclick="showGame('/assets/games/mine/')">
+       <a href="#Stop" class="game" onclick="showGame('/assets/games/mine/')">
         <img src="/assets/images/mine/game.png" alt="Stop">
         <span>Minecraft</span>
       </a> 
-      <a href="#Stop" class="game" onclick="showGame('/assets/games/pok/')">
+       <a href="#Stop" class="game" onclick="showGame('/assets/games/pok/')">
         <img src="/assets/images/pok/game.png" alt="Stop">
         <span>Poki</span>
       </a>   
-      <a href="#Stop" class="game" onclick="showGame('/assets/games/geo/')">
+       <a href="#Stop" class="game" onclick="showGame('/assets/games/geo/')">
         <img src="/assets/images/geo/game.png" alt="Stop">
         <span>Geometry Dash Lite</span>
       </a>
-      <a href="#Stop" class="game" onclick="showGame('/assets/games/dead/')">
+       <a href="#Stop" class="game" onclick="showGame('/assets/games/dead/')">
         <img src="/assets/images/dead/game.png" alt="Stop">
         <span>Deadshot.io</span>
       </a>
-      <a href="#Stop" class="game" onclick="showGame('/assets/games/tun/')">
+       <a href="#Stop" class="game" onclick="showGame('/assets/games/tun/')">
         <img src="/assets/images/tun/game.png" alt="Stop">
         <span>Tunnel Rush</span>
       </a>
-      <a href="#Stop" class="game" onclick="showGame('/assets/games/mad/')">
+       <a href="#Stop" class="game" onclick="showGame('/assets/games/mad/')">
         <img src="/assets/images/mad/game.png" alt="Stop">
         <span>Drive Mad</span>
       </a>
-      <a href="#Stop" class="game" onclick="showGame('/assets/games/rope/')">
+       <a href="#Stop" class="game" onclick="showGame('/assets/games/rope/')">
         <img src="/assets/images/rope/game.png" alt="Stop">
         <span>Amazing Strange Rope Police</span>
       </a>           
-    </div>
+      </div>
 
-    <div id="games-display" style="display: none;">
-      <div id="games-frame-container">
-        <iframe id="games-frame" src="" width="800" height="600"></iframe>
-        <div id="games-buttons">
-          <button onclick="exitgames()">Exit</button>
+    <div id="game-display" style="display: none;">
+      <div id="game-frame-container">
+        <iframe id="game-frame" src="" width="800" height="600"></iframe>
+        <div id="game-buttons">
+          <button onclick="exitGame()">Exit</button>
           <button onclick="toggleFullScreen()">Fullscreen</button>
         </div>
       </div>
@@ -620,7 +620,6 @@ case 'misty-gray':
   `;
 }
 
-
   function createDynamicStyleSheet() {
     const styleSheet = document.createElement('style');
     styleSheet.id = 'dynamic-theme-styles';
@@ -706,6 +705,5 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
-
 </body>
 </html>
