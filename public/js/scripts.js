@@ -52,12 +52,12 @@ function showGame(gameUrl) {
   document.getElementById("game-display").style.display = "block";
 }
 
-function exitGame() {
+function exitGame2() {
   // Redirect to the games.html page
   window.location.href = "/games.html";
 }
 
-function toggleFullScreen() {
+function toggleFullScreen2() {
   const gameFrame = document.getElementById("game-frame");
 
   if (gameFrame) {
