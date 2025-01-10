@@ -3,39 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Content</title>
+    <title>1v1.LOL Embedded</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
+            overflow: hidden;
         }
-        #content {
+        iframe {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <div id="content"></div>
-    <script>
-        async function fetchContent() {
-            try {
-                const response = await fetch('/proxy?url=https://math4kidz.wiki/games/1v1lol/index.html');
-                if (response.ok) {
-                    const content = await response.text();
-                    document.getElementById('content').innerHTML = content;
-                } else {
-                    console.error('Failed to fetch content:', response.status);
-                }
-            } catch (error) {
-                console.error('Error fetching content:', error);
-            }
-        }
-
-        fetchContent();
-    </script>
+    <iframe src="https://1v1.lol/" title="1v1.LOL"></iframe>
 </body>
 </html>
