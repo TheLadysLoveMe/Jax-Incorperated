@@ -1,9 +1,9 @@
-YPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iframe thingy :D</title>
+    <title>Embedded Content</title>
     <style>
         body, html {
             margin: 0;
@@ -11,17 +11,31 @@ YPE html>
             width: 100%;
             height: 100%;
         }
-        iframe {
-            position: fixed;
-            top: 0;
-            left: 0;
+        #content {
             width: 100%;
             height: 100%;
-            border: none;
+            overflow: auto;
         }
     </style>
 </head>
 <body>
-    <iframe src="https://brunysixlwork.site/storage/games/1v1lol/" title="Fullscreen iFrame"></iframe>
+    <div id="content"></div>
+    <script>
+        async function fetchContent() {
+            try {
+                const response = await fetch('/proxy?url=https://math4kidz.wiki/games/1v1lol/index.html');
+                if (response.ok) {
+                    const content = await response.text();
+                    document.getElementById('content').innerHTML = content;
+                } else {
+                    console.error('Failed to fetch content:', response.status);
+                }
+            } catch (error) {
+                console.error('Error fetching content:', error);
+            }
+        }
+
+        fetchContent();
+    </script>
 </body>
 </html>
