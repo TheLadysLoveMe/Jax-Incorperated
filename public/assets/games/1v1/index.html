@@ -3,54 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Source Code Viewer</title>
+    <title>Render 1v1.lat</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: Arial, sans-serif;
         }
-        pre {
-            width: 90%;
-            height: 90%;
-            background-color: #f4f4f4;
-            padding: 15px;
-            border: 1px solid #ccc;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
+        iframe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <h1>Website Source Code Viewer</h1>
-    <pre id="source">Loading source code...</pre>
+    <iframe id="renderFrame" title="Rendered Content"></iframe>
 
     <script>
-        // Specify the URL of the website whose source code you want to display
-        const websiteUrl = "https://www.1v1.lat/";
+        // Proxy URL to bypass CORS restrictions
+        const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+        const targetUrl = "https://www.1v1.lat/";
 
-        async function fetchSource() {
+        async function fetchAndRender() {
             try {
-                const response = await fetch(websiteUrl, { mode: 'cors' });
+                const response = await fetch(proxyUrl + targetUrl);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                const text = await response.text();
-                document.getElementById('source').textContent = text;
+                const sourceCode = await response.text();
+
+                // Inject the source code into the iframe
+                const iframe = document.getElementById('renderFrame');
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write(sourceCode);
+                iframeDoc.close();
             } catch (error) {
-                document.getElementById('source').textContent = `Error fetching source code: ${error}`;
+                document.body.innerHTML = `<h1>Error</h1><p>Unable to fetch and render the content: ${error.message}</p>`;
             }
         }
 
-        // Fetch the source code on page load
-        fetchSource();
+        // Fetch and render the website on page load
+        fetchAndRender();
     </script>
 </body>
 </html>
