@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Render 1v1.lat</title>
+    <title>Fetch and Render Source</title>
     <style>
         body, html {
             margin: 0;
@@ -22,19 +22,23 @@
     </style>
 </head>
 <body>
+    <h1 style="text-align:center;">Rendering Content...</h1>
     <iframe id="renderFrame" title="Rendered Content"></iframe>
 
     <script>
         // Proxy URL to bypass CORS restrictions
         const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-        const targetUrl = "https://www.1v1.lat/";
+        const targetUrl = "https://1v1lol-unblocked-free.github.io/";
 
         async function fetchAndRender() {
             try {
+                // Fetch the source code of the target URL using a CORS proxy
                 const response = await fetch(proxyUrl + targetUrl);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
+
+                // Get the HTML source code as text
                 const sourceCode = await response.text();
 
                 // Inject the source code into the iframe
@@ -43,12 +47,16 @@
                 iframeDoc.open();
                 iframeDoc.write(sourceCode);
                 iframeDoc.close();
+
+                // Remove the header message
+                document.querySelector('h1').remove();
             } catch (error) {
+                // Handle any errors (e.g., CORS issues, network problems)
                 document.body.innerHTML = `<h1>Error</h1><p>Unable to fetch and render the content: ${error.message}</p>`;
             }
         }
 
-        // Fetch and render the website on page load
+        // Fetch and render the content on page load
         fetchAndRender();
     </script>
 </body>
