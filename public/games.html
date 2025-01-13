@@ -586,11 +586,11 @@ document.addEventListener('DOMContentLoaded', function () {
   if (savedPanicKey) {
     // Listen for clicks on the game container
     gameContainer.addEventListener('mouseenter', function () {
-      isInGame = true;
+      isInGame = false;
     });
 
     gameContainer.addEventListener('mouseleave', function () {
-      isInGame = false;
+      isInGame = true;
     });
 
     // Listen for key presses globally
