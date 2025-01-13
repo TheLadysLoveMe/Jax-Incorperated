@@ -1,26 +1,35 @@
-YPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iframe thingy :D</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
-        iframe {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Display Website Source Code</title>
+  <style>
+    pre {
+      background-color: #f4f4f4;
+      padding: 10px;
+      border: 1px solid #ccc;
+      overflow-x: auto;
+    }
+  </style>
 </head>
 <body>
-    <iframe src="https://po.itparadiis.eu/@/space/hvtrs8%2F-1t1%2Clml-" title="Fullscreen iFrame"></iframe>
+  <h1>Website Source Code Viewer</h1>
+  <input type="text" id="url" placeholder="Enter website URL (https://selenite.cc/semag/1v1lol/index.html)">
+  <button onclick="fetchSource()">Fetch Source Code</button>
+  <pre id="source"></pre>
+
+  <script>
+    async function fetchSource() {
+      const url = document.getElementById('url').value;
+      try {
+        const response = await fetch(url, { mode: 'cors' });
+        const text = await response.text();
+        document.getElementById('source').textContent = text;
+      } catch (error) {
+        document.getElementById('source').textContent = `Error fetching source code: ${error}`;
+      }
+    }
+  </script>
 </body>
+</html>
