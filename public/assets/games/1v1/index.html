@@ -1,35 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Display Website Source Code</title>
-  <style>
-    pre {
-      background-color: #f4f4f4;
-      padding: 10px;
-      border: 1px solid #ccc;
-      overflow-x: auto;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Source Code Viewer</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+        pre {
+            width: 90%;
+            height: 90%;
+            background-color: #f4f4f4;
+            padding: 15px;
+            border: 1px solid #ccc;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
-  <h1>Website Source Code Viewer</h1>
-  <input type="text" id="url" placeholder="Enter website URL (https://selenite.cc/semag/1v1lol/index.html)">
-  <button onclick="fetchSource()">Fetch Source Code</button>
-  <pre id="source"></pre>
+    <h1>Website Source Code Viewer</h1>
+    <pre id="source">Loading source code...</pre>
 
-  <script>
-    async function fetchSource() {
-      const url = document.getElementById('url').value;
-      try {
-        const response = await fetch(url, { mode: 'cors' });
-        const text = await response.text();
-        document.getElementById('source').textContent = text;
-      } catch (error) {
-        document.getElementById('source').textContent = `Error fetching source code: ${error}`;
-      }
-    }
-  </script>
+    <script>
+        // Specify the URL of the website whose source code you want to display
+        const websiteUrl = "https://justaim.lol/";
+
+        async function fetchSource() {
+            try {
+                const response = await fetch(websiteUrl, { mode: 'cors' });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const text = await response.text();
+                document.getElementById('source').textContent = text;
+            } catch (error) {
+                document.getElementById('source').textContent = `Error fetching source code: ${error}`;
+            }
+        }
+
+        // Fetch the source code on page load
+        fetchSource();
+    </script>
 </body>
 </html>
