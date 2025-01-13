@@ -578,20 +578,30 @@ case 'misty-gray':
     document.head.appendChild(styleSheet);
     return styleSheet;
   }
-  document.addEventListener('DOMContentLoaded', function () {
-    // Load the saved panic key from localStorage
-    const savedPanicKey = localStorage.getItem('panicKey');
+document.addEventListener('DOMContentLoaded', function () {
+  const savedPanicKey = localStorage.getItem('panicKey');
+  const gameContainer = document.getElementById('game-container');
+  let isInGame = false;
 
-    if (savedPanicKey) {
-      // Listen for key presses globally to activate the panic key
-      document.addEventListener('keydown', function (event) {
-        if (event.key === savedPanicKey) {
-          // Redirect to Google Classroom when the panic key is pressed
-          window.location.href = 'https://classroom.google.com';
-        }
-      });
-    }
-  });
+  if (savedPanicKey) {
+    // Listen for clicks on the game container
+    gameContainer.addEventListener('mouseenter', function () {
+      isInGame = true;
+    });
+
+    gameContainer.addEventListener('mouseleave', function () {
+      isInGame = false;
+    });
+
+    // Listen for key presses globally
+    document.addEventListener('keydown', function (event) {
+      if (!isInGame && event.key === savedPanicKey) {
+        // Redirect to Google Classroom when the panic key is pressed
+        window.location.href = 'https://classroom.google.com';
+      }
+    });
+  }
+});
 </script>
   <script>
   document.addEventListener('DOMContentLoaded', function () {
