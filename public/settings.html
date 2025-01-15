@@ -7,89 +7,71 @@
   <link rel="manifest" href="/manifest.json"/>
   <link rel="icon" type="image/png" href="/assets/images/jax.png">
   <link rel="stylesheet" href="/css/styles.css">
- <style>
-/* The provided CSS styles */
-.box-container {
-  border: 2px solid #8c6e58; /* Muted brown border */
-  border-radius: 12px;
-  padding: 20px;
-  width: 300px;
-  margin: 20px;
-  text-align: center;
-  background-color: #6b4f3f; /* Dark brown background */
-  color: #e8dcc8; /* Light beige text */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  transition: transform 0.3s, box-shadow 0.3s;
-}
+<style>
+    /* The provided CSS styles */
+    /* General styling for container box */
+    .box-container {
+      border: 2px solid #8c6e58; /* Muted brown border */
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px;
+      margin: 20px;
+      text-align: center;
+      background-color: #6b4f3f; /* Dark brown background */
+      color: #e8dcc8; /* Light beige text */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
 
-.box-container:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
+    .box-container:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
 
-/* Switch container styles */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
+    /* Input and button styles */
+    .styled-input, .styled-button {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #e8dcc8; /* Light beige border */
+      border-radius: 8px;
+      outline: none;
+      width: 90%;
+      margin-bottom: 10px;
+      background-color: #8c6e58; /* Muted brown background */
+      color: #e8dcc8; /* Light beige text */
+      transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+    }
 
-/* Hide the default checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+    .styled-input:focus, .styled-button:hover {
+      border-color: #6b4f3f; /* Dark brown border */
+      background-color: #e8dcc8; /* Light beige background */
+      color: #6b4f3f; /* Dark brown text */
+    }
 
-/* Create the slider (the part that moves) */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #8c6e58; /* Muted brown background */
-  border-radius: 34px;
-  transition: 0.4s;
-}
+    /* Larger text for the titles */
+    .setting-title {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #e8dcc8; /* Light beige text */
+    }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  border-radius: 50%;
-  left: 4px;
-  bottom: 4px;
-  background-color: #e8dcc8; /* Light beige circle */
-  transition: 0.4s;
-}
+    /* Grid for aligning boxes in a 2x2 layout */
+    .settings-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Fixed 2 columns */
+      grid-gap: 20px;
+      justify-items: center;
+      margin: 40px auto;
+      max-width: 800px; /* Center grid and limit width */
+    }
 
-/* When the checkbox is checked, move the slider */
-input:checked + .slider {
-  background-color: #4CAF50; /* Green when on */
-}
-
-/* When the checkbox is checked, move the circle */
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-
-/* Styles for the switch label */
-label {
-  font-size: 16px;
-  color: #e8dcc8; /* Light beige text */
-  margin-left: 10px;
-  vertical-align: middle;
-}
-
-/* Smooth transitions for interactive elements */
-body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
-}
-    <style>
+    /* Smooth transitions for all interactive elements */
+    body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+  </style>
 </head>
 <body>
   <header>
