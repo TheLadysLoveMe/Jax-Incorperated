@@ -848,6 +848,43 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
+    <div class="settings-container">
+      <div>
+        <div class="setting-title" id="auto-save-title">Auto Save Changes</div>
+        <div class="box-container">
+          <p class="auto-save-explanation">
+            Check this option if you want to be prompted to save your changes when attempting to close the tab.
+          </p>
+          <input type="checkbox" id="auto-save-checkbox" class="styled-input">
+        </div>
+      </div>
+    </div>
+  </main>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const autoSaveCheckbox = document.getElementById('auto-save-checkbox');
+    const savedAutoSaveSetting = localStorage.getItem('autoSaveSetting');
+
+    // Set the checkbox based on the saved setting
+    if (savedAutoSaveSetting === 'true') {
+      autoSaveCheckbox.checked = true;
+    }
+
+    // Save the user's choice in localStorage
+    autoSaveCheckbox.addEventListener('change', function () {
+      localStorage.setItem('autoSaveSetting', autoSaveCheckbox.checked);
+    });
+
+    // Prompt before closing the tab if auto-save is enabled
+    window.addEventListener('beforeunload', function (event) {
+      if (autoSaveCheckbox.checked) {
+        const confirmationMessage = 'You have unsaved changes. Do you want to save them?';
+        event.returnValue = confirmationMessage; // Standard for most browsers
+        return confirmationMessage; // For some browsers like Chrome
+      }
+    });
+  });
+</script>
 </body>
 </html>
