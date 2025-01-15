@@ -719,12 +719,12 @@ case 'misty-gray':
   });
 
   // Add additional CSS for complex changes if needed
-  styleSheet.innerHTML = 
+  styleSheet.innerHTML = `
     .message:hover {
       background-color: ${hoverBackgroundColor || backgroundColor};
       color: ${hoverTextColor || textColor};
     }
-  ;
+  `;
 }
 
 function createDynamicStyleSheet() {
@@ -733,8 +733,6 @@ function createDynamicStyleSheet() {
   document.head.appendChild(style);
   return style;
 } 
-</script>
-<script>
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved panic key from localStorage
     const savedPanicKey = localStorage.getItem('panicKey');
@@ -750,7 +748,6 @@ function createDynamicStyleSheet() {
     }
   });
 </script>
-
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved tab cloak setting from localStorage
