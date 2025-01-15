@@ -800,6 +800,53 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
+  <script>
+    // Save the current theme to localStorage
+    function saveTheme() {
+      const theme = {
+        backgroundColor: document.body.style.backgroundColor,
+        textColor: document.body.style.color,
+        containerBackgroundColor: document.getElementById('chat-container').style.backgroundColor,
+        borderColor: document.getElementById('chat-container').style.borderColor,
+        userMessageBgColor: document.querySelector('.user-message').style.backgroundColor,
+        aiMessageBgColor: document.querySelector('.ai-message').style.backgroundColor,
+        buttonColor: document.getElementById('send-button').style.backgroundColor
+      };
+      localStorage.setItem('chatTheme', JSON.stringify(theme));
+    }
 
+    // Apply the saved theme from localStorage
+    function applySavedTheme() {
+      const savedTheme = localStorage.getItem('chatTheme');
+      if (savedTheme) {
+        const theme = JSON.parse(savedTheme);
+        document.body.style.backgroundColor = theme.backgroundColor;
+        document.body.style.color = theme.textColor;
+        document.getElementById('chat-container').style.backgroundColor = theme.containerBackgroundColor;
+        document.getElementById('chat-container').style.borderColor = theme.borderColor;
+        document.querySelector('.user-message').style.backgroundColor = theme.userMessageBgColor;
+        document.querySelector('.ai-message').style.backgroundColor = theme.aiMessageBgColor;
+        document.getElementById('send-button').style.backgroundColor = theme.buttonColor;
+      }
+    }
+
+    // Apply saved theme when the page loads
+    window.onload = function() {
+      applySavedTheme();
+    };
+
+    // Example: Change theme function
+    function changeTheme() {
+      document.body.style.backgroundColor = '#4a3d33';
+      document.body.style.color = '#f4e4d4';
+      document.getElementById('chat-container').style.backgroundColor = '#5e4332';
+      document.getElementById('chat-container').style.borderColor = '#a89f91';
+      document.querySelector('.user-message').style.backgroundColor = '#5e4332';
+      document.querySelector('.ai-message').style.backgroundColor = '#5e4332';
+      document.getElementById('send-button').style.backgroundColor = '#c9a98a';
+
+      saveTheme(); // Save theme after changes
+    }
+  </script>
 </body>
 </html>
