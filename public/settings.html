@@ -71,20 +71,12 @@
     body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
       transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
     }
-/* General layout adjustments */
-.box-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: flex-start;
-}
-
-/* Styling for the switch container */
+/* Style for the switch */
 .switch {
   position: relative;
   display: inline-block;
-  width: 70px;
-  height: 36px;
+  width: 60px;
+  height: 34px;
 }
 
 .switch input {
@@ -100,53 +92,31 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ddd;
-  transition: 0.3s;
-  border-radius: 50px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
 }
 
-/* The circle inside the switch */
-.slider::before {
+.slider:before {
   position: absolute;
   content: "";
-  height: 28px;
-  width: 28px;
+  height: 26px;
+  width: 26px;
   border-radius: 50%;
   left: 4px;
   bottom: 4px;
   background-color: white;
-  transition: 0.3s;
+  transition: 0.4s;
 }
 
-/* When the switch is checked */
 input:checked + .slider {
   background-color: #4CAF50;
 }
 
-input:checked + .slider::before {
-  transform: translateX(34px);
+input:checked + .slider:before {
+  transform: translateX(26px);
 }
 
-/* Label styling */
-.label-text {
-  font-size: 16px;
-  color: #333;
-  font-weight: 500;
-  margin-left: 10px;
-}
-
-/* Additional styling for the setting title and explanation text */
-.setting-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.save-changes-explanation {
-  font-size: 14px;
-  color: #666;
-}
 
 </head>
 <body>
