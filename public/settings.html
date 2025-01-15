@@ -847,6 +847,36 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
+ <script>
+    // Get the checkbox and content area elements
+    const savePromptOption = document.getElementById("savePromptOption");
+    const contentArea = document.getElementById("contentArea");
 
+    // Variable to track if changes are made
+    let changesMade = false;
+
+    // Event listener for content changes
+    contentArea.addEventListener("input", () => {
+      changesMade = true;
+    });
+
+    // Function to handle the beforeunload event
+    function handleBeforeUnload(event) {
+      if (changesMade && savePromptOption.checked) {
+        const message = "You have unsaved changes. Do you really want to leave?";
+        event.returnValue = message; // Standard for most browsers
+        return message; // For some older browsers
+      }
+    }
+
+    // Attach the beforeunload event when the option is checked
+    savePromptOption.addEventListener("change", () => {
+      if (savePromptOption.checked) {
+        window.addEventListener("beforeunload", handleBeforeUnload);
+      } else {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      }
+    });
+  </script>
 </body>
 </html>
