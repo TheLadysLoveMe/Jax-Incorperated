@@ -246,9 +246,9 @@
     }
   });
 
- // Function to apply a theme dynamically to all elements
 function applyTheme(theme) {
   const allElements = document.querySelectorAll("*");
+  const messageElements = document.querySelectorAll(".message"); // Adjust this selector to match your message containers
   const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
 
   if (theme === 'default') {
@@ -256,11 +256,17 @@ function applyTheme(theme) {
       el.style.backgroundColor = '';
       el.style.color = '';
       el.style.borderColor = '';
-      el.style.backgroundImage = '';  // Reset background image for default
+      el.style.backgroundImage = ''; // Reset background image for default
+    });
+    messageElements.forEach(el => {
+      el.style.backgroundColor = '';
+      el.style.color = '';
+      el.style.borderColor = '';
     });
     styleSheet.innerHTML = '';
     return;
   }
+
 
   let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, backgroundImage;
   switch (theme) {
@@ -696,30 +702,37 @@ case 'misty-gray':
           return;
       }      
 
-  // Apply the styles
+
+  // Apply styles to all elements
   allElements.forEach(el => {
-    el.style.backgroundColor = backgroundColor || '';
-    el.style.color = textColor || '';
-    el.style.borderColor = borderColor || '';
-    el.style.backgroundImage = backgroundImage || '';  // Set background image
+    el.style.backgroundColor = backgroundColor;
+    el.style.color = textColor;
+    el.style.borderColor = borderColor;
+    el.style.backgroundImage = backgroundImage || ''; // Apply background image if defined
   });
 
-  // Apply hover styles via dynamic stylesheet
+  // Apply specific styles to messages
+  messageElements.forEach(el => {
+    el.style.backgroundColor = hoverBackgroundColor || backgroundColor;
+    el.style.color = hoverTextColor || textColor;
+    el.style.borderColor = borderColor;
+  });
+
+  // Add additional CSS for complex changes if needed
   styleSheet.innerHTML = `
-    *:hover {
-      background-color: ${hoverBackgroundColor};
-      color: ${hoverTextColor};
+    .message:hover {
+      background-color: ${hoverBackgroundColor || backgroundColor};
+      color: ${hoverTextColor || textColor};
     }
   `;
 }
 
-
-  function createDynamicStyleSheet() {
-    const styleSheet = document.createElement('style');
-    styleSheet.id = 'dynamic-theme-styles';
-    document.head.appendChild(styleSheet);
-    return styleSheet;
-  }
+function createDynamicStyleSheet() {
+  const style = document.createElement('style');
+  style.id = 'dynamic-theme-styles';
+  document.head.appendChild(style);
+  return style;
+} 
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved panic key from localStorage
     const savedPanicKey = localStorage.getItem('panicKey');
