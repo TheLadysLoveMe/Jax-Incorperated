@@ -57,20 +57,16 @@
       color: #e8dcc8; /* Light beige text */
     }
 
- /* Adjust settings-container for centering */
 .settings-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Fixed 2 columns */
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-rows: repeat(2, auto); /* 2 rows */
   grid-gap: 20px;
   justify-items: center;
   margin: 40px auto;
-  max-width: 800px; /* Center grid and limit width */
+  max-width: 800px; /* Limit the max-width */
 }
-/* Center the second-row item */
-.box-container:nth-child(2) {
-  grid-row: 2; /* Place in the second row */
-  justify-self: center; /* Center in the column */
-}
+
 
     /* Smooth transitions for all interactive elements */
     body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
