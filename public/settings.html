@@ -7,14 +7,15 @@
   <link rel="manifest" href="/manifest.json"/>
   <link rel="icon" type="image/png" href="/assets/images/jax.png">
   <link rel="stylesheet" href="/css/styles.css">
- <style>
+<style>
     /* The provided CSS styles */
     /* General styling for container box */
     .box-container {
       border: 2px solid #8c6e58; /* Muted brown border */
       border-radius: 12px;
       padding: 20px;
-      width: 300px;
+      width: 100%; /* Make the width flexible */
+      max-width: 300px; /* Optional: Adjust max-width for smaller boxes */
       margin: 20px;
       text-align: center;
       background-color: #6b4f3f; /* Dark brown background */
@@ -57,22 +58,29 @@
       color: #e8dcc8; /* Light beige text */
     }
 
- /* Adjust settings-container for centering */
-.settings-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Fixed 2 columns */
-  grid-gap: 20px;
-  justify-items: center;
-  margin: 40px auto;
-  max-width: 800px; /* Center grid and limit width */
-}
+    /* Adjust settings-container for centering and grid layout */
+    .settings-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 columns */
+      grid-gap: 20px;
+      justify-items: center;
+      margin: 40px auto;
+      max-width: 800px; /* Center grid and limit width */
+    }
 
+    /* Ensure responsiveness */
+    @media (max-width: 768px) {
+      .settings-container {
+        grid-template-columns: 1fr; /* 1 column layout for smaller screens */
+      }
+    }
 
     /* Smooth transitions for all interactive elements */
     body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
       transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
     }
-  </style>
+</style>
+
 
 </head>
 <body>
