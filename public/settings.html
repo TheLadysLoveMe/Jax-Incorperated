@@ -71,12 +71,20 @@
     body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
       transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
     }
-  /* Style for the switch */
+/* General layout adjustments */
+.box-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+/* Styling for the switch container */
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 70px;
+  height: 36px;
 }
 
 .switch input {
@@ -92,32 +100,54 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
+  background-color: #ddd;
+  transition: 0.3s;
+  border-radius: 50px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.slider:before {
+/* The circle inside the switch */
+.slider::before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 28px;
+  width: 28px;
   border-radius: 50%;
   left: 4px;
   bottom: 4px;
   background-color: white;
-  transition: 0.4s;
+  transition: 0.3s;
 }
 
+/* When the switch is checked */
 input:checked + .slider {
   background-color: #4CAF50;
 }
 
-input:checked + .slider:before {
-  transform: translateX(26px);
+input:checked + .slider::before {
+  transform: translateX(34px);
 }
 
-  </style>
+/* Label styling */
+.label-text {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+/* Additional styling for the setting title and explanation text */
+.setting-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.save-changes-explanation {
+  font-size: 14px;
+  color: #666;
+}
+
 </head>
 <body>
   <header>
@@ -154,6 +184,7 @@ input:checked + .slider:before {
         </div>
       </div>
 <div>
+<div>
   <div class="setting-title" id="save-changes-title">Save Changes Prompt</div>
   <div class="box-container">
     <p class="save-changes-explanation" id="save-changes-explanation">
@@ -166,14 +197,11 @@ input:checked + .slider:before {
         class="styled-input"
         onchange="toggleSaveChangesPrompt()"
       />
-      <span class="slider round"></span>
+      <span class="slider"></span>
     </label>
-    <span>Enable Save Changes Prompt</span>
+    <span class="label-text">Enable Save Changes Prompt</span>
   </div>
 </div>
-
-
-
 
       <!-- Themes Section -->
       <div>
