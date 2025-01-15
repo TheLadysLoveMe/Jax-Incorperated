@@ -848,14 +848,17 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
-    <div class="settings-container">
+     <!-- Add Save Prompt Setting -->
       <div>
-        <div class="setting-title" id="auto-save-title">Auto Save Changes</div>
+        <div class="setting-title" id="save-prompt-title">Save Prompt</div>
         <div class="box-container">
-          <p class="auto-save-explanation">
-            Check this option if you want to be prompted to save your changes when attempting to close the tab.
+          <p class="save-prompt-explanation" id="save-prompt-explanation">
+            Enable this setting to prompt you to save your changes before closing the tab.
           </p>
-          <input type="checkbox" id="auto-save-checkbox" class="styled-input">
+          <label>
+            <input type="checkbox" id="save-prompt-checkbox" class="styled-input">
+            Prompt to Save
+          </label>
         </div>
       </div>
     </div>
@@ -863,25 +866,25 @@ case 'misty-gray':
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const autoSaveCheckbox = document.getElementById('auto-save-checkbox');
-    const savedAutoSaveSetting = localStorage.getItem('autoSaveSetting');
+    const savePromptCheckbox = document.getElementById('save-prompt-checkbox');
+    const savedPromptSetting = localStorage.getItem('savePromptSetting');
 
-    // Set the checkbox based on the saved setting
-    if (savedAutoSaveSetting === 'true') {
-      autoSaveCheckbox.checked = true;
+    // Set checkbox state based on the saved setting
+    if (savedPromptSetting === 'true') {
+      savePromptCheckbox.checked = true;
     }
 
-    // Save the user's choice in localStorage
-    autoSaveCheckbox.addEventListener('change', function () {
-      localStorage.setItem('autoSaveSetting', autoSaveCheckbox.checked);
+    // Save checkbox state to localStorage
+    savePromptCheckbox.addEventListener('change', function () {
+      localStorage.setItem('savePromptSetting', savePromptCheckbox.checked);
     });
 
-    // Prompt before closing the tab if auto-save is enabled
+    // Add beforeunload event to prompt user if checkbox is enabled
     window.addEventListener('beforeunload', function (event) {
-      if (autoSaveCheckbox.checked) {
+      if (savePromptCheckbox.checked) {
         const confirmationMessage = 'You have unsaved changes. Do you want to save them?';
-        event.returnValue = confirmationMessage; // Standard for most browsers
-        return confirmationMessage; // For some browsers like Chrome
+        event.returnValue = confirmationMessage;  // Standard for most browsers
+        return confirmationMessage;  // For some browsers like Chrome
       }
     });
   });
