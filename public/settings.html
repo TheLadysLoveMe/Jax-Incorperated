@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,77 +8,75 @@
   <link rel="icon" type="image/png" href="/assets/images/jax.png">
   <link rel="stylesheet" href="/css/styles.css">
  <style>
-  /* Adjust settings-container for centering */
-  .settings-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Fixed 2 columns */
-    grid-gap: 20px;
-    justify-items: center;
-    margin: 40px auto;
-    max-width: 800px; /* Center grid and limit width */
-  }
+    /* The provided CSS styles */
+    /* General styling for container box */
+    .box-container {
+      border: 2px solid #8c6e58; /* Muted brown border */
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px;
+      margin: 20px;
+      text-align: center;
+      background-color: #6b4f3f; /* Dark brown background */
+      color: #e8dcc8; /* Light beige text */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
 
-  /* Box container adjustments to ensure they are responsive */
-  .box-container {
-    border: 2px solid #8c6e58; /* Muted brown border */
-    border-radius: 12px;
-    padding: 20px;
-    width: 90%; /* Adjusted for better responsiveness */
-    text-align: center;
-    background-color: #6b4f3f; /* Dark brown background */
-    color: #e8dcc8; /* Light beige text */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+    .box-container:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
 
-  /* Adjust box size on hover */
-  .box-container:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  }
+    /* Input and button styles */
+    .styled-input, .styled-button {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #e8dcc8; /* Light beige border */
+      border-radius: 8px;
+      outline: none;
+      width: 90%;
+      margin-bottom: 10px;
+      background-color: #8c6e58; /* Muted brown background */
+      color: #e8dcc8; /* Light beige text */
+      transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+    }
 
-  /* Each setting section inside the grid */
-  .settings-container > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+    .styled-input:focus, .styled-button:hover {
+      border-color: #6b4f3f; /* Dark brown border */
+      background-color: #e8dcc8; /* Light beige background */
+      color: #6b4f3f; /* Dark brown text */
+    }
 
-  /* Ensure elements are evenly spaced */
-  .setting-title {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #e8dcc8; /* Light beige text */
-  }
+    /* Larger text for the titles */
+    .setting-title {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #e8dcc8; /* Light beige text */
+    }
 
-  /* Modify the input and button elements */
-  .styled-input, .styled-button {
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid #e8dcc8;
-    border-radius: 8px;
-    outline: none;
-    width: 90%;
-    margin-bottom: 10px;
-    background-color: #8c6e58;
-    color: #e8dcc8;
-    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
-  }
+ /* Adjust settings-container for centering */
+.settings-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Fixed 2 columns */
+  grid-gap: 20px;
+  justify-items: center;
+  margin: 40px auto;
+  max-width: 800px; /* Center grid and limit width */
+}
+/* Center the second-row item */
+.box-container:nth-child(2) {
+  grid-row: 2; /* Place in the second row */
+  justify-self: center; /* Center in the column */
+}
 
-  .styled-input:focus, .styled-button:hover {
-    border-color: #6b4f3f;
-    background-color: #e8dcc8;
-    color: #6b4f3f;
-  }
-
-  /* Additional hover effects for interactive elements */
-  body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
-  }
-</style>
+    /* Smooth transitions for all interactive elements */
+    body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+  </style>
 
 </head>
 <body>
@@ -854,60 +852,6 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
- <!-- Close Tab Section -->
-<div>
-  <div class="setting-title" id="close-tab-title">Close Tab Warning</div>
-  <div class="box-container">
-    <p class="close-tab-explanation" id="close-tab-explanation">
-      Enable this option to show a warning when someone tries to close the tab. Your selection will be saved.
-    </p>
-    <label>
-      <input type="checkbox" id="close-tab-toggle" class="styled-input" />
-      Enable Close Tab Warning
-    </label>
-  </div>
-</div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const closeTabToggle = document.getElementById('close-tab-toggle');
-
-    // Check localStorage for saved setting and set the checkbox state accordingly
-    const savedCloseTabWarning = localStorage.getItem('closeTabWarning') === 'true';
-    closeTabToggle.checked = savedCloseTabWarning;
-
-    // Listen for changes to the checkbox
-    closeTabToggle.addEventListener('change', function () {
-      const isChecked = closeTabToggle.checked;
-      localStorage.setItem('closeTabWarning', isChecked.toString());
-
-      // Enable or disable the beforeunload event based on the checkbox state
-      if (isChecked) {
-        enableCloseTabWarning();
-      } else {
-        disableCloseTabWarning();
-      }
-    });
-
-    // Apply the saved setting on page load
-    if (savedCloseTabWarning) {
-      enableCloseTabWarning();
-    }
-  });
-
-  // Enable the close tab warning
-  function enableCloseTabWarning() {
-    window.addEventListener('beforeunload', function (event) {
-      event.preventDefault();
-      event.returnValue = '';  // Standard message for modern browsers
-    });
-  }
-
-  // Disable the close tab warning
-  function disableCloseTabWarning() {
-    window.removeEventListener('beforeunload', function (event) {
-      event.preventDefault();
-      event.returnValue = '';  // Standard message for modern browsers
-    });
-  }
-</script>
+</body>
+</html>
