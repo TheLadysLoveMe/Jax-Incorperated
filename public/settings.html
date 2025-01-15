@@ -926,35 +926,44 @@ case 'misty-gray':
   }
 </script>
 <script>
-    // Event listener for save changes prompt
-    document.addEventListener('DOMContentLoaded', function () {
-      const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
-      const savedSaveChanges = localStorage.getItem('saveChangesPrompt');
-      if (savedSaveChanges === 'true') {
-        saveChangesCheckbox.checked = true;
-      }
+  // Event listener for save changes prompt
+  document.addEventListener('DOMContentLoaded', function () {
+    const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
+    const savedSaveChanges = localStorage.getItem('saveChangesPrompt');
 
-      saveChangesCheckbox.addEventListener('change', function () {
-        const isChecked = saveChangesCheckbox.checked;
-        localStorage.setItem('saveChangesPrompt', isChecked.toString());
-      });
-    });
-
-    function toggleSaveChangesPrompt() {
-      const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
-      const isChecked = saveChangesCheckbox.checked;
-      localStorage.setItem('saveChangesPrompt', isChecked.toString());
+    // Set the checkbox based on the saved value
+    if (savedSaveChanges === 'true') {
+      saveChangesCheckbox.checked = true;
+    } else {
+      saveChangesCheckbox.checked = false;
     }
 
-    window.addEventListener('beforeunload', function (e) {
-      const saveChangesEnabled = localStorage.getItem('saveChangesPrompt') === 'true';
-
-      if (saveChangesEnabled) {
-        const confirmationMessage = 'You have unsaved changes. Do you want to leave without saving?';
-        e.returnValue = confirmationMessage;
-        return confirmationMessage;
-      }
+    // Listen for checkbox change and save the decision to localStorage
+    saveChangesCheckbox.addEventListener('change', function () {
+      const isChecked = saveChangesCheckbox.checked;
+      localStorage.setItem('saveChangesPrompt', isChecked.toString());
     });
-  </script>
+  });
+
+  // Function to toggle and save the save changes prompt decision
+  function toggleSaveChangesPrompt() {
+    const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
+    const isChecked = saveChangesCheckbox.checked;
+    localStorage.setItem('saveChangesPrompt', isChecked.toString());
+  }
+
+  // Before the user leaves the page, show confirmation if needed
+  window.addEventListener('beforeunload', function (e) {
+    const saveChangesEnabled = localStorage.getItem('saveChangesPrompt') === 'true';
+
+    // If saveChangesPrompt is enabled, ask the user before leaving
+    if (saveChangesEnabled) {
+      const confirmationMessage = 'You have unsaved changes. Do you want to leave without saving?';
+      e.returnValue = confirmationMessage; // For most browsers
+      return confirmationMessage;          // For some other browsers (like older versions of Firefox)
+    }
+  });
+</script>
+
 </body>
 </html>
