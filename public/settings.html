@@ -76,13 +76,17 @@
 body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
   transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
-
 /* Style for the switch */
 .switch {
   position: relative;
   display: inline-block;
   width: 70px;
   height: 38px;
+  border-radius: 50px; /* Shaped like a normal switch */
+  border: 2px solid white; /* White border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f44336; /* Red when off */
+  transition: background-color 0.3s ease;
 }
 
 /* Hide the default checkbox input */
@@ -100,10 +104,9 @@ body, header, main, footer, .box-container, .styled-input, .styled-button, #logo
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #bbb;
+  background-color: inherit;
+  border-radius: inherit; /* Inherit the round shape */
   transition: 0.3s ease;
-  border-radius: 50px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Circle inside the slider */
@@ -121,13 +124,12 @@ body, header, main, footer, .box-container, .styled-input, .styled-button, #logo
 
 /* When checked, the background color and circle move */
 input:checked + .slider {
-  background-color: #4CAF50;
+  background-color: #4CAF50; /* Green when on */
 }
 
 input:checked + .slider:before {
-  transform: translateX(32px);
+  transform: translateX(32px); /* Moves the circle to the right */
 }
-
   </style>
 </head>
 <body>
