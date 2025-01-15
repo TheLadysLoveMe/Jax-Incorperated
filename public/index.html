@@ -781,6 +781,30 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
+    const savedSaveChanges = localStorage.getItem('saveChangesPrompt');
+
+    // Apply the saved checkbox state when the page loads
+    if (savedSaveChanges === 'true') {
+      saveChangesCheckbox.checked = true;
+    } else {
+      saveChangesCheckbox.checked = false;
+    }
+  });
+
+  window.addEventListener('beforeunload', function (e) {
+    const saveChangesEnabled = localStorage.getItem('saveChangesPrompt') === 'true';
+
+    // If the user enabled the prompt, show the confirmation message
+    if (saveChangesEnabled) {
+      const confirmationMessage = 'You have unsaved changes. Do you want to leave without saving?';
+      e.returnValue = confirmationMessage; // Standard method to trigger the confirmation message
+      return confirmationMessage;          // For some browsers like older versions of Firefox
+    }
+  });
+</script>
 
 </body>
 </html>
