@@ -224,7 +224,6 @@
     });
   </script>
 <script>
-<script>
   document.addEventListener('DOMContentLoaded', function () {
     // Load and apply the saved theme
     const savedTheme = localStorage.getItem('theme');
@@ -331,10 +330,11 @@ case 'cherry-blossom':
     break;
 case 'space':
     backgroundImage = 'url(/assets/images/space/theme.png)';
+    backgroundColor = '#000000';  
     textColor = '#ffffff';
-    borderColor = '#404040';
-    hoverBackgroundColor = '#333333';
-    hoverTextColor = '#e6e6e6';
+    borderColor = '#ffffff';
+    hoverBackgroundColor = '#000000';
+    hoverTextColor = '#ffffff';
     break;    
 case 'autumn':
     backgroundColor = '#d56d2e';
@@ -706,13 +706,21 @@ case 'misty-gray':
   });
 
   // Apply hover styles via dynamic stylesheet
-  styleSheet.innerHTML = 
+  styleSheet.innerHTML = `
     *:hover {
       background-color: ${hoverBackgroundColor};
       color: ${hoverTextColor};
     }
-  ;
+  `;
 }
+
+
+  function createDynamicStyleSheet() {
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'dynamic-theme-styles';
+    document.head.appendChild(styleSheet);
+    return styleSheet;
+  }
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved panic key from localStorage
     const savedPanicKey = localStorage.getItem('panicKey');
