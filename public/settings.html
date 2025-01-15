@@ -108,6 +108,25 @@
           />
         </div>
       </div>
+      <div>
+        <div class="setting-title" id="save-changes-title">Save Changes Prompt</div>
+        <div class="box-container">
+          <p class="save-changes-explanation" id="save-changes-explanation">
+            Enable this option to be prompted to save changes when attempting to leave the page or close the tab.
+          </p>
+          <label>
+            <input 
+              type="checkbox" 
+              id="save-changes-checkbox" 
+              class="styled-input"
+              onchange="toggleSaveChangesPrompt()"
+            />
+            Enable Save Changes Prompt
+          </label>
+        </div>
+      </div>
+
+
 
       <!-- Themes Section -->
       <div>
@@ -847,34 +866,34 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
- <script>
-    // Get the checkbox and content area elements
-    const savePromptOption = document.getElementById("savePromptOption");
-    const contentArea = document.getElementById("contentArea");
+<script>
+    // Event listener for save changes prompt
+    document.addEventListener('DOMContentLoaded', function () {
+      const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
+      const savedSaveChanges = localStorage.getItem('saveChangesPrompt');
+      if (savedSaveChanges === 'true') {
+        saveChangesCheckbox.checked = true;
+      }
 
-    // Variable to track if changes are made
-    let changesMade = false;
-
-    // Event listener for content changes
-    contentArea.addEventListener("input", () => {
-      changesMade = true;
+      saveChangesCheckbox.addEventListener('change', function () {
+        const isChecked = saveChangesCheckbox.checked;
+        localStorage.setItem('saveChangesPrompt', isChecked.toString());
+      });
     });
 
-    // Function to handle the beforeunload event
-    function handleBeforeUnload(event) {
-      if (changesMade && savePromptOption.checked) {
-        const message = "You have unsaved changes. Do you really want to leave?";
-        event.returnValue = message; // Standard for most browsers
-        return message; // For some older browsers
-      }
+    function toggleSaveChangesPrompt() {
+      const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
+      const isChecked = saveChangesCheckbox.checked;
+      localStorage.setItem('saveChangesPrompt', isChecked.toString());
     }
 
-    // Attach the beforeunload event when the option is checked
-    savePromptOption.addEventListener("change", () => {
-      if (savePromptOption.checked) {
-        window.addEventListener("beforeunload", handleBeforeUnload);
-      } else {
-        window.removeEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener('beforeunload', function (e) {
+      const saveChangesEnabled = localStorage.getItem('saveChangesPrompt') === 'true';
+
+      if (saveChangesEnabled) {
+        const confirmationMessage = 'You have unsaved changes. Do you want to leave without saving?';
+        e.returnValue = confirmationMessage;
+        return confirmationMessage;
       }
     });
   </script>
