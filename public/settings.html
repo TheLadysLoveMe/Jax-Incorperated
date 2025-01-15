@@ -7,36 +7,45 @@
   <link rel="manifest" href="/manifest.json"/>
   <link rel="icon" type="image/png" href="/assets/images/jax.png">
   <link rel="stylesheet" href="/css/styles.css">
-  <style>
+ <style>
+    /* The provided CSS styles */
     /* General styling for container box */
     .box-container {
-      border: 2px solid red;
+      border: 2px solid #8c6e58; /* Muted brown border */
       border-radius: 12px;
       padding: 20px;
       width: 300px;
       margin: 20px;
       text-align: center;
-      /* Remove background-color */
-      color: red;
+      background-color: #6b4f3f; /* Dark brown background */
+      color: #e8dcc8; /* Light beige text */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .box-container:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     }
 
     /* Input and button styles */
     .styled-input, .styled-button {
       padding: 10px;
       font-size: 16px;
-      border: 2px solid red;
+      border: 2px solid #e8dcc8; /* Light beige border */
       border-radius: 8px;
       outline: none;
       width: 90%;
       margin-bottom: 10px;
-      background-color: black;
-      color: red;
-      transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+      background-color: #8c6e58; /* Muted brown background */
+      color: #e8dcc8; /* Light beige text */
+      transition: border-color 0.3s, background-color 0.3s, color 0.3s;
     }
 
     .styled-input:focus, .styled-button:hover {
-      border-color: darkred;
-      background-color: #333;
+      border-color: #6b4f3f; /* Dark brown border */
+      background-color: #e8dcc8; /* Light beige background */
+      color: #6b4f3f; /* Dark brown text */
     }
 
     /* Larger text for the titles */
@@ -44,23 +53,26 @@
       font-size: 24px;
       font-weight: bold;
       text-align: center;
-      color: red;
+      margin-bottom: 20px;
+      color: #e8dcc8; /* Light beige text */
     }
 
-    /* Grid for aligning boxes in the center */
+    /* Grid for aligning boxes in a 2x2 layout */
     .settings-container {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* 2 columns */
+      grid-template-columns: repeat(2, 1fr); /* Fixed 2 columns */
       grid-gap: 20px;
       justify-items: center;
-      margin-top: 40px;
+      margin: 40px auto;
+      max-width: 800px; /* Center grid and limit width */
     }
 
-    /* Ensure smooth transitions for all elements */
+    /* Smooth transitions for all interactive elements */
     body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
-      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
     }
   </style>
+
 </head>
 <body>
   <header>
@@ -337,10 +349,11 @@ case 'cherry-blossom':
     break;
 case 'space':
     backgroundImage = 'url(/assets/images/space/theme.png)';
+    backgroundColor = '#000000';  
     textColor = '#ffffff';
-    borderColor = '#404040';
-    hoverBackgroundColor = '#333333';
-    hoverTextColor = '#e6e6e6';
+    borderColor = '#ffffff';
+    hoverBackgroundColor = '#000000';
+    hoverTextColor = '#ffffff';
     break;    
 case 'autumn':
     backgroundColor = '#d56d2e';
