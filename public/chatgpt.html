@@ -713,23 +713,6 @@ case 'misty-gray':
     }
   ;
 }
-
-  function resetAllElements() {
-    const elements = document.querySelectorAll('.chat-container, .chat-display, .message, .user-message, .ai-message, .user-input, .send-button');
-    elements.forEach(el => {
-      el.style.backgroundColor = '';
-      el.style.color = '';
-      el.style.borderColor = '';
-      el.style.backgroundImage = '';  // Reset background image for default
-    });
-  }
-
- function createDynamicStyleSheet() {
-    const styleSheet = document.createElement('style');
-    styleSheet.id = 'dynamic-theme-styles';
-    document.head.appendChild(styleSheet);
-    return styleSheet;
-  }
   document.addEventListener('DOMContentLoaded', function () {
     // Load the saved panic key from localStorage
     const savedPanicKey = localStorage.getItem('panicKey');
