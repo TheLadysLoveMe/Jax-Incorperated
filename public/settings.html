@@ -7,45 +7,36 @@
   <link rel="manifest" href="/manifest.json"/>
   <link rel="icon" type="image/png" href="/assets/images/jax.png">
   <link rel="stylesheet" href="/css/styles.css">
- <style>
-    /* The provided CSS styles */
+  <style>
     /* General styling for container box */
     .box-container {
-      border: 2px solid #8c6e58; /* Muted brown border */
+      border: 2px solid red;
       border-radius: 12px;
       padding: 20px;
       width: 300px;
       margin: 20px;
       text-align: center;
-      background-color: #6b4f3f; /* Dark brown background */
-      color: #e8dcc8; /* Light beige text */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .box-container:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      /* Remove background-color */
+      color: red;
     }
 
     /* Input and button styles */
     .styled-input, .styled-button {
       padding: 10px;
       font-size: 16px;
-      border: 2px solid #e8dcc8; /* Light beige border */
+      border: 2px solid red;
       border-radius: 8px;
       outline: none;
       width: 90%;
       margin-bottom: 10px;
-      background-color: #8c6e58; /* Muted brown background */
-      color: #e8dcc8; /* Light beige text */
-      transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+      background-color: black;
+      color: red;
+      transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
     }
 
     .styled-input:focus, .styled-button:hover {
-      border-color: #6b4f3f; /* Dark brown border */
-      background-color: #e8dcc8; /* Light beige background */
-      color: #6b4f3f; /* Dark brown text */
+      border-color: darkred;
+      background-color: #333;
     }
 
     /* Larger text for the titles */
@@ -53,27 +44,23 @@
       font-size: 24px;
       font-weight: bold;
       text-align: center;
-      margin-bottom: 20px;
-      color: #e8dcc8; /* Light beige text */
+      color: red;
     }
 
-.settings-container {
-  display: grid;
-  grid-template-columns: repeat(2, 2fr); /* 2 columns */
-  grid-template-rows: repeat(2, auto); /* 2 rows */
-  grid-gap: 20px;
-  justify-items: center;
-  margin: 40px auto;
-  max-width: 800px; /* Limit the max-width */
-}
+    /* Grid for aligning boxes in the center */
+    .settings-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 columns */
+      grid-gap: 20px;
+      justify-items: center;
+      margin-top: 40px;
+    }
 
-
-    /* Smooth transitions for all interactive elements */
+    /* Ensure smooth transitions for all elements */
     body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
-      transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     }
   </style>
-
 </head>
 <body>
   <header>
@@ -350,11 +337,10 @@ case 'cherry-blossom':
     break;
 case 'space':
     backgroundImage = 'url(/assets/images/space/theme.png)';
-    backgroundColor = '#000000';  
     textColor = '#ffffff';
-    borderColor = '#ffffff';
-    hoverBackgroundColor = '#000000';
-    hoverTextColor = '#ffffff';
+    borderColor = '#404040';
+    hoverBackgroundColor = '#333333';
+    hoverTextColor = '#e6e6e6';
     break;    
 case 'autumn':
     backgroundColor = '#d56d2e';
@@ -848,48 +834,6 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
-      <!-- Save Changes Prompt Section -->
-      <div>
-        <div class="setting-title" id="save-changes-title">Save Changes Prompt</div>
-        <div class="box-container">
-          <p class="save-changes-explanation" id="save-changes-explanation">
-            Choose if you want to be asked to save changes when you try to close the tab.
-          </p>
-          <input 
-            type="checkbox" 
-            id="save-changes-checkbox" 
-            class="styled-input"
-            onchange="toggleSaveChangesPrompt()"
-          />
-          <label for="save-changes-checkbox">Ask before closing the tab</label>
-        </div>
-      </div>
-    </div>
-  </main>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Initialize the checkbox based on the stored value
-    const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
-    const saveChangesSetting = localStorage.getItem('saveChangesPrompt') === 'true';
-    saveChangesCheckbox.checked = saveChangesSetting;
-
-    // Set up event listener to handle tab closing prevention
-    window.onbeforeunload = function (event) {
-      const shouldPrompt = saveChangesCheckbox.checked;
-      if (shouldPrompt) {
-        const message = 'You have unsaved changes. Do you really want to leave?';
-        event.returnValue = message; // For modern browsers
-        return message; // For older browsers
-      }
-    };
-  });
-
-  // Save the user's preference for the save changes prompt
-  function toggleSaveChangesPrompt() {
-    const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
-    localStorage.setItem('saveChangesPrompt', saveChangesCheckbox.checked);
-  }
-</script>
 </body>
 </html>
