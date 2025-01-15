@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -853,6 +853,58 @@ case 'misty-gray':
     document.head.appendChild(link);
   }
 </script>
+  <!-- Close Tab Section -->
+<div>
+  <div class="setting-title" id="close-tab-title">Close Tab Warning</div>
+  <div class="box-container">
+    <p class="close-tab-explanation" id="close-tab-explanation">
+      Enable this option to show a warning when someone tries to close the tab.
+    </p>
+    <label>
+      <input type="checkbox" id="close-tab-toggle" class="styled-input" />
+      Enable Close Tab Warning
+    </label>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const closeTabToggle = document.getElementById('close-tab-toggle');
 
-</body>
+    // Check localStorage for saved setting and set the checkbox state accordingly
+    const savedCloseTabWarning = localStorage.getItem('closeTabWarning') === 'true';
+    closeTabToggle.checked = savedCloseTabWarning;
+
+    // Listen for changes to the checkbox
+    closeTabToggle.addEventListener('change', function () {
+      const isChecked = closeTabToggle.checked;
+      localStorage.setItem('closeTabWarning', isChecked.toString());
+
+      // Enable or disable the beforeunload event based on the checkbox state
+      if (isChecked) {
+        enableCloseTabWarning();
+      } else {
+        disableCloseTabWarning();
+      }
+    });
+
+    // Apply the saved setting on page load
+    if (savedCloseTabWarning) {
+      enableCloseTabWarning();
+    }
+  });
+
+  // Enable the close tab warning
+  function enableCloseTabWarning() {
+    window.addEventListener('beforeunload', function (event) {
+      event.preventDefault();
+      event.returnValue = '';  // Standard message for modern browsers
+    });
+  }
+
+  // Disable the close tab warning
+  function disableCloseTabWarning() {
+    window.removeEventListener('beforeunload', function (event) {
+      event.preventDefault();
+      event.returnValue = '';  // Standard message for modern browsers
+    });
+  }
+</script>
 </html>
