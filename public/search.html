@@ -689,7 +689,6 @@ case 'misty-gray':
   document.addEventListener('DOMContentLoaded', function () {
     const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
     const savedSaveChanges = localStorage.getItem('saveChangesPrompt');
-
     // Apply the saved checkbox state when the page loads
     if (savedSaveChanges === 'true') {
       saveChangesCheckbox.checked = true;
@@ -697,22 +696,10 @@ case 'misty-gray':
       saveChangesCheckbox.checked = false;
     }
   });
-
   window.addEventListener('beforeunload', function (e) {
     const saveChangesEnabled = localStorage.getItem('saveChangesPrompt') === 'true';
-    
-    // List of files/pages where the prompt should not appear
-    const exemptFiles = [
-      '/settings.html',
-      '/example-page2.html',
-      '/another-file.html'
-    ];
-    
-    // Check the current file path
-    const currentPath = window.location.pathname;
-
-    // Suppress the prompt if the current path is in the exempt list
-    if (saveChangesEnabled && !exemptFiles.includes(currentPath)) {
+    // If the user enabled the prompt, show the confirmation message
+    if (saveChangesEnabled) {
       const confirmationMessage = 'You have unsaved changes. Do you want to leave without saving?';
       e.returnValue = confirmationMessage; // Standard method to trigger the confirmation message
       return confirmationMessage;          // For some browsers like older versions of Firefox
@@ -720,6 +707,7 @@ case 'misty-gray':
   });
 </script>
 
-
+</body>
+</html>
 </body>
 </html>
