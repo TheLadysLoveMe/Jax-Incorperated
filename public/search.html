@@ -700,15 +700,26 @@ case 'misty-gray':
 
   window.addEventListener('beforeunload', function (e) {
     const saveChangesEnabled = localStorage.getItem('saveChangesPrompt') === 'true';
+    
+    // List of files/pages where the prompt should not appear
+    const exemptFiles = [
+      '/settings.html',
+      '/example-page2.html',
+      '/another-file.html'
+    ];
+    
+    // Check the current file path
+    const currentPath = window.location.pathname;
 
-    // If the user enabled the prompt, show the confirmation message
-    if (saveChangesEnabled) {
+    // Suppress the prompt if the current path is in the exempt list
+    if (saveChangesEnabled && !exemptFiles.includes(currentPath)) {
       const confirmationMessage = 'You have unsaved changes. Do you want to leave without saving?';
       e.returnValue = confirmationMessage; // Standard method to trigger the confirmation message
       return confirmationMessage;          // For some browsers like older versions of Firefox
     }
   });
 </script>
+
 
 </body>
 </html>
