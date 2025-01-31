@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Optimized search function
+ * Optimized search function for DuckDuckGo
  * @param {string} input
  * @param {string} template Template for a search query.
  * @returns {string} Fully qualified URL or search query
@@ -14,6 +14,6 @@ function search(input, template) {
     return new URL(input).toString(); // Valid URL
   }
 
-  // Handle invalid URL by replacing the search query placeholder
-  return template.replace("%s", encodeURIComponent(input));
+  // If input is not a valid URL, replace the search query placeholder for DuckDuckGo
+  return `https://duckduckgo.com/?q=${encodeURIComponent(input)}`;
 }
