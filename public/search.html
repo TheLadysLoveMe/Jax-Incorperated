@@ -689,13 +689,27 @@ case 'misty-gray':
   document.addEventListener('DOMContentLoaded', function () {
     const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
     const savedSaveChanges = localStorage.getItem('saveChangesPrompt');
+
     // Apply the saved checkbox state when the page loads
     if (savedSaveChanges === 'true') {
-      saveChangesCheckbox.checked = true;
+      if (saveChangesCheckbox) {
+        saveChangesCheckbox.checked = true;
+      }
     } else {
-      saveChangesCheckbox.checked = false;
+      if (saveChangesCheckbox) {
+        saveChangesCheckbox.checked = false;
+      }
+    }
+
+    // Listen for checkbox change and save the decision to localStorage
+    if (saveChangesCheckbox) {
+      saveChangesCheckbox.addEventListener('change', function () {
+        const isChecked = saveChangesCheckbox.checked;
+        localStorage.setItem('saveChangesPrompt', isChecked.toString());
+      });
     }
   });
+
   window.addEventListener('beforeunload', function (e) {
     const saveChangesEnabled = localStorage.getItem('saveChangesPrompt') === 'true';
     // If the user enabled the prompt, show the confirmation message
