@@ -76,60 +76,6 @@
 body, header, main, footer, .box-container, .styled-input, .styled-button, #logo-name, .setting-title {
   transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
-/* Style for the switch */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 70px;
-  height: 38px;
-  border-radius: 50px; /* Shaped like a normal switch */
-  border: 2px solid white; /* White border */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #f44336; /* Red when off */
-  transition: background-color 0.3s ease;
-}
-
-/* Hide the default checkbox input */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* Slider background */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: inherit;
-  border-radius: inherit; /* Inherit the round shape */
-  transition: 0.3s ease;
-}
-
-/* Circle inside the slider */
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.3s ease;
-}
-
-/* When checked, the background color and circle move */
-input:checked + .slider {
-  background-color: #4CAF50; /* Green when on */
-}
-
-input:checked + .slider:before {
-  transform: translateX(32px); /* Moves the circle to the right */
-}
   </style>
 </head>
 <body>
@@ -167,22 +113,6 @@ input:checked + .slider:before {
         </div>
       </div>
 <div>
-  <div class="setting-title" id="save-changes-title">Teacher Blocker</div>
-  <div class="box-container">
-    <p class="save-changes-explanation" id="save-changes-explanation">
-      Blocks any extension or teacher 
-      from closing your tab 
-    </p>
-    <label class="switch">
-      <input 
-        type="checkbox" 
-        id="save-changes-checkbox" 
-        class="styled-input"
-        onchange="toggleSaveChangesPrompt()"
-      />
-      <span class="slider round"></span>
-    </label>
-  </div>
 </div>
 
 
@@ -925,45 +855,6 @@ case 'misty-gray':
     // Append the new link element for the favicon
     document.head.appendChild(link);
   }
-</script>
-<script>
-  // Event listener for save changes prompt
-  document.addEventListener('DOMContentLoaded', function () {
-    const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
-    const savedSaveChanges = localStorage.getItem('saveChangesPrompt');
-
-    // Set the checkbox based on the saved value
-    if (savedSaveChanges === 'true') {
-      saveChangesCheckbox.checked = true;
-    } else {
-      saveChangesCheckbox.checked = false;
-    }
-
-    // Listen for checkbox change and save the decision to localStorage
-    saveChangesCheckbox.addEventListener('change', function () {
-      const isChecked = saveChangesCheckbox.checked;
-      localStorage.setItem('saveChangesPrompt', isChecked.toString());
-    });
-  });
-
-  // Function to toggle and save the save changes prompt decision
-  function toggleSaveChangesPrompt() {
-    const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
-    const isChecked = saveChangesCheckbox.checked;
-    localStorage.setItem('saveChangesPrompt', isChecked.toString());
-  }
-
-  // Before the user leaves the page, show confirmation if needed
-  window.addEventListener('beforeunload', function (e) {
-    const saveChangesEnabled = localStorage.getItem('saveChangesPrompt') === 'true';
-
-    // If saveChangesPrompt is enabled, ask the user before leaving
-    if (saveChangesEnabled) {
-      const confirmationMessage = 'You have unsaved changes. Do you want to leave without saving?';
-      e.returnValue = confirmationMessage; // For most browsers
-      return confirmationMessage;          // For some other browsers (like older versions of Firefox)
-    }
-  });
 </script>
 </body>
 </html>
