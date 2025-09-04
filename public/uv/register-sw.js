@@ -1,5 +1,8 @@
 "use strict";
 
+/**
+ * Optimized Service Worker registration
+ */
 const stockSW = "/sw.js";
 const swAllowedHostnames = ["localhost", "127.0.0.1"];
 
@@ -8,7 +11,7 @@ async function registerSW() {
     throw new Error("Service workers are not supported in this browser.");
   }
 
-  // Only register if on HTTPS or allowed local hostnames
+  // Only register service worker on allowed hostnames or when HTTPS is used
   if (
     location.protocol !== "https:" &&
     !swAllowedHostnames.includes(location.hostname)
