@@ -148,52 +148,67 @@
   </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const sendButton = document.getElementById('send-button');
-  const userInputField = document.getElementById('user-input');
-  const chatDisplay = document.getElementById('chat-display');
-
-  function appendMessage(text, isAI=false){
-    const div = document.createElement('div');
-    div.className = isAI ? 'ai-message message' : 'user-message message';
-    div.textContent = text;
-    chatDisplay.appendChild(div);
-    chatDisplay.scrollTop = chatDisplay.scrollHeight;
-  }
-
-  async function getAIResponse(prompt){
-    const typingIndicator = document.getElementById('typing-indicator');
-    typingIndicator.textContent = "AI is typing...";
-    try {
-      const response = await fetch("https://api-inference.huggingface.co/models/bigscience/bloom", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ inputs: prompt })
-      });
-      const data = await response.json();
-      const text = data?.[0]?.generated_text || "Sorry, I couldn't generate a response.";
-      appendMessage(text, true);
-    } catch (err) {
-      appendMessage("Error: Unable to get a response.", true);
-      console.error(err);
-    } finally {
-      typingIndicator.textContent = "";
+    function parseMarkdown(text) {
+      text = text.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
+      text = text.replace(/\*\*\*\*(.*?)\*\*\*\*/g, '<b>$1</b>');
+      text = text.replace(/`(.*?)`/g, '<code>$1</code>');
+      text = text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+      return text;
     }
-  }
 
-  sendButton.addEventListener('click', async function () {
-    const message = userInputField.value.trim();
-    if(!message) return;
-    appendMessage(message);
-    userInputField.value = '';
-    await getAIResponse(message);
-  });
+    async function handleChatResponse(response) {
+      const parsedResponse = parseMarkdown(response);
+      const chatDisplay = document.getElementById('chat-display');
+      const aiMessage = document.createElement('div');
+      aiMessage.classList.add('ai-message');
+      aiMessage.innerHTML = parsedResponse;
+      chatDisplay.appendChild(aiMessage);
+      chatDisplay.scrollTop = chatDisplay.scrollHeight;
+    }
 
-  userInputField.addEventListener('keydown', async (e) => {
-    if(e.key === 'Enter') sendButton.click();
-  });
-});
-</script>
+    function showTypingIndicator() {
+      const typingIndicator = document.getElementById('typing-indicator');
+      typingIndicator.textContent = "AI is typing...";
+      setTimeout(() => typingIndicator.textContent = "", 2000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const sendButton = document.getElementById('send-button');
+      const userInputField = document.getElementById('user-input');
+      const chatDisplay = document.getElementById('chat-display');
+
+      sendButton.addEventListener('click', async function () {
+        const userMessage = userInputField.value.trim();
+        if (!userMessage) return;
+
+        const userMessageElement = document.createElement('div');
+        userMessageElement.classList.add('user-message');
+        userMessageElement.innerHTML = userMessage;
+        chatDisplay.appendChild(userMessageElement);
+        userInputField.value = '';
+        showTypingIndicator();
+
+        try {
+          // Call your Vercel backend API
+          const response = await fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt: userMessage })
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            handleChatResponse(data.message);
+          } else {
+            handleChatResponse("Sorry, there was an error getting a response.");
+          }
+        } catch (error) {
+          handleChatResponse("Error: Unable to fetch response from backend.");
+          console.error(error);
+        }
+      });
+    });
+  </script>
 
 <!-- Your existing theme, tab cloak, panic key, and saveChanges scripts remain unchanged -->
 <!-- All other scripts from your original file are preserved -->
