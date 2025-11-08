@@ -10,8 +10,8 @@
 <style>
   /* General Chat Container */
   body {
-    background-color: #6b4f3f; 
-    color: #f4e4d4; 
+    background-color: #6b4f3f; /* Main background color */
+    color: #f4e4d4; /* Text color */
     font-family: Arial, sans-serif;
   }
 
@@ -19,9 +19,9 @@
     max-width: 700px;
     margin: 50px auto;
     padding: 10px;
-    border: 1px solid #a89f91; 
+    border: 1px solid #a89f91; /* Soft border color */
     border-radius: 10px;
-    background-color: #5e4332; 
+    background-color: #5e4332; /* Container background color */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   }
 
@@ -31,9 +31,9 @@
     overflow-y: auto;
     padding: 20px;
     margin-bottom: 10px;
-    border-bottom: 1px solid #a89f91;
+    border-bottom: 1px solid #a89f91; /* Light brown border */
     scroll-behavior: smooth;
-    background-color: #5e4332;
+    background-color: #5e4332; /* Same container background */
   }
 
   /* User and AI message styles */
@@ -45,9 +45,9 @@
 
   .user-message {
     background-color: #5e4332;
-    color: #f4e4d4; 
+    color: #f4e4d4; /* Light beige text */
     padding: 12px 18px;
-    border: 2px solid #c9a98a; 
+    border: 2px solid #c9a98a; /* Accent border color */
     border-radius: 20px;
     align-self: flex-end;
     margin-left: auto;
@@ -57,9 +57,9 @@
 
   .ai-message {
     background-color: #5e4332;
-    color: #f4e4d4; 
+    color: #f4e4d4; /* Light beige text */
     padding: 12px 18px;
-    border: 2px solid #a89f91; 
+    border: 2px solid #a89f91; /* Light brown border */
     border-radius: 20px;
     align-self: flex-start;
     margin-right: auto;
@@ -71,7 +71,7 @@
   .ai-message code {
     display: block;
     background-color: #8c6a4c;
-    color: #f4e4d4; 
+    color: #f4e4d4; /* Light beige text */
     padding: 12px;
     border-radius: 8px;
     font-family: "Courier New", Courier, monospace;
@@ -83,19 +83,19 @@
   #user-input {
     width: calc(100% - 120px);
     padding: 12px;
-    border: 2px solid #a89f91; 
+    border: 2px solid #a89f91; /* Light brown border */
     border-radius: 25px;
     margin-right: 10px;
     font-size: 14px;
-    background-color: #8c6a4c; 
-    color: #f4e4d4; 
+    background-color: #8c6a4c; /* Muted brown background */
+    color: #f4e4d4; /* Light beige text */
   }
 
   /* Send button */
   #send-button {
     padding: 12px 20px;
-    color: #f4e4d4; 
-    border: 2px solid #c9a98a; 
+    color: #f4e4d4; /* Light beige text */
+    border: 2px solid #c9a98a; /* Accent border color */
     border-radius: 25px;
     cursor: pointer;
     font-size: 14px;
@@ -104,25 +104,27 @@
   }
 
   #send-button:hover {
-    background-color: #c9a98a; 
-    color: #5e4332; 
+    background-color: #c9a98a; /* Light beige hover */
+    color: #5e4332; /* Dark brown text on hover */
   }
 
-  /* Typing indicator */
+  /* Typing indicator (optional) */
   .typing-indicator {
     font-style: italic;
-    color: #d4b597; 
+    color: #d4b597; /* Light muted color */
     margin-top: 10px;
   }
 
+  /* Navigation links styling */
   nav a {
-    color: #f4e4d4; 
+    color: #f4e4d4; /* Accent color for links */
   }
 
   nav a:hover {
-    color: #6b4f3f; 
+    color: #6b4f3f; /* Light beige text on hover */
   }
 </style>
+
 </head>
 <body>
   <header>
@@ -137,7 +139,6 @@
       <a href="/settings.html">Settings</a>
     </nav>
   </header>
-
   <div id="chat-container">
     <div id="chat-display"></div>
     <div class="typing-indicator" id="typing-indicator"></div>
@@ -146,8 +147,7 @@
       <button id="send-button">Send</button>
     </div>
   </div>
-
-<script>
+  <script>
     function parseMarkdown(text) {
       text = text.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
       text = text.replace(/\*\*\*\*(.*?)\*\*\*\*/g, '<b>$1</b>');
@@ -189,7 +189,7 @@
         showTypingIndicator();
 
         try {
-          // Call your Vercel backend API
+          // === REPLACED SMORESXO WITH VERCEL BACKEND ===
           const response = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -209,9 +209,172 @@
       });
     });
   </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) applyTheme(savedTheme);
 
-<!-- Your existing theme, tab cloak, panic key, and saveChanges scripts remain unchanged -->
-<!-- All other scripts from your original file are preserved -->
+    const themeSelector = document.getElementById('theme-selector');
+    if (themeSelector) {
+      if (savedTheme) themeSelector.value = savedTheme;
+      themeSelector.addEventListener('change', function () {
+        const selectedTheme = themeSelector.value;
+        localStorage.setItem('theme', selectedTheme);
+        applyTheme(selectedTheme);
+      });
+    }
+  });
+
+  function applyTheme(theme) {
+    const allElements = document.querySelectorAll("*");
+    const messageElements = document.querySelectorAll(".message");
+    const styleSheet = document.getElementById('dynamic-theme-styles') || createDynamicStyleSheet();
+
+    if (theme === 'default') {
+      allElements.forEach(el => {
+        el.style.backgroundColor = '';
+        el.style.color = '';
+        el.style.borderColor = '';
+        el.style.backgroundImage = '';
+      });
+      messageElements.forEach(el => {
+        el.style.backgroundColor = '';
+        el.style.color = '';
+        el.style.borderColor = '';
+      });
+      styleSheet.innerHTML = '';
+      return;
+    }
+
+    let backgroundColor, textColor, borderColor, hoverBackgroundColor, hoverTextColor, backgroundImage;
+    switch (theme) {
+      case 'dark':
+        backgroundColor = '#121212';
+        textColor = 'white';
+        borderColor = 'gray';
+        hoverBackgroundColor = '#1c1c1c';
+        hoverTextColor = '#f0f0f0';
+        break;
+      case 'misty-gray':
+        backgroundColor = '#9e9e9e';
+        textColor = '#212121';
+        borderColor = '#757575';
+        hoverBackgroundColor = '#616161';
+        hoverTextColor = '#ffffff';
+        break;
+      default:
+        return;
+    }
+
+    allElements.forEach(el => {
+      el.style.backgroundColor = backgroundColor;
+      el.style.color = textColor;
+      el.style.borderColor = borderColor;
+      el.style.backgroundImage = backgroundImage || '';
+    });
+
+    messageElements.forEach(el => {
+      el.style.backgroundColor = hoverBackgroundColor || backgroundColor;
+      el.style.color = hoverTextColor || textColor;
+      el.style.borderColor = borderColor;
+    });
+
+    styleSheet.innerHTML = `
+      .message:hover {
+        background-color: ${hoverBackgroundColor || backgroundColor};
+        color: ${hoverTextColor || textColor};
+      }
+    `;
+  }
+
+  function createDynamicStyleSheet() {
+    const style = document.createElement('style');
+    style.id = 'dynamic-theme-styles';
+    document.head.appendChild(style);
+    return style;
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const savedPanicKey = localStorage.getItem('panicKey');
+    if (savedPanicKey) {
+      document.addEventListener('keydown', function (event) {
+        if (event.key === savedPanicKey) window.location.href = 'https://classroom.google.com';
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const savedCloak = localStorage.getItem('tabCloak');
+    if (savedCloak) applyTabCloak(savedCloak);
+
+    const tabCloakSelector = document.getElementById('tab-cloak-selector');
+    if (tabCloakSelector) {
+      tabCloakSelector.addEventListener('change', function () {
+        const selectedCloak = tabCloakSelector.value;
+        localStorage.setItem('tabCloak', selectedCloak);
+        applyTabCloak(selectedCloak);
+      });
+    }
+  });
+
+  function applyTabCloak(cloak) {
+    let title, faviconUrl;
+    switch (cloak) {
+      case 'google-classroom':
+        title = 'Google Classroom';
+        faviconUrl = 'https://ssl.gstatic.com/classroom/favicon.png';
+        break;
+      case 'amplify':
+        title = 'Amplify';
+        faviconUrl = 'https://avatars.githubusercontent.com/u/15659472?s=280&v=4';
+        break;
+      case 'google-docs':
+        title = 'Google Docs';
+        faviconUrl = 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico';
+        break;
+      case 'desmos':
+        title = 'Desmos Calculator';
+        faviconUrl = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/92/e4/3c/92e43c1b-0ae3-1fcd-a0db-4eb75f07644a/AppIcon-Desmos-0-0-1x_U007emarketing-0-5-85-220.png/512x512bb.jpg';
+        break;
+      default:
+        title = 'Jax Incorporated';
+        faviconUrl = '/assets/images/jax.png';
+    }
+
+    document.title = title;
+
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = faviconUrl;
+
+    let existingLink = document.querySelector('link[rel="icon"]');
+    if (existingLink) document.head.removeChild(existingLink);
+
+    document.head.appendChild(link);
+  }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const saveChangesCheckbox = document.getElementById('save-changes-checkbox');
+    const savedSaveChanges = localStorage.getItem('saveChangesPrompt');
+
+    if (savedSaveChanges === 'true') saveChangesCheckbox.checked = true;
+    else saveChangesCheckbox.checked = false;
+  });
+
+  window.addEventListener('beforeunload', function (e) {
+    const saveChangesEnabled = localStorage.getItem('saveChangesPrompt') === 'true';
+    if (saveChangesEnabled) {
+      const confirmationMessage = 'You have unsaved changes. Do you want to leave without saving?';
+      e.returnValue = confirmationMessage;
+      return confirmationMessage;
+    }
+  });
+</script>
 
 </body>
 </html>
